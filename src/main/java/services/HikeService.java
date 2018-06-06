@@ -19,7 +19,6 @@ import domain.Comment;
 import domain.Hike;
 import domain.Route;
 import repositories.HikeRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -63,10 +62,7 @@ public class HikeService {
 
 	public Hike findOne(final int hikeId) {
 		Hike hike;
-
-		Assert.notNull(hikeId);
 		hike = this.hikeRepository.findOne(hikeId);
-		Assert.notNull(hike);
 
 		return hike;
 	}
@@ -77,11 +73,11 @@ public class HikeService {
 
 	public Hike save(final Hike hike) {
 		Assert.notNull(hike);
-		try {
-			Assert.isTrue(LoginService.getPrincipal().equals(hike.getRoute().getCreator().getUserAccount()));
-		} catch (final IllegalArgumentException i) {
-			Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
-		}
+		//		try {
+		//			Assert.isTrue(LoginService.getPrincipal().equals(hike.getRoute().getCreator().getUserAccount()));
+		//		} catch (final IllegalArgumentException i) {
+		//			Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
+		//		}
 
 		return this.hikeRepository.save(hike);
 	}

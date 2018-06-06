@@ -57,7 +57,7 @@ public class RouteServiceTest extends AbstractTest {
 		try {
 			this.authenticate(authenticate);
 			Assert.isTrue(!this.routeService.findAll().isEmpty());
-			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("route1").size() == 1);
+			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("description").size() == 82);
 			Assert.isTrue(this.routeService.routesByLengthRange(21500.0, 23000.0).size() == 29);
 			Assert.isTrue(this.routeService.routesByHikesSize().size() == 51);
 			this.unauthenticate();
@@ -73,7 +73,7 @@ public class RouteServiceTest extends AbstractTest {
 				{ "user1", null }, // Successful
 				{ "admin", null }, // Successful
 		};
-		for (Object[] element : testingData) {
+		for (final Object[] element : testingData) {
 			this.templateBrowse((String) element[0], (Class<?>) element[1]);
 		}
 	}
@@ -82,9 +82,9 @@ public class RouteServiceTest extends AbstractTest {
 	 * Testing:
 	 * 5.1 - Manage his or her routes, which includes creating, editing, deleting, and listing them.
 	 */
-	protected void templateManageRoutes(final String authenticate, String nameCreate, Double lengthCreate,
-			String descriptionCreate, String picturesCreate, String nameEdit, Double lengthEdit, String descriptionEdit,
-			String picturesEdit, final Class<?> expected) {
+	protected void templateManageRoutes(final String authenticate, final String nameCreate, final Double lengthCreate,
+			final String descriptionCreate, final String picturesCreate, final String nameEdit, final Double lengthEdit,
+			final String descriptionEdit, final String picturesEdit, final Class<?> expected) {
 		Class<?> caught;
 		User user;
 		Route route;
@@ -174,7 +174,7 @@ public class RouteServiceTest extends AbstractTest {
 						"test 2 route", "htt:gle.com", ConstraintViolationException.class }, // Failed -> edit pictures invalid
 
 		};
-		for (Object[] element : testingData) {
+		for (final Object[] element : testingData) {
 			this.templateManageRoutes((String) element[0], (String) element[1], (Double) element[2],
 					(String) element[3], (String) element[4], (String) element[5], (Double) element[6],
 					(String) element[7], (String) element[8], (Class<?>) element[9]);
@@ -187,7 +187,7 @@ public class RouteServiceTest extends AbstractTest {
 	 * 6.1 - Remove a route that he or she thinks is inappropriate. Removing a route involves removing
 	 * all of the hikes of which it is composed.
 	 */
-	protected void templateDeleteRoute(final String authenticate, String routeBeanId, final Class<?> expected) {
+	protected void templateDeleteRoute(final String authenticate, final String routeBeanId, final Class<?> expected) {
 		Class<?> caught;
 		Route route;
 
@@ -211,7 +211,7 @@ public class RouteServiceTest extends AbstractTest {
 				{ null, "route-5", IllegalArgumentException.class }, // Failed -> not logged
 				{ "user2", "route-2", IllegalArgumentException.class }, // Failed -> user isn't the owner
 		};
-		for (Object[] element : testingData) {
+		for (final Object[] element : testingData) {
 			this.templateDeleteRoute((String) element[0], (String) element[1], (Class<?>) element[2]);
 		}
 	}

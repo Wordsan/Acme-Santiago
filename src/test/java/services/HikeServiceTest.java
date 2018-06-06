@@ -51,9 +51,9 @@ public class HikeServiceTest extends AbstractTest {
 	 * Testing:
 	 * 5.1 - Manage his or her routes, which includes creating, editing, deleting, and listing them. (hikes part)
 	 */
-	protected void templateManageHikes(final String authenticate, String routeBeanId, String name,
-			String difficultyLevel, Double length, String description, String pictures, String originCity,
-			String destinationCity, final Class<?> expected) {
+	protected void templateManageHikes(final String authenticate, final String routeBeanId, final String name,
+			final String difficultyLevel, final Double length, final String description, final String pictures,
+			final String originCity, final String destinationCity, final Class<?> expected) {
 		Class<?> caught;
 		User user;
 		Route route;
@@ -88,46 +88,46 @@ public class HikeServiceTest extends AbstractTest {
 	@Test
 	public void driverTestManageHikes() {
 		final Object testingData[][] = {
-				{ "user1", "route-3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2", null }, // Successful
+				{ "user1", "route_3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2", null }, // Successful
 
-				{ "user2", "route-3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user2", "route_3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
 						IllegalArgumentException.class }, // Failed -> user isn't the owner of the route
 
-				{ null, "route-3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ null, "route_3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
 						IllegalArgumentException.class }, // Failed -> not logged
 
-				{ "user1", "route-3", null, "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route_3", null, "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> name empty
 
-				{ "user1", "route-3", "test hike", null, 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route_3", "test hike", null, 1000.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> difficulty level empty
 
-				{ "user1", "route-3", "test hike", "ASDA", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route_3", "test hike", "ASDA", 1000.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> difficulty level invalid
 
-				{ "user1", "route-3", "test hike", "ASDA", -10.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route_3", "test hike", "ASDA", -10.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> length invalid
 
-				{ "user1", "route-3", "test hike", "ASDA", null, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route_3", "test hike", "ASDA", null, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> length empty
 
-				{ "user1", "route-3", "test hike", "ASDA", 10000.0, null, "http://google.es", "c1", "c2",
+				{ "user1", "route_3", "test hike", "ASDA", 10000.0, null, "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> description empty
 
-				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", null, "c1", "c2",
+				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", null, "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> pictures empty
 
-				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", "httpgoogle.es", "c1", "c2",
+				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", "httpgoogle.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> pictures invalid
 
-				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", null, "c2",
+				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", null, "c2",
 						ConstraintViolationException.class }, // Failed -> origin city empty
 
-				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", "c1", null,
+				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", "c1", null,
 						ConstraintViolationException.class }, // Failed -> destination city empty
 
 		};
-		for (Object[] element : testingData) {
+		for (final Object[] element : testingData) {
 			this.templateManageHikes((String) element[0], (String) element[1], (String) element[2], (String) element[3],
 					(Double) element[4], (String) element[5], (String) element[6], (String) element[7],
 					(String) element[8], (Class<?>) element[9]);

@@ -48,7 +48,9 @@
 	<br />
 	
 	<!-- Buttons -->
-	<acme:cancel url="/welcome/index.do" code="comment.cancel"/>
+	<button type="button" onclick="javascript: window.history.go(-1)" >
+	<spring:message code="comment.cancel" />
+	</button>
 	<acme:submit name="save" code="comment.save"/>
 </form:form>
 </security:authorize>
