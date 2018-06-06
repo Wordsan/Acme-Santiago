@@ -37,7 +37,7 @@
 		<spring:message code="advert.targetUrl" var="targetUrlHeader"  />
 		<display:column title="${targetUrlHeader}">
 			<a target="_blank" href="<jstl:out value="${row.targetUrl}"/>">
-				<jstl:out value="${row.targetUrl}"/> ${row.id}
+				<jstl:out value="${row.targetUrl}"/>
 			</a>
 		</display:column>
 		

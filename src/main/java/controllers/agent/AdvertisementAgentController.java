@@ -92,7 +92,7 @@ public class AdvertisementAgentController extends AbstractController {
 		if (advertisement.getEndMoment().before(new Date(System.currentTimeMillis()))) {
 			view = new ModelAndView("redirect:/advertisement/agent/myList.do");
 			redirectAttrs.addFlashAttribute("message", "advert.error.finished");
-		} else if (this.agentService.getAgentByUserAccountId(LoginService.getPrincipal().getId())
+		} else if (!this.agentService.getAgentByUserAccountId(LoginService.getPrincipal().getId())
 				.equals(advertisement.getAgent())) {
 			view = new ModelAndView("redirect:/advertisement/agent/myList.do");
 			redirectAttrs.addFlashAttribute("message", "common.message.error");

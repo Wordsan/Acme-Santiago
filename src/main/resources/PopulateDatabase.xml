@@ -4640,7 +4640,7 @@
     </bean>
     <bean class="domain.Advertisement" id="advertisement-1">
         <property name="title" value="Advertisement 1"/>
-        <property name="banner" value="https://www.jeje6.com/"/>
+        <property name="banner" value="http://www.alberguescaminosantiago.com/wp-content/uploads/2018/02/Peregrinos_Catedral_Santiago_de_Compostela.jpg"/>
         <property name="targetUrl" value="https://www.google.es"/>
         <property name="creditCard">
             <bean class="domain.CreditCard">
@@ -4664,7 +4664,7 @@
     </bean>
     <bean class="domain.Advertisement" id="advertisement-2">
         <property name="title" value="Advertisement sex 2"/>
-        <property name="banner" value="https://www.jeje6.com/"/>
+        <property name="banner" value="https://camino.gal/wp-content/uploads/sites/2/2017/12/2017-12-18-VII-Concurso-Literario-del-Camino-de-Santiago-min.jpg"/>
         <property name="targetUrl" value="https://www.google.es"/>
         <property name="creditCard">
             <bean class="domain.CreditCard">
@@ -4684,6 +4684,150 @@
         </property>
         <property name="hike">
             <ref bean="hike-153"/>
+        </property>
+    </bean>
+    <bean class="domain.Advertisement" id="advertisement-3">
+        <property name="title" value="Advertisement 3"/>
+        <property name="banner" value="http://alberguecasadomingo.com/wp-content/uploads/2018/04/origen-camino-de-santiago.jpg"/>
+        <property name="targetUrl" value="https://www.google.es"/>
+        <property name="creditCard">
+            <bean class="domain.CreditCard">
+                <property name="holderName" value="Agent 1"/>
+                <property name="brandName" value="VISA"/>
+                <property name="cardNumber" value="4699585332921053"/>
+                <property name="expirationMonth" value="6"/>
+                <property name="expirationYear" value="2025"/>
+                <property name="cvvCode" value="433"/>
+            </bean>
+        </property>
+        <property name="daysDisplayed" value="33"/>
+        <property name="startMoment" value="2018/09/06 17:00:00"/>
+        <property name="endMoment" value="2018/10/09 17:00"/>
+        <property name="agent">
+            <ref bean="agent-agent1"/>
+        </property>
+        <property name="hike">
+            <ref bean="hike-42"/>
+        </property>
+    </bean>
+    <bean class="domain.Advertisement" id="advertisement-4">
+        <property name="title" value="Advertisement 4"/>
+        <property name="banner" value="https://ep01.epimg.net/elviajero/imagenes/2018/07/12/actualidad/1531396506_636817_1531470300_noticia_normal.jpg"/>
+        <property name="targetUrl" value="https://www.google.es"/>
+        <property name="creditCard">
+            <bean class="domain.CreditCard">
+                <property name="holderName" value="Agent 1"/>
+                <property name="brandName" value="VISA"/>
+                <property name="cardNumber" value="4683784539954235"/>
+                <property name="expirationMonth" value="11"/>
+                <property name="expirationYear" value="2021"/>
+                <property name="cvvCode" value="433"/>
+            </bean>
+        </property>
+        <property name="daysDisplayed" value="4"/>
+        <property name="startMoment" value="2018/10/02 12:27"/>
+        <property name="endMoment" value="2018/10/06 12:27"/>
+        <property name="agent">
+            <ref bean="agent-agent1"/>
+        </property>
+        <property name="hike">
+            <ref bean="hike-89"/>
+        </property>
+    </bean>
+    <bean class="domain.Advertisement" id="advertisement-5">
+        <property name="title" value="Advertisement sex 5"/>
+        <property name="banner" value="https://vivecamino.com/img/im/gal/preguntas-frecuentes-sobre-el-camino-de-santiago_6891_p.jpg"/>
+        <property name="targetUrl" value="https://www.google.es"/>
+        <property name="creditCard">
+            <bean class="domain.CreditCard">
+                <property name="holderName" value="Agent 2"/>
+                <property name="brandName" value="VISA"/>
+                <property name="cardNumber" value="5567435171221833"/>
+                <property name="expirationMonth" value="7"/>
+                <property name="expirationYear" value="2026"/>
+                <property name="cvvCode" value="767"/>
+            </bean>
+        </property>
+        <property name="daysDisplayed" value="12"/>
+        <property name="startMoment" value="2018/09/17 09:00"/>
+        <property name="endMoment" value="2018/09/29 09:00"/>
+        <property name="agent">
+            <ref bean="agent-agent2"/>
+        </property>
+        <property name="hike">
+            <ref bean="hike-151"/>
+        </property>
+    </bean>
+    <bean class="domain.Advertisement" id="advertisement-6">
+        <property name="title" value="Advertisement 6 viagra"/>
+        <property name="banner" value="http://www.alberguescaminosantiago.com/wp-content/uploads/2018/02/Mochila_Camino_de_Santiago.jpg"/>
+        <property name="targetUrl" value="http://www.caminodesantiago.gal/es/inicio"/>
+        <property name="creditCard">
+            <bean class="domain.CreditCard">
+                <property name="holderName" value="Agent 1"/>
+                <property name="brandName" value="VISA"/>
+                <property name="cardNumber" value="4683784539954235"/>
+                <property name="expirationMonth" value="11"/>
+                <property name="expirationYear" value="2021"/>
+                <property name="cvvCode" value="433"/>
+            </bean>
+        </property>
+        <property name="daysDisplayed" value="65"/>
+        <property name="startMoment" value="2018/09/02 12:27"/>
+        <property name="endMoment" value="2018/11/06 12:27"/>
+        <property name="agent">
+            <ref bean="agent-agent1"/>
+        </property>
+        <property name="hike">
+            <ref bean="hike-151"/>
+        </property>
+    </bean>
+    <bean class="domain.Advertisement" id="advertisement-7">
+        <property name="title" value="Advertisement 7"/>
+        <property name="banner" value="https://www.eldiario.es/fotos/Camino-Santiago_EDIIMA20180607_0225_1.jpg"/>
+        <property name="targetUrl" value="https://www.google.es"/>
+        <property name="creditCard">
+            <bean class="domain.CreditCard">
+                <property name="holderName" value="Agent 1"/>
+                <property name="brandName" value="VISA"/>
+                <property name="cardNumber" value="4683784539954235"/>
+                <property name="expirationMonth" value="11"/>
+                <property name="expirationYear" value="2021"/>
+                <property name="cvvCode" value="433"/>
+            </bean>
+        </property>
+        <property name="daysDisplayed" value="18"/>
+        <property name="startMoment" value="2018/09/12 12:27"/>
+        <property name="endMoment" value="2018/09/30 12:27"/>
+        <property name="agent">
+            <ref bean="agent-agent1"/>
+        </property>
+        <property name="hike">
+            <ref bean="hike-45"/>
+        </property>
+    </bean>
+    <bean class="domain.Advertisement" id="advertisement-8">
+        <property name="title" value="Advertisement 7"/>
+        <property name="banner" value="http://ciberconta.unizar.es/enlaces/es/vartur/Logos/camino2.gif"/>
+        <property name="targetUrl" value="https://www.google.es"/>
+        <property name="creditCard">
+            <bean class="domain.CreditCard">
+                <property name="holderName" value="Agent 1"/>
+                <property name="brandName" value="VISA"/>
+                <property name="cardNumber" value="4683784539954235"/>
+                <property name="expirationMonth" value="11"/>
+                <property name="expirationYear" value="2021"/>
+                <property name="cvvCode" value="433"/>
+            </bean>
+        </property>
+        <property name="daysDisplayed" value="32"/>
+        <property name="startMoment" value="2018/08/26 10:27"/>
+        <property name="endMoment" value="2018/09/27 10:27"/>
+        <property name="agent">
+            <ref bean="agent-agent1"/>
+        </property>
+        <property name="hike">
+            <ref bean="hike-45"/>
         </property>
     </bean>
     <bean class="domain.Hike" id="hike-151">

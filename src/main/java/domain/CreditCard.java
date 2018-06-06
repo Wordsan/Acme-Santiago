@@ -6,6 +6,8 @@ import java.util.Calendar;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -94,19 +96,8 @@ public class CreditCard {
 
 	// Support methods ----------------------------------------------------------
 
-	public String cardNumberMasked() {
-		String cardNumberMasked;
-
-		if (this.getCardNumber().length() == 16) {
-			cardNumberMasked = this.getCardNumber().substring(0, 4) + " **** **** "
-					+ this.getCardNumber().substring(12, 16);
-		} else {
-			cardNumberMasked = "";
-		}
-
-		return cardNumberMasked;
-	}
-
+	@Transient
+	@AssertFalse
 	public boolean expired() {
 		boolean isExpired;
 		Integer currentMonth;

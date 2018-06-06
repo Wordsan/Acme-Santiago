@@ -1,8 +1,8 @@
 /*
  * RouteController.java
- * 
+ *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the TDG
  * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -21,23 +21,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.RouteService;
-import services.UserService;
 import domain.Hike;
 import domain.Route;
 import domain.User;
+import security.LoginService;
+import services.RouteService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/route")
 public class RouteController extends AbstractController {
 
 	@Autowired
-	private RouteService	routeService;
+	private RouteService routeService;
 
 	@Autowired
-	private UserService		userService;
-
+	private UserService userService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -46,18 +45,22 @@ public class RouteController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Double minLength, @RequestParam(required = false) final Double maxLength, @RequestParam(required = false) final String numHikesFilter) {
+	public ModelAndView list(@RequestParam(required = false) final String keyword,
+			@RequestParam(required = false) final Double minLength,
+			@RequestParam(required = false) final Double maxLength,
+			@RequestParam(required = false) final String numHikesFilter) {
 		ModelAndView view;
 		Collection<Route> routes;
 
 		if ((keyword != null) && !keyword.isEmpty()) {
 			routes = this.routeService.searchRoutesFromKeyWord(keyword);
-		else if ((minLength != null) && (maxLength != null))
+		} else if ((minLength != null) && (maxLength != null)) {
 			routes = this.routeService.routesByLengthRange(minLength, maxLength);
-		else if ((numHikesFilter != null))
+		} else if ((numHikesFilter != null)) {
 			routes = this.routeService.routesByHikesSize();
-		else
+		} else {
 			routes = this.routeService.findAll();
+		}
 		view = new ModelAndView("route/list");
 		view.addObject("routes", routes);
 		view.addObject("requestURI", "route/list.do");

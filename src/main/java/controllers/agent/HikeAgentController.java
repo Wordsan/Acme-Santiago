@@ -54,7 +54,7 @@ public class HikeAgentController extends AbstractController {
 			view = new ModelAndView("hike/withAdList");
 			view.addObject("hikes", hikes);
 			view.addObject("agent", agent);
-			view.addObject("requestURI", "hike/agent/hikesWithAdvertisement.do");
+			view.addObject("requestURI", "hike/agent/hikesWithAdvertisements.do");
 		} catch (Throwable oops) {
 			view = new ModelAndView("redirect:/");
 		}
@@ -75,7 +75,7 @@ public class HikeAgentController extends AbstractController {
 			view = new ModelAndView("hike/withoutAdList");
 			view.addObject("hikes", hikes);
 			view.addObject("agent", agent);
-			view.addObject("requestURI", "hike/agent/hikesWithoutAdvertisement.do");
+			view.addObject("requestURI", "hike/agent/hikesWithoutAdvertisements.do");
 		} catch (Throwable oops) {
 			view = new ModelAndView("redirect:/");
 		}

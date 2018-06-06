@@ -45,6 +45,7 @@ public class AdvertisementAdministratorController extends AbstractController {
 
 		advertisements = this.advertisementService.findAllTabooAdvertisements();
 		view = new ModelAndView("advertisement/tabooList");
+		view.addObject("requestURI", "advertisement/administrator/tabooAdvertisements.do");
 		view.addObject("advertisements", advertisements);
 
 		return view;

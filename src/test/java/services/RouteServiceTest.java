@@ -57,7 +57,7 @@ public class RouteServiceTest extends AbstractTest {
 		try {
 			this.authenticate(authenticate);
 			Assert.isTrue(!this.routeService.findAll().isEmpty());
-			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("route").size() == 4);
+			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("route1").size() == 1);
 			Assert.isTrue(this.routeService.routesByLengthRange(21500.0, 23000.0).size() == 29);
 			Assert.isTrue(this.routeService.routesByHikesSize().size() == 51);
 			this.unauthenticate();
