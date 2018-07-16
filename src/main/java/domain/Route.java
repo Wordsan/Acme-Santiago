@@ -5,10 +5,14 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -19,7 +23,11 @@ public class Route extends DomainEntity {
 	private Double				length;
 	private String				description;
 	private Collection<String>	pictures;
-	private Collection<Hike>	hikes;
+
+	/* RELATIONSHIPS */
+
+	private Collection<Hike>	composedHikes;
+	private Collection<Comment>	comments;
 
 
 	@NotBlank
@@ -50,6 +58,8 @@ public class Route extends DomainEntity {
 	}
 
 	@URL
+	@NotNull
+	@NotEmpty
 	public Collection<String> getPictures() {
 		return this.pictures;
 	}
@@ -58,11 +68,25 @@ public class Route extends DomainEntity {
 		this.pictures = pictures;
 	}
 
-	public Collection<Hike> getHikes() {
-		return this.hikes;
+	@Valid
+	@NotNull
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Hike> getComposedHikes() {
+		return this.composedHikes;
 	}
 
-	public void setHikes(final Collection<Hike> hikes) {
-		this.hikes = hikes;
+	public void setComposedHikes(final Collection<Hike> composedHikes) {
+		this.composedHikes = composedHikes;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final Collection<Comment> comments) {
+		this.comments = comments;
 	}
 }

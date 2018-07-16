@@ -5,10 +5,16 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -22,6 +28,11 @@ public class Hike extends DomainEntity {
 	private String				description;
 	private Collection<String>	pictures;
 	private String				difficultyLevel;
+
+	/* RELATIONSHIPS */
+
+	private Route				route;
+	private Collection<Comment>	comments;
 
 
 	@NotBlank
@@ -70,6 +81,8 @@ public class Hike extends DomainEntity {
 	}
 
 	@URL
+	@NotNull
+	@NotEmpty
 	public Collection<String> getPictures() {
 		return this.pictures;
 	}
@@ -78,11 +91,35 @@ public class Hike extends DomainEntity {
 		this.pictures = pictures;
 	}
 
+	@Valid
+	@Pattern(regexp = ("EASY|MEDIUM|DIFFICULT"))
 	public String getDifficultyLevel() {
 		return this.difficultyLevel;
 	}
 
 	public void setDifficultyLevel(final String difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Route getRoute() {
+		return this.route;
+	}
+
+	public void setRoute(final Route route) {
+		this.route = route;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final Collection<Comment> comments) {
+		this.comments = comments;
 	}
 }

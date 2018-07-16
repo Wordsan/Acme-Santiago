@@ -4,21 +4,30 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import security.UserAccount;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Actor extends DomainEntity {
 
-	private String	name;
-	private String	surname;
-	private String	picture;
-	private String	postalAddress;
-	private String	phoneNumber;
-	private String	emailAddress;
+	private String		name;
+	private String		surname;
+	private String		picture;
+	private String		postalAddress;
+	private String		phoneNumber;
+	private String		emailAddress;
+
+	/* RELATIONSHIPS */
+
+	private UserAccount	userAccount;
 
 
 	@NotBlank
@@ -65,11 +74,23 @@ public class Actor extends DomainEntity {
 	}
 
 	@Email
+	@NotBlank
 	public String getEmailAddress() {
 		return this.emailAddress;
 	}
 
 	public void setEmailAddress(final String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public UserAccount getUserAccount() {
+		return this.userAccount;
+	}
+
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 }

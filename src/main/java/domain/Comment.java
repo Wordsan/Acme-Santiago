@@ -7,8 +7,14 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
@@ -22,7 +28,15 @@ public class Comment extends DomainEntity {
 	private Collection<String>	pictures;
 	private Integer				rate;
 
+	/* RELATIONSHIPS */
 
+	private User				owner;
+	private Route				route;
+	private Hike				hike;
+
+
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getWriteMoment() {
 		return this.writeMoment;
 	}
@@ -50,6 +64,8 @@ public class Comment extends DomainEntity {
 	}
 
 	@URL
+	@NotEmpty
+	@NotNull
 	public Collection<String> getPictures() {
 		return this.pictures;
 	}
@@ -59,11 +75,47 @@ public class Comment extends DomainEntity {
 	}
 
 	@Range(min = 0, max = 3)
+	@NotNull
 	public Integer getRate() {
 		return this.rate;
 	}
 
 	public void setRate(final Integer rate) {
 		this.rate = rate;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public User getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(final User owner) {
+		this.owner = owner;
+	}
+
+	//OJO, O ROUTE O HIKE TIENE QUE ESTAR RELLENA, NO PUEDEN ESTAR LAS DOS VACIAS
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = true)
+	public Route getRoute() {
+		return this.route;
+	}
+
+	public void setRoute(final Route route) {
+		this.route = route;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = true)
+	public Hike getHike() {
+		return this.hike;
+	}
+
+	public void setHike(final Hike hike) {
+		this.hike = hike;
 	}
 }
