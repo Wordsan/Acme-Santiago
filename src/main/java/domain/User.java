@@ -25,7 +25,7 @@ public class User extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "user")
+	@OneToMany
 	public Collection<User> getFollowedUsers() {
 		return this.followedUsers;
 	}
@@ -36,7 +36,7 @@ public class User extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "user")
+	@OneToMany
 	public Collection<Route> getRegistredRoutes() {
 		return this.registredRoutes;
 	}
@@ -58,7 +58,7 @@ public class User extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "owner")
 	public Collection<Comment> getRouteComments() {
 		return this.routeComments;
 	}
@@ -69,7 +69,7 @@ public class User extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "owner")
 	public Collection<Comment> getHikeComments() {
 		return this.hikeComments;
 	}

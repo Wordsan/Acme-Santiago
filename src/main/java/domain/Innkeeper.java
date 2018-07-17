@@ -20,7 +20,7 @@ public class Innkeeper extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "innkeeper")
 	public Collection<Inn> getInns() {
 		return this.inns;
 	}
