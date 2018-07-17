@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,7 +26,7 @@ public class Hike extends DomainEntity {
 	private String				originCity;
 	private String				destinationCity;
 	private String				description;
-	private Collection<String>	pictures;
+	private String				pictures;
 	private String				difficultyLevel;
 
 	/* RELATIONSHIPS */
@@ -82,14 +81,12 @@ public class Hike extends DomainEntity {
 	}
 
 	@URL
-	@NotNull
 	@NotEmpty
-	@ElementCollection
-	public Collection<String> getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 

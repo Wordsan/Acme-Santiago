@@ -43,7 +43,7 @@
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="user" />
+		<property name="username" value="user2" />
 		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
 		<property name="authorities">
 			<list>
@@ -242,11 +242,7 @@
 		<property name="name" value="route1" />
 		<property name="length" value="1600" />
 		<property name="description" value="This is a description" />
-		<property name="pictures">
-			<list>
-				<value>https://www.picture1.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.picture1.com/"/>
 		<property name="composedHikes">
 			<list>
 				<ref bean="hike1"/>
@@ -263,11 +259,7 @@
 		<property name="name" value="route2" />
 		<property name="length" value="1800" />
 		<property name="description" value="This is a description" />
-		<property name="pictures">
-			<list>
-				<value>https://www.picture2.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.picture2.com/"/>
 		<property name="composedHikes">
 			<list>
 				<ref bean="hike2"/>
@@ -283,11 +275,7 @@
 		<property name="name" value="route3" />
 		<property name="length" value="1900" />
 		<property name="description" value="This is a description" />
-		<property name="pictures">
-			<list>
-				<value>https://www.picture3.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.picture3.com/"/>
 		<property name="composedHikes">
 			<list>
 				<ref bean="hike3"/>
@@ -308,11 +296,7 @@
 		<property name="originCity" value="o1" />
 		<property name="destinationCity" value="o2" />
 		<property name="description" value="This is a description" />
-		<property name="pictures">
-			<list>
-				<value>https://www.picture4.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.picture4.com/"/>
 		<property name="difficultyLevel" value="EASY"/>
 		<property name="route" ref="route1" />
 		<property name="comments">
@@ -328,11 +312,7 @@
 		<property name="originCity" value="o3" />
 		<property name="destinationCity" value="o4" />
 		<property name="description" value="This is a description" />
-		<property name="pictures">
-			<list>
-				<value>https://www.picture5.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.picture5.com/"/>
 		<property name="difficultyLevel" value="MEDIUM"/>
 		<property name="route" ref="route2" />
 		<property name="comments">
@@ -347,11 +327,7 @@
 		<property name="originCity" value="o5" />
 		<property name="destinationCity" value="o6" />
 		<property name="description" value="This is a description" />
-		<property name="pictures">
-			<list>
-				<value>https://www.picture6.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.picture6.com/"/>
 		<property name="difficultyLevel" value="DIFFICULT"/>
 		<property name="route" ref="route3" />
 		<property name="comments">
@@ -390,82 +366,58 @@
 		<property name="title" value="comment1" />
 		<property name="writeMoment" value="October 14, 2018 08:10" />
 		<property name="text" value="This is a text" />
-		<property name="pictures">
-			<list>
-				<value>https://www.jeje.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.jeje.com/"/>
 		<property name="rate" value="2"/>
 		<property name="owner" ref="user1"/>
-		<property name="route" ref="route1"/>
-		<property name="hike" value=""/>
 	</bean>
 	
 	<bean id="comment2" class="domain.Comment">
 		<property name="title" value="comment2" />
 		<property name="writeMoment" value="May 2, 2020 08:10" />
 		<property name="text" value="This is a text" />
-		<property name="pictures">
-			<list>
-				<value>https://www.jeje1.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.jeje1.com/"/>
 		<property name="rate" value="0"/>
 		<property name="owner" ref="user1"/>
-		<property name="route" value=""/>
-		<property name="hike" ref="hike1"/>
 	</bean>
 	
 	<bean id="comment3" class="domain.Comment">
 		<property name="title" value="comment3" />
 		<property name="writeMoment" value="October 16, 2018 08:10" />
 		<property name="text" value="This is a text" />
-		<property name="pictures">
-			<list>
-				<value>https://www.jeje2.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.jeje2.com/"/>
 		<property name="rate" value="3"/>
 		<property name="owner" ref="user2"/>
-		<property name="route" ref="route3"/>
-		<property name="hike" value=""/>
 	</bean>
 	
 	<bean id="comment4" class="domain.Comment">
 		<property name="title" value="comment4" />
 		<property name="writeMoment" value="February 14, 2018 08:10" />
 		<property name="text" value="This is a text" />
-		<property name="pictures">
-			<list>
-				<value>https://www.jeje4.com/</value>
-			</list>
-		</property>
+		<property name="pictures" value="https://www.jeje4.com/"/>
 		<property name="rate" value="2"/>
 		<property name="owner" ref="user2"/>
-		<property name="route" value=""/>
-		<property name="hike" ref="hike3"/>
 	</bean>
 	
 	<!-- Inns -->
 	<bean id="inn1" class="domain.Inn">
 		<property name="name" value="inn1" />
 		<property name="badge" value="https://www.bagde1.com/" />
-		<property name="adress" value="This is a address" />
+		<property name="address" value="This is a address" />
 		<property name="phoneNumber" value="98786543" />
 		<property name="email" value="inn1@gmail.com" />
 		<property name="webSite" value=""/>
-		<property name="creditCard" value="349373216183278"/>
+		<property name="creditCard" value="4485079952951457"/>
 		<property name="innkeeper" ref="innkeeper1"/>
 	</bean>
 	
 	<bean id="inn2" class="domain.Inn">
 		<property name="name" value="inn2" />
 		<property name="badge" value="https://www.bagde2.com/" />
-		<property name="adress" value="This is a address" />
+		<property name="address" value="This is a address" />
 		<property name="phoneNumber" value="123456789" />
 		<property name="email" value="inn2@gmail.com" />
 		<property name="webSite" value=""/>
-		<property name="creditCard" value="349373216183276"/>
+		<property name="creditCard" value="4485079952951457"/>
 		<property name="innkeeper" ref="innkeeper2"/>
 	</bean>
 	

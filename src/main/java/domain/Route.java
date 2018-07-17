@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
@@ -23,7 +22,7 @@ public class Route extends DomainEntity {
 	private String				name;
 	private Double				length;
 	private String				description;
-	private Collection<String>	pictures;
+	private String				pictures;
 
 	/* RELATIONSHIPS */
 
@@ -59,14 +58,12 @@ public class Route extends DomainEntity {
 	}
 
 	@URL
-	@NotNull
 	@NotEmpty
-	@ElementCollection
-	public Collection<String> getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 

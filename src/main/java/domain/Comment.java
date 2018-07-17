@@ -1,12 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -23,17 +21,15 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Comment extends DomainEntity {
 
-	private Date				writeMoment;
-	private String				title;
-	private String				text;
-	private Collection<String>	pictures;
-	private Integer				rate;
+	private Date	writeMoment;
+	private String	title;
+	private String	text;
+	private String	pictures;
+	private Integer	rate;
 
 	/* RELATIONSHIPS */
 
-	private User				owner;
-	private Route				route;
-	private Hike				hike;
+	private User	owner;
 
 
 	@NotNull
@@ -66,13 +62,11 @@ public class Comment extends DomainEntity {
 
 	@URL
 	@NotEmpty
-	@NotNull
-	@ElementCollection
-	public Collection<String> getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 
@@ -95,29 +89,5 @@ public class Comment extends DomainEntity {
 
 	public void setOwner(final User owner) {
 		this.owner = owner;
-	}
-
-	//OJO, O ROUTE O HIKE TIENE QUE ESTAR RELLENA, NO PUEDEN ESTAR LAS DOS VACIAS
-
-	@Valid
-	@NotNull
-	@ManyToOne(optional = true)
-	public Route getRoute() {
-		return this.route;
-	}
-
-	public void setRoute(final Route route) {
-		this.route = route;
-	}
-
-	@Valid
-	@NotNull
-	@ManyToOne(optional = true)
-	public Hike getHike() {
-		return this.hike;
-	}
-
-	public void setHike(final Hike hike) {
-		this.hike = hike;
 	}
 }
