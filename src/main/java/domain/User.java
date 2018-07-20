@@ -36,7 +36,7 @@ public class User extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	public Collection<Route> getRegistredRoutes() {
 		return this.registredRoutes;
 	}

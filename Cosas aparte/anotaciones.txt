@@ -1,0 +1,10 @@
+user1: route1, route2,chirp1,comment1(route),comment2(hike)
+user2: route3,chirp2,chirp3,comment3(route), comment4(hike)
+route1: hike1,comment1
+route2: hike2
+route3:hike3,comment3
+hike1: comment2
+hike3: comment4
+
+informacion sobre los numeros de creditcard:
+https://stackoverflow.com/questions/29899715/should-i-use-the-creditcardattribute-to-validate-credit-card-numbers

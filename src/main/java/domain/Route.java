@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ public class Route extends DomainEntity {
 
 	private Collection<Hike>	composedHikes;
 	private Collection<Comment>	comments;
+	private User				creator;
 
 
 	@NotBlank
@@ -67,6 +69,8 @@ public class Route extends DomainEntity {
 		this.pictures = pictures;
 	}
 
+	//RELATIONSHIPS
+
 	@Valid
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
@@ -87,5 +91,16 @@ public class Route extends DomainEntity {
 
 	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public User getCreator() {
+		return this.creator;
+	}
+
+	public void setCreator(final User creator) {
+		this.creator = creator;
 	}
 }

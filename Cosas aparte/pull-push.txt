@@ -1,0 +1,26 @@
+
+PULL:
+
+
+
+git checkout "target\m2e-wtp\web-resources\META-INF\maven\Design-and-Testing\Acme-Santiago/pom.properties"
+
+git pull origin master
+
+
+
+-------------------------------------
+
+
+
+PUSH:
+
+
+
+git checkout "target/m2e-wtp/web-resources/META-INF/maven/Design-and-Testing/Acme-Santiago/pom.properties"
+
+git add . -A
+
+git commit -m "Commit"
+
+git push origin master

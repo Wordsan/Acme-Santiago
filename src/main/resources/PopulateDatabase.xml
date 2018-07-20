@@ -253,6 +253,7 @@
 				<ref bean="comment1"/>
 			</list>
 		</property>
+		<property name="creator" ref="user1"/>
 	</bean>
 
 	<bean id="route2" class="domain.Route">
@@ -269,6 +270,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="creator" ref="user1"/>
 	</bean>
 	
 	<bean id="route3" class="domain.Route">
@@ -286,6 +288,7 @@
 				<ref bean="comment3"/>
 			</list>
 		</property>
+		<property name="creator" ref="user2"/>
 	</bean>
 	
 	<!-- Hikes -->
