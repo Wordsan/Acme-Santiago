@@ -89,4 +89,12 @@ public class UserService {
 	public Double avgChirpsPerUser() {
 		return this.userRepository.avgChirpsPerUser();
 	}
+
+	public Collection<User> more75ChirpUsers() {
+		return this.userRepository.more75ChirpUsers();
+	}
+
+	public Collection<User> less25ChirpUsers() {
+		return this.userRepository.less25ChirpUsers();
+	}
 }

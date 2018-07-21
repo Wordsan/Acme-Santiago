@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -20,11 +21,13 @@ public class ChirpService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private ChirpRepository	chirpRepository;
+	private ChirpRepository				chirpRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService		userService;
+	private UserService					userService;
+	@Autowired
+	private ConfigurationSystemService	csService;
 
 
 	/* CONSTRUCTOR */
@@ -66,4 +69,16 @@ public class ChirpService {
 	}
 
 	/* OTHERS */
+	public List<Chirp> tabooChirps() {
+		List<Chirp> res;
+		res = this.chirpRepository.findAll();
+		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
+		for (final Chirp c : res)
+			for (final String s : tabooWords)
+				if (!(c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+					res.remove(c);
+
+		Assert.notNull(res);
+		return res;
+	}
 }

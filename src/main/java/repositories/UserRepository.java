@@ -36,4 +36,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	/* 16.6 -> The average number of chirps per user. */
 	@Query("select avg(u.chirps.size) from User u")
 	Double avgChirpsPerUser();
+
+	/* 16.6 -> The users who have posted more than 75% the average number of chirps per user. */
+	@Query("select u from User u where u.chirps.size >= (select avg(u.chirps.size)*0.75 from User u)")
+	Collection<User> more75ChirpUsers();
+
+	/* 16.6 -> The users who have posted less than 25% the average number of chirps per user. */
+	@Query("select u from User u where u.chirps.size <= (select avg(u.chirps.size)*0.25 from User u)")
+	Collection<User> less25ChirpUsers();
 }

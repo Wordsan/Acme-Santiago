@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -20,11 +21,13 @@ public class CommentService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private CommentRepository	commentRepository;
+	private CommentRepository			commentRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService			userService;
+	private UserService					userService;
+	@Autowired
+	private ConfigurationSystemService	csService;
 
 
 	/* CONSTRUCTOR */
@@ -57,4 +60,16 @@ public class CommentService {
 	}
 
 	/* OTHERS */
+	public List<Comment> tabooComments() {
+		List<Comment> res;
+		res = this.commentRepository.findAll();
+		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
+		for (final Comment c : res)
+			for (final String s : tabooWords)
+				if (!(c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+					res.remove(c);
+
+		Assert.notNull(res);
+		return res;
+	}
 }

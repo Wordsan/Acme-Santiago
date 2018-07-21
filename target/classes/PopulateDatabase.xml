@@ -424,4 +424,9 @@
 		<property name="innkeeper" ref="innkeeper2"/>
 	</bean>
 	
+	<!-- ConfigurationSystem -->
+	<bean id="configurationSystem" class="domain.ConfigurationSystem">
+		<property name="tabooWords" value="sex,viagra,cialis"/>
+	</bean>
+	
 </beans>

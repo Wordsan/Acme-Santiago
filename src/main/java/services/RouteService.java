@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -97,6 +98,39 @@ public class RouteService {
 		res.put("AVG", statistics[0]);
 		res.put("STD", statistics[1]);
 
+		return res;
+	}
+
+	public List<Route> searchRoutesFromKeyWord(final String keyWord) {
+		List<Route> res;
+		res = this.routeRepository.searchRoutesFromKeyWord(keyWord);
+		Assert.notNull(res);
+		return res;
+
+	}
+
+	public List<Route> outlierRoutes() {
+		List<Route> res;
+		res = this.routeRepository.outlierRoutes();
+		Assert.notNull(res);
+		return res;
+	}
+
+	public List<Route> routesByLengthRange(final Double l1, final Double l2) {
+		List<Route> res;
+		res = this.routeRepository.routesByLengthRange(l1, l2);
+		Assert.notNull(res);
+		return res;
+	}
+
+	public Double avgCommentsPerRoute() {
+		return this.routeRepository.avgCommentsPerRoute();
+	}
+
+	public List<Route> routesByHikesSize() {
+		List<Route> res;
+		res = this.routeRepository.routesByHikesSize();
+		Assert.notNull(res);
 		return res;
 	}
 }
