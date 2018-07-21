@@ -1,7 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -11,7 +14,7 @@ import org.springframework.util.Assert;
 
 import repositories.RouteRepository;
 import security.LoginService;
-import security.UserAccount;
+import domain.Comment;
 import domain.Hike;
 import domain.Route;
 
@@ -25,7 +28,7 @@ public class RouteService {
 
 	/* SERVICES */
 	@Autowired
-	private HikeService		hikeService;
+	private UserService		userService;
 
 
 	/* CONSTRUCTOR */
@@ -39,6 +42,9 @@ public class RouteService {
 		//Comprobamos que sea un user el que esta creando una route
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains("USER"));
 		final Route r = new Route();
+		r.setComposedHikes(new ArrayList<Hike>());
+		r.setComments(new ArrayList<Comment>());
+		r.setCreator(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
 		return r;
 	}
 
@@ -51,20 +57,46 @@ public class RouteService {
 	}
 
 	public Route save(final Route route) {
-		final UserAccount uA = LoginService.getPrincipal();
-		//TODO: Comprobar que uA es el user de la route
+		//Comprobamos que el creador de la route sea el mismo que el que va a editar
+		Assert.isTrue(LoginService.getPrincipal().equals(route.getCreator().getUserAccount()));
 		return this.routeRepository.save(route);
 	}
 
 	public void delete(final Route route) {
-		for (final Hike h : route.getComposedHikes())
-			this.hikeService.delete(h);
+		Assert.notNull(route);
 
-		this.routeRepository.delete(route);
+		if (LoginService.getPrincipal().getAuthorities().contains("ADMIN") || LoginService.getPrincipal().equals(route.getCreator().getUserAccount())) { //Si es admin o el user creador
+
+			route.getCreator().getRegistredRoutes().remove(route);
+			this.routeRepository.delete(route);
+
+		} else
+			//Lanzamos la excepcion del assert
+			throw new IllegalArgumentException("You need to be administrator or the route's owner.");
 	}
 
 	/* OTHERS */
 	public Collection<Route> routesFromCreator(final int userID) {
 		return this.routeRepository.routesFromCreator(userID);
+	}
+
+	public Map<String, Double> hikesPerRouteStadistics() {
+		final Double[] statistics = this.routeRepository.hikesPerRouteStadistics();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("AVG", statistics[0]);
+		res.put("STD", statistics[1]);
+
+		return res;
+	}
+
+	public Map<String, Double> routeLengthStadistics() {
+		final Double[] statistics = this.routeRepository.routeLengthStadistics();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("AVG", statistics[0]);
+		res.put("STD", statistics[1]);
+
+		return res;
 	}
 }

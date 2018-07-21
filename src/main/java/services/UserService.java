@@ -3,6 +3,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -53,11 +55,38 @@ public class UserService {
 	}
 
 	public User save(final User user) {
+		Assert.isTrue(LoginService.getPrincipal().equals(user.getUserAccount()));
 		return this.userRepository.save(user);
 	}
 
 	/* OTHERS */
-	public Collection<User> usersThatFollows(final int userID) {
-		return this.userRepository.usersThatFollows(userID);
+	public Collection<User> usersThatFollowsMe(final int userID) {
+		return this.userRepository.usersThatFollowsMe(userID);
+	}
+
+	public Collection<User> usersThatIFollow(final int userID) {
+		return this.userRepository.usersThatIFollow(userID);
+	}
+
+	public Map<String, Double> routesPerUserStadistics() {
+		final Double[] statistics = this.userRepository.routesPerUserStadistics();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("AVG", statistics[0]);
+		res.put("STD", statistics[1]);
+
+		return res;
+	}
+
+	public User getUserByUserAccountId(final int userAccountID) {
+		return this.userRepository.getUserByUserAccountId(userAccountID);
+	}
+
+	public Collection<Chirp> chirpsStream(final int userID) {
+		return this.userRepository.chirpsStream(userID);
+	}
+
+	public Double avgChirpsPerUser() {
+		return this.userRepository.avgChirpsPerUser();
 	}
 }

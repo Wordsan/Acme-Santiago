@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +35,13 @@ public class HikeService {
 	}
 
 	/* OTHERS */
+	public Map<String, Double> hikeLengthStadistics() {
+		final Double[] statistics = this.hikeRepository.hikeLengthStadistics();
+		final Map<String, Double> res = new HashMap<>();
 
+		res.put("AVG", statistics[0]);
+		res.put("STD", statistics[1]);
+
+		return res;
+	}
 }
