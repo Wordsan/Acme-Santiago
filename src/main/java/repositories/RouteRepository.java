@@ -13,7 +13,7 @@ import domain.Route;
 @Repository
 public interface RouteRepository extends JpaRepository<Route, Integer> {
 
-	@Query("select r from Route r where r.creator=?1")
+	@Query("select r from Route r where r.creator.id=?1")
 	Collection<Route> routesFromCreator(int userID);
 
 	/* 6.2 -> The average and the standard deviation of hikes per route. */
@@ -24,8 +24,11 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
 	@Query("select avg(r.length),sqrt(sum(r.length * r.length) / count(r.length) - (avg(r.length) * avg(r.length))) from Route r")
 	Double[] routeLengthStadistics();
 
-	/* 3.3 -> Search for routes using a single key word that must appear somewhere in their names, their descriptions, or their hikes. */
-	@Query("select distinct r from Route r join r.composedHikes h where r.name like '%?1%' or r.description like '%?1%' or h.name like '%?1%' or h.originCity like '%?1%' or h.destinationCity like '%?1%'or h.description like '%?1%'")
+	/*
+	 * 3.3 -> Search for routes using a single key word that must appear somewhere
+	 * in their names, their descriptions, or their hikes.
+	 */
+	@Query("select distinct r from Route r join r.composedHikes h where r.name like concat('%', ?1, '%') or r.description like concat('%', ?1, '%') or h.name like concat('%', ?1, '%') or h.originCity like concat('%', ?1, '%') or h.destinationCity like concat('%', ?1, '%') or h.description like concat('%', ?1, '%')")
 	List<Route> searchRoutesFromKeyWord(String keyWord);
 
 	/* 6.2 -> The outlier routes according to their lengths. */
@@ -33,7 +36,7 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
 	List<Route> outlierRoutes();
 
 	/* 3.4 -> Search for routes whose length is in a user-provided range. */
-	@Query("select r from Route r where r.length between =?1 and =?2")
+	@Query("select r from Route r where r.length between ?1 and ?2")
 	List<Route> routesByLengthRange(Double l1, Double l2);
 
 	/* 16.6 -> The average number of comments per route (including their hikes). */

@@ -14,9 +14,10 @@
 			</list>
 		</property>
 	</bean>
-	<bean class="security.UserAccount" id="userAccount_admin1">
-		<property name="username" value="admin1"/>
-		<property name="password" value="admin1"/>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
 		<property name="authorities">
 			<list value-type="security.Authority">
 				<bean class="security.Authority">
@@ -25,9 +26,10 @@
 			</list>
 		</property>
 	</bean>
-	<bean class="security.UserAccount" id="userAccount_user2">
-		<property name="username" value="user2"/>
-		<property name="password" value="91ec1f9324753048c0096d036a694f86"/>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
 		<property name="authorities">
 			<list value-type="security.Authority">
 				<bean class="security.Authority">
@@ -36,9 +38,10 @@
 			</list>
 		</property>
 	</bean>
-	<bean class="security.UserAccount" id="userAccount_user1">
-		<property name="username" value="user1"/>
-		<property name="password" value="user1"/>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
 		<property name="authorities">
 			<list value-type="security.Authority">
 				<bean class="security.Authority">

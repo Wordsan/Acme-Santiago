@@ -1,0 +1,8 @@
+target/
+.settings/
+.classpath
+.project
+src/main/resources/Entities.map
+src/main/java/utilities/GenerateDefaultFiles.java
+src/main/java/utilities/ViewManager.java
+src/main/java/utilities/defaultFiles/
