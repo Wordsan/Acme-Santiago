@@ -113,7 +113,7 @@ public class Hike extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hike")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}

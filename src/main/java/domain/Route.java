@@ -73,7 +73,7 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
 	public Collection<Hike> getComposedHikes() {
 		return this.composedHikes;
 	}
@@ -84,7 +84,7 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}

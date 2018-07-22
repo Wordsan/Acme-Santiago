@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -30,7 +32,8 @@ public class Comment extends DomainEntity {
 	/* RELATIONSHIPS */
 
 	private User	owner;
-
+	private Route   route;
+	private Hike    hike;
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -89,5 +92,40 @@ public class Comment extends DomainEntity {
 
 	public void setOwner(final User owner) {
 		this.owner = owner;
+	}
+
+	@AssertTrue
+	@Transient
+	public boolean isValidHasEitherRouteOrHike()
+	{
+		// El @AssertTrue encima hace que el validador compruebe que esto devuelve true.
+		// Comprueba que el comentario esta asociado solo a un route o a un hike, si no no es valido.
+		if (getRoute() != null && getHike() == null) return true;
+		if (getRoute() == null && getHike() != null) return true;
+		return false;
+	}
+
+	@Valid
+	@ManyToOne(optional = true)
+	public Route getRoute()
+	{
+		return route;
+	}
+
+	public void setRoute(Route route)
+	{
+		this.route = route;
+	}
+
+	@Valid
+	@ManyToOne(optional = true)
+	public Hike getHike()
+	{
+		return hike;
+	}
+
+	public void setHike(Hike hike)
+	{
+		this.hike = hike;
 	}
 }
