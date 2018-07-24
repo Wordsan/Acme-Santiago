@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class CommentService {
 	private UserService					userService;
 	@Autowired
 	private ConfigurationSystemService	csService;
+	@Autowired
+	private AdministratorService		administratorService;
 
 
 	/* CONSTRUCTOR */
@@ -46,7 +49,7 @@ public class CommentService {
 	}
 
 	public void delete(final Comment comment) {
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains("ADMIN"));
+		Assert.notNull(this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		Assert.notNull(comment);
 		final User u = comment.getOwner();
 
@@ -61,15 +64,14 @@ public class CommentService {
 
 	/* OTHERS */
 	public List<Comment> tabooComments() {
-		List<Comment> res;
-		res = this.commentRepository.findAll();
+		List<Comment> all;
+		final List<Comment> res = new ArrayList<Comment>();
+		all = this.commentRepository.findAll();
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
-		for (final Comment c : res)
+		for (final Comment c : all)
 			for (final String s : tabooWords)
-				if (!(c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
-					res.remove(c);
-
-		Assert.notNull(res);
+				if ((c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+					res.add(c);
 		return res;
 	}
 }

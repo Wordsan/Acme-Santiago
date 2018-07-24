@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.UserRepository;
+import security.LoginService;
 import domain.Chirp;
 import domain.Comment;
 import domain.Route;
 import domain.User;
-import repositories.UserRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -25,7 +25,8 @@ public class UserService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository	userRepository;
+
 
 	/* SERVICES */
 
@@ -53,7 +54,7 @@ public class UserService {
 		return this.userRepository.findAll();
 	}
 
-	public User findOne(int userId) {
+	public User findOne(final int userId) {
 		User user;
 
 		user = this.userRepository.findOne(userId);
@@ -63,7 +64,6 @@ public class UserService {
 	}
 
 	public User save(final User user) {
-		Assert.isTrue(LoginService.getPrincipal().equals(user.getUserAccount()));
 		return this.userRepository.save(user);
 	}
 

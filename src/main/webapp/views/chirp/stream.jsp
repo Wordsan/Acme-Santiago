@@ -20,7 +20,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('USER')">
+<security:authorize access="hasRole('USER') or hasRole('ADMIN')">
 <display:table name="chirps" id="c" requestURI="${requestURI}" pagesize="4" class="displaytag">
 
 <spring:message code="chirp.title" var="titleHeader"/>
@@ -34,6 +34,14 @@
 
 <spring:message code="chirp.user" var="userHeader"/>
 <display:column property="user.name" title="${userHeader}" sortable="true"/>
+
+<security:authorize access="hasRole('ADMIN')">
+<spring:message code="chirp.deleteTheChirp" var="deleteTheChirpHeader"/>
+<display:column title="${deleteTheChirpHeader}" sortable="false">
+<spring:message code="chirp.delete" var="deleteHeader"/>
+<a href="chirp/admin/delete.do?chirpId=${c.id}">${deleteHeader}</a>
+</display:column>
+</security:authorize>
 </display:table>
 
 <spring:message code="chirp.return" var="returnHeader"/>

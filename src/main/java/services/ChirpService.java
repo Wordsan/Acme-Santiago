@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -78,15 +79,14 @@ public class ChirpService {
 
 	/* OTHERS */
 	public List<Chirp> tabooChirps() {
-		List<Chirp> res;
-		res = this.chirpRepository.findAll();
+		List<Chirp> all;
+		final List<Chirp> res = new ArrayList<Chirp>();
+		all = this.chirpRepository.findAll();
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
-		for (final Chirp c : res)
+		for (final Chirp c : all)
 			for (final String s : tabooWords)
-				if (!(c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
-					res.remove(c);
-
-		Assert.notNull(res);
+				if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+					res.add(c);
 		return res;
 	}
 }

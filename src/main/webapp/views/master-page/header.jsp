@@ -22,6 +22,16 @@
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a href="configurationSystem/admin/edit.do"><spring:message code="master.page.editTabooWords" /></a></li>
+			<li>
+				<a class="fNiv"> 
+					<spring:message code="master.page.taboo" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>					
+					<li><a href="chirp/admin/list.do"><spring:message code="master.page.tabooChirps" /></a></li>
+					<li><a href="comment/admin/list.do"><spring:message code="master.page.tabooComments" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USER')">

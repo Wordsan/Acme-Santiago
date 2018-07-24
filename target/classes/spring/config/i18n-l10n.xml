@@ -22,6 +22,7 @@
         <value>/views/welcome/messages</value>
         <value>/views/chirp/messages</value>
         <value>/views/configurationSystem/messages</value>
+        <value>/views/comment/messages</value>
     </util:list>
 
 </beans>

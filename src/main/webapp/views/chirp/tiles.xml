@@ -25,5 +25,10 @@
 		<put-attribute name="title" value="Followed users stream's chirp" />
 		<put-attribute name="body" value="/views/chirp/stream.jsp" />
 	</definition>
+	
+	<definition name="chirp/tabooChirps" extends="master.page">	
+		<put-attribute name="title" value="Taboo chirps" />
+		<put-attribute name="body" value="/views/chirp/stream.jsp" />
+	</definition>
 
 </tiles-definitions>
