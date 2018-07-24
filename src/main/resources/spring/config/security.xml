@@ -49,6 +49,9 @@
 		<security:intercept-url pattern="/user/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/user/display.do" access="permitAll" /> 		
 		
+		<security:intercept-url pattern="/chirp/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/configurationSystem/admin/**" access="hasRole('ADMIN')" /> 	
+		
 		<security:intercept-url pattern="/dashboard.do" access="hasRole('ADMIN')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

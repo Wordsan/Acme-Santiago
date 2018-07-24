@@ -1,30 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
-
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	">
-	
-	<!-- UserAccounts -->
-
-	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="domain.ConfigurationSystem" id="configurationSystem_1">
+		<property name="tabooWords" value="sex,viagra,cialis"/>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_admin">
+		<property name="username" value="admin"/>
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3"/>
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="ADMIN"/>
 				</bean>
 			</list>
 		</property>
@@ -32,11 +17,11 @@
 
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="admin1" />
-		<property name="password" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="ADMIN"/>
 				</bean>
 			</list>
 		</property>
@@ -44,11 +29,11 @@
 
 	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="user2" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="USER" />
+					<property name="authority" value="USER"/>
 				</bean>
 			</list>
 		</property>
@@ -56,661 +41,4181 @@
 	
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="user1" />
-		<property name="password" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="USER" />
+					<property name="authority" value="USER"/>
 				</bean>
 			</list>
 		</property>
 	</bean>
-
-	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="innkeeper1" />
-		<property name="password" value="innkeeper1" />
+	<bean class="security.UserAccount" id="userAccount_innkeeper1">
+		<property name="username" value="innkeeper1"/>
+		<property name="password" value="innkeeper1"/>
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="INNKEEPER" />
+					<property name="authority" value="INNKEEPER"/>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="userAccount6" class="security.UserAccount">
-		<property name="username" value="innkeeper2" />
-		<property name="password" value="innkeeper2" />
+	<bean class="security.UserAccount" id="userAccount_innkeeper2">
+		<property name="username" value="innkeeper2"/>
+		<property name="password" value="innkeeper2"/>
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="INNKEEPER" />
+					<property name="authority" value="INNKEEPER"/>
 				</bean>
 			</list>
 		</property>
 	</bean>
-
-	<bean id="userAccount7" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+	<bean class="security.UserAccount" id="userAccount_super">
+		<property name="username" value="super"/>
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca"/>
 		<property name="authorities">
-			<list>
+			<list value-type="security.Authority">
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="ADMIN"/>
 				</bean>
 				<bean class="security.Authority">
-					<property name="authority" value="USER" />
+					<property name="authority" value="USER"/>
 				</bean>
 				<bean class="security.Authority">
-					<property name="authority" value="INNKEEPER" />
+					<property name="authority" value="INNKEEPER"/>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Administrators -->
-	
-	<bean id="administrator1" class="domain.Administrator">
-		<property name="name" value="administrador1" />
-		<property name="surname" value="admin" />
-		<property name="picture" value="" />
-		<property name="postalAddress" value="calle S/N, 41012, Sevilla, España" />
-		<property name="phoneNumber" value="" />
-		<property name="emailAddress" value="admin1@gmail.com" />
-		<property name="userAccount" ref="userAccount1" />
-	</bean>
-	
-	<bean id="administrator2" class="domain.Administrator">
-		<property name="name" value="administrador2" />
-		<property name="surname" value="admin" />
-		<property name="picture" value="https://www.image.com/" />
-		<property name="postalAddress" value="" />
-		<property name="phoneNumber" value="+99851345" />
-		<property name="emailAddress" value="admin2@gmail.com" />
-		<property name="userAccount" ref="userAccount2" />
-	</bean>
-	
-	<!-- Users -->
-	
-	<bean id="user1" class="domain.User">
-		<property name="name" value="user1" />
-		<property name="surname" value="user" />
-		<property name="picture" value="https://www.image1.com/" />
-		<property name="postalAddress" value="calle francia n3, 40000, Sevilla, España" />
-		<property name="phoneNumber" value="" />
-		<property name="emailAddress" value="user1@gmail.com" />
-		<property name="userAccount" ref="userAccount3" />
+	<bean class="domain.User" id="user_user2">
 		<property name="followedUsers">
-			<list>
-				
-			</list>
+			<list/>
 		</property>
 		<property name="registredRoutes">
 			<list>
-				<ref bean="route1" />
-				<ref bean="route2" />
-				<ref bean="route6"/>
-				<ref bean="route7"/>
-				<ref bean="route10"/>
+				<ref bean="route_1"/>
+				<ref bean="route_2"/>
+				<ref bean="route_6"/>
+				<ref bean="route_7"/>
+				<ref bean="route_10"/>
+				<ref bean="route_11"/>
+				<ref bean="route_13"/>
+				<ref bean="route_16"/>
+				<ref bean="route_17"/>
+				<ref bean="route_19"/>
+				<ref bean="route_21"/>
+				<ref bean="route_24"/>
+				<ref bean="route_25"/>
+				<ref bean="route_27"/>
+				<ref bean="route_29"/>
+				<ref bean="route_32"/>
+				<ref bean="route_33"/>
+				<ref bean="route_35"/>
+				<ref bean="route_37"/>
+				<ref bean="route_40"/>
+				<ref bean="route_41"/>
+				<ref bean="route_43"/>
+				<ref bean="route_45"/>
+				<ref bean="route_48"/>
+				<ref bean="route_49"/>
+				<ref bean="route_51"/>
+				<ref bean="route_53"/>
+				<ref bean="route_56"/>
+				<ref bean="route_57"/>
+				<ref bean="route_59"/>
+				<ref bean="route_61"/>
+				<ref bean="route_64"/>
+				<ref bean="route_65"/>
+				<ref bean="route_67"/>
+				<ref bean="route_69"/>
+				<ref bean="route_72"/>
+				<ref bean="route_73"/>
+				<ref bean="route_75"/>
+				<ref bean="route_77"/>
+				<ref bean="route_80"/>
+				<ref bean="route_81"/>
 			</list>
 		</property>
 		<property name="chirps">
 			<list>
-				<ref bean="chirp1" />
+				<ref bean="chirp_1"/>
 			</list>
 		</property>
 		<property name="routeComments">
 			<list>
-				<ref bean="comment1" />
-				<ref bean="comment5" />
+				<ref bean="comment_1"/>
+				<ref bean="comment_2"/>
+				<ref bean="comment_5"/>
 			</list>
 		</property>
 		<property name="hikeComments">
 			<list>
-				<ref bean="comment2" />
+				<ref bean="comment_1"/>
+				<ref bean="comment_2"/>
+				<ref bean="comment_5"/>
 			</list>
 		</property>
+		<property name="name" value="user1"/>
+		<property name="surname" value="user"/>
+		<property name="picture" value="https://www.image1.com/"/>
+		<property name="postalAddress" value="calle francia n3, 40000, Sevilla, España"/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="user1@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount3"/>
+		</property>
 	</bean>
-	
-	<bean id="user2" class="domain.User">
-		<property name="name" value="user2" />
-		<property name="surname" value="user" />
-		<property name="picture" value="" />
-		<property name="postalAddress" value="" />
-		<property name="phoneNumber" value="" />
-		<property name="emailAddress" value="user2@gmail.com" />
-		<property name="userAccount" ref="userAccount4" />
+	<bean class="domain.User" id="user_user1">
 		<property name="followedUsers">
 			<list>
-			<ref bean="user1" />
+				<ref bean="user_user2"/>
 			</list>
 		</property>
 		<property name="registredRoutes">
 			<list>
-				<ref bean="route3" />
-				<ref bean="route4"/>
-				<ref bean="route5"/>
-				<ref bean="route8"/>
-				<ref bean="route9"/>
+				<ref bean="route_3"/>
+				<ref bean="route_4"/>
+				<ref bean="route_5"/>
+				<ref bean="route_8"/>
+				<ref bean="route_9"/>
+				<ref bean="route_12"/>
+				<ref bean="route_14"/>
+				<ref bean="route_15"/>
+				<ref bean="route_18"/>
+				<ref bean="route_20"/>
+				<ref bean="route_22"/>
+				<ref bean="route_23"/>
+				<ref bean="route_26"/>
+				<ref bean="route_28"/>
+				<ref bean="route_30"/>
+				<ref bean="route_31"/>
+				<ref bean="route_34"/>
+				<ref bean="route_36"/>
+				<ref bean="route_38"/>
+				<ref bean="route_39"/>
+				<ref bean="route_42"/>
+				<ref bean="route_44"/>
+				<ref bean="route_46"/>
+				<ref bean="route_47"/>
+				<ref bean="route_50"/>
+				<ref bean="route_52"/>
+				<ref bean="route_54"/>
+				<ref bean="route_55"/>
+				<ref bean="route_58"/>
+				<ref bean="route_60"/>
+				<ref bean="route_62"/>
+				<ref bean="route_63"/>
+				<ref bean="route_66"/>
+				<ref bean="route_68"/>
+				<ref bean="route_70"/>
+				<ref bean="route_71"/>
+				<ref bean="route_74"/>
+				<ref bean="route_76"/>
+				<ref bean="route_78"/>
+				<ref bean="route_79"/>
+				<ref bean="route_82"/>
 			</list>
 		</property>
 		<property name="chirps">
 			<list>
-				<ref bean="chirp2" />
-				<ref bean="chirp3" />
+				<ref bean="chirp_2"/>
+				<ref bean="chirp_3"/>
 			</list>
 		</property>
 		<property name="routeComments">
 			<list>
-				<ref bean="comment3" />
-				<ref bean="comment6" />
+				<ref bean="comment_3"/>
+				<ref bean="comment_4"/>
+				<ref bean="comment_6"/>
 			</list>
 		</property>
 		<property name="hikeComments">
 			<list>
-				<ref bean="comment4" />
+				<ref bean="comment_3"/>
+				<ref bean="comment_4"/>
+				<ref bean="comment_6"/>
 			</list>
 		</property>
+		<property name="name" value="user2"/>
+		<property name="surname" value="user"/>
+		<property name="picture" value=""/>
+		<property name="postalAddress" value=""/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="user2@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount4"/>
+		</property>
 	</bean>
-	
-	<!-- Innkeepers -->
-	
-	<bean id="innkeeper1" class="domain.Innkeeper">
-		<property name="name" value="innkeeper1" />
-		<property name="surname" value="innkeeper" />
-		<property name="picture" value="" />
-		<property name="postalAddress" value="" />
-		<property name="phoneNumber" value="" />
-		<property name="emailAddress" value="innkeeper1@gmail.com" />
-		<property name="userAccount" ref="userAccount5" />
+	<bean class="domain.Administrator" id="administrator_admin">
+		<property name="name" value="administrador1"/>
+		<property name="surname" value="admin"/>
+		<property name="picture" value=""/>
+		<property name="postalAddress" value="calle S/N, 41012, Sevilla, España"/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="admin1@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount_admin"/>
+		</property>
+	</bean>
+	<bean class="domain.Administrator" id="administrator_admin1">
+		<property name="name" value="administrador2"/>
+		<property name="surname" value="admin"/>
+		<property name="picture" value="https://www.image.com/"/>
+		<property name="postalAddress" value=""/>
+		<property name="phoneNumber" value="+99851345"/>
+		<property name="emailAddress" value="admin2@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount2"/>
+		</property>
+	</bean>
+	<bean class="domain.Innkeeper" id="innkeeper_innkeeper1">
 		<property name="inns">
 			<list>
-				<ref bean="inn1"/>
+				<ref bean="inn_1"/>
 			</list>
 		</property>
+		<property name="name" value="innkeeper1"/>
+		<property name="surname" value="innkeeper"/>
+		<property name="picture" value=""/>
+		<property name="postalAddress" value=""/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="innkeeper1@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount_innkeeper1"/>
+		</property>
 	</bean>
-	
-	<bean id="innkeeper2" class="domain.Innkeeper">
-		<property name="name" value="innkeeper2" />
-		<property name="surname" value="innkeeper" />
-		<property name="picture" value="" />
-		<property name="postalAddress" value="calle Posada n30,20000,Madrid, España" />
-		<property name="phoneNumber" value="" />
-		<property name="emailAddress" value="innkeeper2@gmail.com" />
-		<property name="userAccount" ref="userAccount6" />
+	<bean class="domain.Innkeeper" id="innkeeper_innkeeper2">
 		<property name="inns">
 			<list>
-				<ref bean="inn2"/>
+				<ref bean="inn_2"/>
 			</list>
 		</property>
+		<property name="name" value="innkeeper2"/>
+		<property name="surname" value="innkeeper"/>
+		<property name="picture" value=""/>
+		<property name="postalAddress" value="calle Posada n30,20000,Madrid, España"/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="innkeeper2@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount_innkeeper2"/>
+		</property>
 	</bean>
-	
-	<!-- Routes-->
-	
-	<bean id="route1" class="domain.Route">
-		<property name="name" value="route1" />
-		<property name="length" value="1600" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Chirp" id="chirp_1">
+		<property name="postMoment" value="2018/10/14 08:10:00"/>
+		<property name="title" value="chirp1"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Chirp" id="chirp_2">
+		<property name="postMoment" value="2018/01/20 08:10:00"/>
+		<property name="title" value="chirp2"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Chirp" id="chirp_3">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp3"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Inn" id="inn_1">
+		<property name="name" value="inn1"/>
+		<property name="badge" value="https://www.bagde1.com/"/>
+		<property name="address" value="This is a address"/>
+		<property name="phoneNumber" value="98786543"/>
+		<property name="email" value="inn1@gmail.com"/>
+		<property name="webSite" value=""/>
+		<property name="creditCard" value="4485079952951457"/>
+		<property name="innkeeper">
+			<ref bean="innkeeper_innkeeper1"/>
+		</property>
+	</bean>
+	<bean class="domain.Inn" id="inn_2">
+		<property name="name" value="inn2"/>
+		<property name="badge" value="https://www.bagde2.com/"/>
+		<property name="address" value="This is a address"/>
+		<property name="phoneNumber" value="123456789"/>
+		<property name="email" value="inn2@gmail.com"/>
+		<property name="webSite" value=""/>
+		<property name="creditCard" value="4485079952951457"/>
+		<property name="innkeeper">
+			<ref bean="innkeeper_innkeeper2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_1">
+		<property name="name" value="route1"/>
+		<property name="length" value="62600.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture1.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike1"/>
-				<ref bean="hike4"/>
+				<ref bean="hike_1"/>
+				<ref bean="hike_2"/>
+				<ref bean="hike_3"/>
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment1"/>
+				<ref bean="comment_1"/>
 			</list>
 		</property>
-		<property name="creator" ref="user1"/>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
 	</bean>
-
-	<bean id="route2" class="domain.Route">
-		<property name="name" value="route2" />
-		<property name="length" value="1800" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_2">
+		<property name="name" value="route2"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture2.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike2"/>
+				<ref bean="hike_4"/>
 			</list>
 		</property>
 		<property name="comments">
-			<list>
-			</list>
+			<list/>
 		</property>
-		<property name="creator" ref="user1"/>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
 	</bean>
-	
-	<bean id="route3" class="domain.Route">
-		<property name="name" value="route3" />
-		<property name="length" value="1900" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_3">
+		<property name="name" value="route3"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture3.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike3"/>
+				<ref bean="hike_5"/>
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment3"/>
+				<ref bean="comment_3"/>
 			</list>
 		</property>
-		<property name="creator" ref="user2"/>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
 	</bean>
-	
-	<bean id="route4" class="domain.Route">
-		<property name="name" value="route4" />
-		<property name="length" value="45000" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_4">
+		<property name="name" value="route4"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture21.com/"/>
 		<property name="composedHikes">
 			<list>
+				<ref bean="hike_6"/>
 			</list>
 		</property>
 		<property name="comments">
-			<list>
-			</list>
+			<list/>
 		</property>
-		<property name="creator" ref="user2"/>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
 	</bean>
-	
-	<bean id="route5" class="domain.Route">
-		<property name="name" value="route5" />
-		<property name="length" value="1700" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_5">
+		<property name="name" value="route5"/>
+		<property name="length" value="10.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture23.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike5"/>
+				<ref bean="hike_7"/>
 			</list>
 		</property>
 		<property name="comments">
-			<list>
-			</list>
+			<list/>
 		</property>
-		<property name="creator" ref="user2"/>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
 	</bean>
-	
-	<bean id="route6" class="domain.Route">
-		<property name="name" value="route6" />
-		<property name="length" value="1650" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_6">
+		<property name="name" value="route6"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture60.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike6"/>
+				<ref bean="hike_8"/>
+				<ref bean="hike_9"/>
 			</list>
 		</property>
 		<property name="comments">
-			<list>
-			</list>
+			<list/>
 		</property>
-		<property name="creator" ref="user1"/>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
 	</bean>
-	
-	<bean id="route7" class="domain.Route">
-		<property name="name" value="route7" />
-		<property name="length" value="1670" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_7">
+		<property name="name" value="route7"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture70.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike7"/>
+				<ref bean="hike_10"/>
+				<ref bean="hike_11"/>
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment5"/>
+				<ref bean="comment_5"/>
 			</list>
 		</property>
-		<property name="creator" ref="user1"/>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
 	</bean>
-	
-	<bean id="route8" class="domain.Route">
-		<property name="name" value="route8" />
-		<property name="length" value="1800" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_8">
+		<property name="name" value="route8"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture71.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike8"/>
-				<ref bean="hike9"/>
-				<ref bean="hike10"/>
+				<ref bean="hike_12"/>
+				<ref bean="hike_13"/>
+				<ref bean="hike_14"/>
 			</list>
 		</property>
 		<property name="comments">
-			<list>
-			</list>
+			<list/>
 		</property>
-		<property name="creator" ref="user2"/>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
 	</bean>
-	
-	<bean id="route9" class="domain.Route">
-		<property name="name" value="route9" />
-		<property name="length" value="1570" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_9">
+		<property name="name" value="route9"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture72.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike11"/>
+				<ref bean="hike_15"/>
+				<ref bean="hike_16"/>
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment6"/>
+				<ref bean="comment_6"/>
 			</list>
 		</property>
-		<property name="creator" ref="user2"/>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
 	</bean>
-	
-	<bean id="route10" class="domain.Route">
-		<property name="name" value="route10" />
-		<property name="length" value="1580" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_10">
+		<property name="name" value="route10"/>
+		<property name="length" value="20020.0"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture73.com/"/>
 		<property name="composedHikes">
 			<list>
-				<ref bean="hike12"/>
+				<ref bean="hike_17"/>
+				<ref bean="hike_18"/>
 			</list>
 		</property>
 		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_11">
+		<property name="name" value="route11"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
 			<list>
+				<ref bean="hike_19"/>
+				<ref bean="hike_20"/>
+				<ref bean="hike_21"/>
 			</list>
 		</property>
-		<property name="creator" ref="user1"/>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
 	</bean>
-	
-	<!-- Hikes -->
-	
-	<bean id="hike1" class="domain.Hike">
-		<property name="name" value="hike1" />
-		<property name="length" value="100" />
-		<property name="originCity" value="o1" />
-		<property name="destinationCity" value="o2" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Route" id="route_12">
+		<property name="name" value="route12"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_22"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_13">
+		<property name="name" value="route13"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_23"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_14">
+		<property name="name" value="route14"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_24"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_15">
+		<property name="name" value="route15"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_25"/>
+				<ref bean="hike_26"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_16">
+		<property name="name" value="route16"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_27"/>
+				<ref bean="hike_28"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_17">
+		<property name="name" value="route17"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_29"/>
+				<ref bean="hike_30"/>
+				<ref bean="hike_31"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_18">
+		<property name="name" value="route18"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_32"/>
+				<ref bean="hike_33"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_19">
+		<property name="name" value="route19"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_34"/>
+				<ref bean="hike_35"/>
+				<ref bean="hike_36"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_20">
+		<property name="name" value="route20"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_37"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_21">
+		<property name="name" value="route21"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_38"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_22">
+		<property name="name" value="route22"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_39"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_23">
+		<property name="name" value="route23"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_40"/>
+				<ref bean="hike_41"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_24">
+		<property name="name" value="route24"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_42"/>
+				<ref bean="hike_43"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_25">
+		<property name="name" value="route25"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_44"/>
+				<ref bean="hike_45"/>
+				<ref bean="hike_46"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_26">
+		<property name="name" value="route26"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_47"/>
+				<ref bean="hike_48"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_27">
+		<property name="name" value="route27"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_49"/>
+				<ref bean="hike_50"/>
+				<ref bean="hike_51"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_28">
+		<property name="name" value="route28"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_52"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_29">
+		<property name="name" value="route29"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_53"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_30">
+		<property name="name" value="route30"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_54"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_31">
+		<property name="name" value="route31"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_55"/>
+				<ref bean="hike_56"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_32">
+		<property name="name" value="route32"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_57"/>
+				<ref bean="hike_58"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_33">
+		<property name="name" value="route33"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_59"/>
+				<ref bean="hike_60"/>
+				<ref bean="hike_61"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_34">
+		<property name="name" value="route34"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_62"/>
+				<ref bean="hike_63"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_35">
+		<property name="name" value="route35"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_64"/>
+				<ref bean="hike_65"/>
+				<ref bean="hike_66"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_36">
+		<property name="name" value="route36"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_67"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_37">
+		<property name="name" value="route37"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_68"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_38">
+		<property name="name" value="route38"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_69"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_39">
+		<property name="name" value="route39"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_70"/>
+				<ref bean="hike_71"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_40">
+		<property name="name" value="route40"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_72"/>
+				<ref bean="hike_73"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_41">
+		<property name="name" value="route41"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_74"/>
+				<ref bean="hike_75"/>
+				<ref bean="hike_76"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_42">
+		<property name="name" value="route42"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_77"/>
+				<ref bean="hike_78"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_43">
+		<property name="name" value="route43"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_79"/>
+				<ref bean="hike_80"/>
+				<ref bean="hike_81"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_44">
+		<property name="name" value="route44"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_82"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_45">
+		<property name="name" value="route45"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_83"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_46">
+		<property name="name" value="route46"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_84"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_47">
+		<property name="name" value="route47"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_85"/>
+				<ref bean="hike_86"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_48">
+		<property name="name" value="route48"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_87"/>
+				<ref bean="hike_88"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_49">
+		<property name="name" value="route49"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_89"/>
+				<ref bean="hike_90"/>
+				<ref bean="hike_91"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_50">
+		<property name="name" value="route50"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_92"/>
+				<ref bean="hike_93"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_51">
+		<property name="name" value="route51"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_94"/>
+				<ref bean="hike_95"/>
+				<ref bean="hike_96"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_52">
+		<property name="name" value="route52"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_97"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_53">
+		<property name="name" value="route53"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_98"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_54">
+		<property name="name" value="route54"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_99"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_55">
+		<property name="name" value="route55"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_100"/>
+				<ref bean="hike_101"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_56">
+		<property name="name" value="route56"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_102"/>
+				<ref bean="hike_103"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_57">
+		<property name="name" value="route57"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_104"/>
+				<ref bean="hike_105"/>
+				<ref bean="hike_106"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_58">
+		<property name="name" value="route58"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_107"/>
+				<ref bean="hike_108"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_59">
+		<property name="name" value="route59"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_109"/>
+				<ref bean="hike_110"/>
+				<ref bean="hike_111"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_60">
+		<property name="name" value="route60"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_112"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_61">
+		<property name="name" value="route61"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_113"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_62">
+		<property name="name" value="route62"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_114"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_63">
+		<property name="name" value="route63"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_115"/>
+				<ref bean="hike_116"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_64">
+		<property name="name" value="route64"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_117"/>
+				<ref bean="hike_118"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_65">
+		<property name="name" value="route65"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_119"/>
+				<ref bean="hike_120"/>
+				<ref bean="hike_121"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_66">
+		<property name="name" value="route66"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_122"/>
+				<ref bean="hike_123"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_67">
+		<property name="name" value="route67"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_124"/>
+				<ref bean="hike_125"/>
+				<ref bean="hike_126"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_68">
+		<property name="name" value="route68"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_127"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_69">
+		<property name="name" value="route69"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_128"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_70">
+		<property name="name" value="route70"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_129"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_71">
+		<property name="name" value="route71"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_130"/>
+				<ref bean="hike_131"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_72">
+		<property name="name" value="route72"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_132"/>
+				<ref bean="hike_133"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_73">
+		<property name="name" value="route73"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_134"/>
+				<ref bean="hike_135"/>
+				<ref bean="hike_136"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_74">
+		<property name="name" value="route74"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_137"/>
+				<ref bean="hike_138"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_75">
+		<property name="name" value="route75"/>
+		<property name="length" value="22600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture2.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_139"/>
+				<ref bean="hike_140"/>
+				<ref bean="hike_141"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_76">
+		<property name="name" value="route76"/>
+		<property name="length" value="20000.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture3.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_142"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_77">
+		<property name="name" value="route77"/>
+		<property name="length" value="20100.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture60.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_143"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_78">
+		<property name="name" value="route78"/>
+		<property name="length" value="22040.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture72.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_144"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_79">
+		<property name="name" value="route79"/>
+		<property name="length" value="20400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture21.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_145"/>
+				<ref bean="hike_146"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_80">
+		<property name="name" value="route80"/>
+		<property name="length" value="22400.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture70.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_147"/>
+				<ref bean="hike_148"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_81">
+		<property name="name" value="route81"/>
+		<property name="length" value="27600.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture1.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_149"/>
+				<ref bean="hike_150"/>
+				<ref bean="hike_151"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user2"/>
+		</property>
+	</bean>
+	<bean class="domain.Route" id="route_82">
+		<property name="name" value="route82"/>
+		<property name="length" value="21220.0"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture71.com/"/>
+		<property name="composedHikes">
+			<list>
+				<ref bean="hike_152"/>
+				<ref bean="hike_153"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+		<property name="creator">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_1">
+		<property name="name" value="hike1"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture4.com/"/>
 		<property name="difficultyLevel" value="EASY"/>
-		<property name="route" ref="route1" />
+		<property name="route">
+			<ref bean="route_1"/>
+		</property>
 		<property name="comments">
 			<list>
-				<ref bean="comment2"></ref>
+				<ref bean="comment_2"/>
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="hike2" class="domain.Hike">
-		<property name="name" value="hike2" />
-		<property name="length" value="1000" />
-		<property name="originCity" value="o3" />
-		<property name="destinationCity" value="o4" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture5.com/"/>
-		<property name="difficultyLevel" value="MEDIUM"/>
-		<property name="route" ref="route2" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike3" class="domain.Hike">
-		<property name="name" value="hike3" />
-		<property name="length" value="1005" />
-		<property name="originCity" value="o5" />
-		<property name="destinationCity" value="o6" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture6.com/"/>
-		<property name="difficultyLevel" value="DIFFICULT"/>
-		<property name="route" ref="route3" />
-		<property name="comments">
-			<list>
-				<ref bean="comment4"></ref>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike4" class="domain.Hike">
-		<property name="name" value="hike4" />
-		<property name="length" value="250" />
-		<property name="originCity" value="o7" />
-		<property name="destinationCity" value="o8" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Hike" id="hike_2">
+		<property name="name" value="hike2"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture20.com/"/>
 		<property name="difficultyLevel" value="MEDIUM"/>
-		<property name="route" ref="route1" />
+		<property name="route">
+			<ref bean="route_1"/>
+		</property>
 		<property name="comments">
-			<list>
-			</list>
+			<list/>
 		</property>
 	</bean>
-	
-	<bean id="hike5" class="domain.Hike">
-		<property name="name" value="hike5" />
-		<property name="length" value="300" />
-		<property name="originCity" value="o8" />
-		<property name="destinationCity" value="o9" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture40.com/"/>
-		<property name="difficultyLevel" value="EASY"/>
-		<property name="route" ref="route5" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike6" class="domain.Hike">
-		<property name="name" value="hike6" />
-		<property name="length" value="400" />
-		<property name="originCity" value="o10" />
-		<property name="destinationCity" value="o11" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture55.com/"/>
-		<property name="difficultyLevel" value="EASY"/>
-		<property name="route" ref="route6" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike7" class="domain.Hike">
-		<property name="name" value="hike7" />
-		<property name="length" value="500" />
-		<property name="originCity" value="o12" />
-		<property name="destinationCity" value="o13" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture56.com/"/>
-		<property name="difficultyLevel" value="DIFFICULT"/>
-		<property name="route" ref="route7" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike8" class="domain.Hike">
-		<property name="name" value="hike8" />
-		<property name="length" value="450" />
-		<property name="originCity" value="o14" />
-		<property name="destinationCity" value="o15" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture57.com/"/>
-		<property name="difficultyLevel" value="DIFFICULT"/>
-		<property name="route" ref="route8" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike9" class="domain.Hike">
-		<property name="name" value="hike9" />
-		<property name="length" value="460" />
-		<property name="originCity" value="o16" />
-		<property name="destinationCity" value="o17" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture58.com/"/>
-		<property name="difficultyLevel" value="EASY"/>
-		<property name="route" ref="route8" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike10" class="domain.Hike">
-		<property name="name" value="hike10" />
-		<property name="length" value="470" />
-		<property name="originCity" value="o18" />
-		<property name="destinationCity" value="o19" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture59.com/"/>
-		<property name="difficultyLevel" value="EASY"/>
-		<property name="route" ref="route8" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike11" class="domain.Hike">
-		<property name="name" value="hike11" />
-		<property name="length" value="480" />
-		<property name="originCity" value="o20" />
-		<property name="destinationCity" value="o21" />
-		<property name="description" value="This is a description" />
-		<property name="pictures" value="https://www.picture59.com/"/>
-		<property name="difficultyLevel" value="MEDIUM"/>
-		<property name="route" ref="route9" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="hike12" class="domain.Hike">
-		<property name="name" value="hike12" />
-		<property name="length" value="501" />
-		<property name="originCity" value="o22" />
-		<property name="destinationCity" value="o23" />
-		<property name="description" value="This is a description" />
+	<bean class="domain.Hike" id="hike_3">
+		<property name="name" value="hike3"/>
+		<property name="length" value="55600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
 		<property name="pictures" value="https://www.picture73.com/"/>
 		<property name="difficultyLevel" value="MEDIUM"/>
-		<property name="route" ref="route10" />
+		<property name="route">
+			<ref bean="route_1"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_4">
+		<property name="name" value="hike4"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_2"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_5">
+		<property name="name" value="hike5"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_3"/>
+		</property>
 		<property name="comments">
 			<list>
+				<ref bean="comment_4"/>
 			</list>
 		</property>
 	</bean>
-	<!-- Chirps -->
-	
-	<bean id="chirp1" class="domain.Chirp">
-		<property name="title" value="chirp1" />
-		<property name="postMoment" value="October 14, 2018 08:10" />
-		<property name="description" value="This is a description" />
-		<property name="user" ref="user1"/>
+	<bean class="domain.Hike" id="hike_6">
+		<property name="name" value="hike6"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_4"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
 	</bean>
-	
-	<bean id="chirp2" class="domain.Chirp">
-		<property name="title" value="chirp2" />
-		<property name="postMoment" value="January 20, 2018 08:10" />
-		<property name="description" value="This is a description" />
-		<property name="user" ref="user2"/>
+	<bean class="domain.Hike" id="hike_7">
+		<property name="name" value="hike7"/>
+		<property name="length" value="10.0"/>
+		<property name="originCity" value="o8"/>
+		<property name="destinationCity" value="o9"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture40.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_5"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
 	</bean>
-	
-	<bean id="chirp3" class="domain.Chirp">
-		<property name="title" value="chirp3" />
-		<property name="postMoment" value="May 1, 2016 08:10" />
-		<property name="description" value="This is a description" />
-		<property name="user" ref="user2"/>
+	<bean class="domain.Hike" id="hike_8">
+		<property name="name" value="hike8"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_6"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
 	</bean>
-	
-	<!-- Comments -->
-	
-	<bean id="comment1" class="domain.Comment">
-		<property name="title" value="comment1" />
-		<property name="writeMoment" value="October 14, 2018 08:10" />
-		<property name="text" value="This is a text" />
+	<bean class="domain.Hike" id="hike_9">
+		<property name="name" value="hike9"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_6"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_10">
+		<property name="name" value="hike10"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_7"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_11">
+		<property name="name" value="hike11"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_7"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_12">
+		<property name="name" value="hike12"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_8"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_13">
+		<property name="name" value="hike13"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_8"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_14">
+		<property name="name" value="hike14"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_8"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_15">
+		<property name="name" value="hike15"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_9"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_16">
+		<property name="name" value="hike16"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_9"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_17">
+		<property name="name" value="hike17"/>
+		<property name="length" value="10020.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_10"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_18">
+		<property name="name" value="hike18"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_10"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_19">
+		<property name="name" value="hike19"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_11"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_20">
+		<property name="name" value="hike20"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_11"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_21">
+		<property name="name" value="hike21"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_11"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_22">
+		<property name="name" value="hike22"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_12"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_23">
+		<property name="name" value="hike23"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_13"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_24">
+		<property name="name" value="hike24"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_14"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_25">
+		<property name="name" value="hike25"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_15"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_26">
+		<property name="name" value="hike26"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_15"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_27">
+		<property name="name" value="hike27"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_16"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_28">
+		<property name="name" value="hike28"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_16"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_29">
+		<property name="name" value="hike29"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_17"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_30">
+		<property name="name" value="hike30"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_17"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_31">
+		<property name="name" value="hike31"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_17"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_32">
+		<property name="name" value="hike32"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_18"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_33">
+		<property name="name" value="hike33"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_18"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_34">
+		<property name="name" value="hike34"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_19"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_35">
+		<property name="name" value="hike35"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_19"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_36">
+		<property name="name" value="hike36"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_19"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_37">
+		<property name="name" value="hike37"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_20"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_38">
+		<property name="name" value="hike38"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_21"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_39">
+		<property name="name" value="hike39"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_22"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_40">
+		<property name="name" value="hike40"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_23"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_41">
+		<property name="name" value="hike41"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_23"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_42">
+		<property name="name" value="hike42"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_24"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_43">
+		<property name="name" value="hike43"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_24"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_44">
+		<property name="name" value="hike44"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_25"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_45">
+		<property name="name" value="hike45"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_25"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_46">
+		<property name="name" value="hike46"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_25"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_47">
+		<property name="name" value="hike47"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_26"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_48">
+		<property name="name" value="hike48"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_26"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_49">
+		<property name="name" value="hike49"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_27"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_50">
+		<property name="name" value="hike50"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_27"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_51">
+		<property name="name" value="hike51"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_27"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_52">
+		<property name="name" value="hike52"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_28"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_53">
+		<property name="name" value="hike53"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_29"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_54">
+		<property name="name" value="hike54"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_30"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_55">
+		<property name="name" value="hike55"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_31"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_56">
+		<property name="name" value="hike56"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_31"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_57">
+		<property name="name" value="hike57"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_32"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_58">
+		<property name="name" value="hike58"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_32"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_59">
+		<property name="name" value="hike59"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_33"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_60">
+		<property name="name" value="hike60"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_33"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_61">
+		<property name="name" value="hike61"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_33"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_62">
+		<property name="name" value="hike62"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_34"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_63">
+		<property name="name" value="hike63"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_34"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_64">
+		<property name="name" value="hike64"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_35"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_65">
+		<property name="name" value="hike65"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_35"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_66">
+		<property name="name" value="hike66"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_35"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_67">
+		<property name="name" value="hike67"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_36"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_68">
+		<property name="name" value="hike68"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_37"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_69">
+		<property name="name" value="hike69"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_38"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_70">
+		<property name="name" value="hike70"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_39"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_71">
+		<property name="name" value="hike71"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_39"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_72">
+		<property name="name" value="hike72"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_40"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_73">
+		<property name="name" value="hike73"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_40"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_74">
+		<property name="name" value="hike74"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_41"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_75">
+		<property name="name" value="hike75"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_41"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_76">
+		<property name="name" value="hike76"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_41"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_77">
+		<property name="name" value="hike77"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_42"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_78">
+		<property name="name" value="hike78"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_42"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_79">
+		<property name="name" value="hike79"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_43"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_80">
+		<property name="name" value="hike80"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_43"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_81">
+		<property name="name" value="hike81"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_43"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_82">
+		<property name="name" value="hike82"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_44"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_83">
+		<property name="name" value="hike83"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_45"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_84">
+		<property name="name" value="hike84"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_46"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_85">
+		<property name="name" value="hike85"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_47"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_86">
+		<property name="name" value="hike86"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_47"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_87">
+		<property name="name" value="hike87"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_48"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_88">
+		<property name="name" value="hike88"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_48"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_89">
+		<property name="name" value="hike89"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_49"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_90">
+		<property name="name" value="hike90"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_49"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_91">
+		<property name="name" value="hike91"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_49"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_92">
+		<property name="name" value="hike92"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_50"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_93">
+		<property name="name" value="hike93"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_50"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_94">
+		<property name="name" value="hike94"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_51"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_95">
+		<property name="name" value="hike95"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_51"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_96">
+		<property name="name" value="hike96"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_51"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_97">
+		<property name="name" value="hike97"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_52"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_98">
+		<property name="name" value="hike98"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_53"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_99">
+		<property name="name" value="hike99"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_54"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_100">
+		<property name="name" value="hike100"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_55"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_101">
+		<property name="name" value="hike101"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_55"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_102">
+		<property name="name" value="hike102"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_56"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_103">
+		<property name="name" value="hike103"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_56"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_104">
+		<property name="name" value="hike104"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_57"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_105">
+		<property name="name" value="hike105"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_57"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_106">
+		<property name="name" value="hike106"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_57"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_107">
+		<property name="name" value="hike107"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_58"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_108">
+		<property name="name" value="hike108"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_58"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_109">
+		<property name="name" value="hike109"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_59"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_110">
+		<property name="name" value="hike110"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_59"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_111">
+		<property name="name" value="hike111"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_59"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_112">
+		<property name="name" value="hike112"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_60"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_113">
+		<property name="name" value="hike113"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_61"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_114">
+		<property name="name" value="hike114"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_62"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_115">
+		<property name="name" value="hike115"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_63"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_116">
+		<property name="name" value="hike116"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_63"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_117">
+		<property name="name" value="hike117"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_64"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_118">
+		<property name="name" value="hike118"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_64"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_119">
+		<property name="name" value="hike119"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_65"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_120">
+		<property name="name" value="hike120"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_65"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_121">
+		<property name="name" value="hike121"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_65"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_122">
+		<property name="name" value="hike122"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_66"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_123">
+		<property name="name" value="hike123"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_66"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_124">
+		<property name="name" value="hike124"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_67"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_125">
+		<property name="name" value="hike125"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_67"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_126">
+		<property name="name" value="hike126"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_67"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_127">
+		<property name="name" value="hike127"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_68"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_128">
+		<property name="name" value="hike128"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_69"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_129">
+		<property name="name" value="hike129"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_70"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_130">
+		<property name="name" value="hike130"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_71"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_131">
+		<property name="name" value="hike131"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_71"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_132">
+		<property name="name" value="hike132"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_72"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_133">
+		<property name="name" value="hike133"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_72"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_134">
+		<property name="name" value="hike134"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_73"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_135">
+		<property name="name" value="hike135"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_73"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_136">
+		<property name="name" value="hike136"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_73"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_137">
+		<property name="name" value="hike137"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_74"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_138">
+		<property name="name" value="hike138"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_74"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_139">
+		<property name="name" value="hike139"/>
+		<property name="length" value="2000.0"/>
+		<property name="originCity" value="o1"/>
+		<property name="destinationCity" value="o2"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture4.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_75"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_140">
+		<property name="name" value="hike140"/>
+		<property name="length" value="5000.0"/>
+		<property name="originCity" value="o7"/>
+		<property name="destinationCity" value="o8"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture20.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_75"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_141">
+		<property name="name" value="hike141"/>
+		<property name="length" value="15600.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_75"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_142">
+		<property name="name" value="hike142"/>
+		<property name="length" value="20000.0"/>
+		<property name="originCity" value="o3"/>
+		<property name="destinationCity" value="o4"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture5.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_76"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_143">
+		<property name="name" value="hike143"/>
+		<property name="length" value="20100.0"/>
+		<property name="originCity" value="o5"/>
+		<property name="destinationCity" value="o6"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture6.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_77"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_144">
+		<property name="name" value="hike144"/>
+		<property name="length" value="22040.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_78"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_145">
+		<property name="name" value="hike145"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_79"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_146">
+		<property name="name" value="hike146"/>
+		<property name="length" value="8000.0"/>
+		<property name="originCity" value="o10"/>
+		<property name="destinationCity" value="o11"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture55.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_79"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_147">
+		<property name="name" value="hike147"/>
+		<property name="length" value="12400.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_80"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_148">
+		<property name="name" value="hike148"/>
+		<property name="length" value="10000.0"/>
+		<property name="originCity" value="o12"/>
+		<property name="destinationCity" value="o13"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture56.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_80"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_149">
+		<property name="name" value="hike149"/>
+		<property name="length" value="9000.0"/>
+		<property name="originCity" value="o14"/>
+		<property name="destinationCity" value="o15"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture57.com/"/>
+		<property name="difficultyLevel" value="DIFFICULT"/>
+		<property name="route">
+			<ref bean="route_81"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_150">
+		<property name="name" value="hike150"/>
+		<property name="length" value="9200.0"/>
+		<property name="originCity" value="o16"/>
+		<property name="destinationCity" value="o17"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture58.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_81"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_151">
+		<property name="name" value="hike151"/>
+		<property name="length" value="9400.0"/>
+		<property name="originCity" value="o18"/>
+		<property name="destinationCity" value="o19"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="EASY"/>
+		<property name="route">
+			<ref bean="route_81"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_152">
+		<property name="name" value="hike152"/>
+		<property name="length" value="11620.0"/>
+		<property name="originCity" value="o22"/>
+		<property name="destinationCity" value="o23"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture73.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_82"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Hike" id="hike_153">
+		<property name="name" value="hike153"/>
+		<property name="length" value="9600.0"/>
+		<property name="originCity" value="o20"/>
+		<property name="destinationCity" value="o21"/>
+		<property name="description" value="This is a description"/>
+		<property name="pictures" value="https://www.picture59.com/"/>
+		<property name="difficultyLevel" value="MEDIUM"/>
+		<property name="route">
+			<ref bean="route_82"/>
+		</property>
+		<property name="comments">
+			<list/>
+		</property>
+	</bean>
+	<bean class="domain.Comment" id="comment_1">
+		<property name="writeMoment" value="2018/10/14 08:10:00"/>
+		<property name="title" value="comment1"/>
+		<property name="text" value="This is a text"/>
 		<property name="pictures" value="https://www.jeje.com/"/>
 		<property name="rate" value="2"/>
-		<property name="owner" ref="user1"/>
+		<property name="owner">
+			<ref bean="user_user2"/>
+		</property>
+		<property name="route">
+			<ref bean="route_1"/>
+		</property>
+		<property name="hike">
+			<null/>
+		</property>
 	</bean>
-	
-	<bean id="comment2" class="domain.Comment">
-		<property name="title" value="comment2" />
-		<property name="writeMoment" value="May 2, 2020 08:10" />
-		<property name="text" value="This is a text" />
+	<bean class="domain.Comment" id="comment_2">
+		<property name="writeMoment" value="2020/05/02 08:10:00"/>
+		<property name="title" value="comment2"/>
+		<property name="text" value="This is a text"/>
 		<property name="pictures" value="https://www.jeje1.com/"/>
 		<property name="rate" value="0"/>
-		<property name="owner" ref="user1"/>
+		<property name="owner">
+			<ref bean="user_user2"/>
+		</property>
+		<property name="route">
+			<null/>
+		</property>
+		<property name="hike">
+			<ref bean="hike_1"/>
+		</property>
 	</bean>
-	
-	<bean id="comment3" class="domain.Comment">
-		<property name="title" value="comment3" />
-		<property name="writeMoment" value="October 16, 2018 08:10" />
-		<property name="text" value="This is a text" />
+	<bean class="domain.Comment" id="comment_3">
+		<property name="writeMoment" value="2018/10/16 08:10:00"/>
+		<property name="title" value="comment3"/>
+		<property name="text" value="This is a text"/>
 		<property name="pictures" value="https://www.jeje2.com/"/>
 		<property name="rate" value="3"/>
-		<property name="owner" ref="user2"/>
+		<property name="owner">
+			<ref bean="user_user1"/>
+		</property>
+		<property name="route">
+			<ref bean="route_3"/>
+		</property>
+		<property name="hike">
+			<null/>
+		</property>
 	</bean>
-	
-	<bean id="comment4" class="domain.Comment">
-		<property name="title" value="comment4" />
-		<property name="writeMoment" value="February 14, 2018 08:10" />
-		<property name="text" value="This is a text" />
+	<bean class="domain.Comment" id="comment_4">
+		<property name="writeMoment" value="2018/02/14 08:10:00"/>
+		<property name="title" value="comment4"/>
+		<property name="text" value="This is a text"/>
 		<property name="pictures" value="https://www.jeje4.com/"/>
 		<property name="rate" value="2"/>
-		<property name="owner" ref="user2"/>
+		<property name="owner">
+			<ref bean="user_user1"/>
+		</property>
+		<property name="route">
+			<null/>
+		</property>
+		<property name="hike">
+			<ref bean="hike_5"/>
+		</property>
 	</bean>
-	
-	<bean id="comment5" class="domain.Comment">
-		<property name="title" value="comment5" />
-		<property name="writeMoment" value="May 12, 2021 16:10" />
-		<property name="text" value="This is a text" />
+	<bean class="domain.Comment" id="comment_5">
+		<property name="writeMoment" value="2021/05/12 16:10:00"/>
+		<property name="title" value="comment5"/>
+		<property name="text" value="This is a text"/>
 		<property name="pictures" value="https://www.jeje5.com/"/>
 		<property name="rate" value="1"/>
-		<property name="owner" ref="user1"/>
+		<property name="owner">
+			<ref bean="user_user2"/>
+		</property>
+		<property name="route">
+			<ref bean="route_7"/>
+		</property>
+		<property name="hike">
+			<null/>
+		</property>
 	</bean>
-	
-	<bean id="comment6" class="domain.Comment">
-		<property name="title" value="comment6" />
-		<property name="writeMoment" value="September 6, 2015 18:10" />
-		<property name="text" value="This is a text" />
+	<bean class="domain.Comment" id="comment_6">
+		<property name="writeMoment" value="2015/09/06 18:10:00"/>
+		<property name="title" value="comment6"/>
+		<property name="text" value="This is a text"/>
 		<property name="pictures" value="https://www.jeje6.com/"/>
 		<property name="rate" value="3"/>
-		<property name="owner" ref="user2"/>
+		<property name="owner">
+			<ref bean="user_user1"/>
+		</property>
+		<property name="route">
+			<ref bean="route_9"/>
+		</property>
+		<property name="hike">
+			<null/>
+		</property>
 	</bean>
-	
-	<!-- Inns -->
-	<bean id="inn1" class="domain.Inn">
-		<property name="name" value="inn1" />
-		<property name="badge" value="https://www.bagde1.com/" />
-		<property name="address" value="This is a address" />
-		<property name="phoneNumber" value="98786543" />
-		<property name="email" value="inn1@gmail.com" />
-		<property name="webSite" value=""/>
-		<property name="creditCard" value="4485079952951457"/>
-		<property name="innkeeper" ref="innkeeper1"/>
-	</bean>
-	
-	<bean id="inn2" class="domain.Inn">
-		<property name="name" value="inn2" />
-		<property name="badge" value="https://www.bagde2.com/" />
-		<property name="address" value="This is a address" />
-		<property name="phoneNumber" value="123456789" />
-		<property name="email" value="inn2@gmail.com" />
-		<property name="webSite" value=""/>
-		<property name="creditCard" value="4485079952951457"/>
-		<property name="innkeeper" ref="innkeeper2"/>
-	</bean>
-	
-	<!-- ConfigurationSystem -->
-	<bean id="configurationSystem" class="domain.ConfigurationSystem">
-		<property name="tabooWords" value="sex,viagra,cialis"/>
-	</bean>
-	
 </beans>

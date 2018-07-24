@@ -28,6 +28,8 @@ public class ChirpService {
 	private UserService					userService;
 	@Autowired
 	private ConfigurationSystemService	csService;
+	@Autowired
+	private AdministratorService		adminService;
 
 
 	/* CONSTRUCTOR */
@@ -38,7 +40,7 @@ public class ChirpService {
 	/* CRUD */
 
 	public Chirp create() {
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains("USER"));
+		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
 		final Chirp c = new Chirp();
 		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
 		c.setUser(u);
@@ -53,13 +55,19 @@ public class ChirpService {
 		return this.chirpRepository.findOne(chirpID);
 	}
 
-	//	public Chirp save(final Chirp chirp) {
-	//		return this.chirpRepository.save(chirp);
-	//	}
+	public Chirp save(final Chirp chirp) {
+		Assert.notNull(chirp);
+		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
+		final User u = chirp.getUser();
+		u.getChirps().add(chirp);
+		this.userService.save(u);
+
+		return this.chirpRepository.save(chirp);
+	}
 
 	public void delete(final Chirp chirp) {
 		//16.3
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains("ADMIN"));
+		Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		Assert.notNull(chirp);
 		final User u = chirp.getUser();
 		u.getChirps().remove(chirp);

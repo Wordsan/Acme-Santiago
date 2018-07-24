@@ -19,6 +19,8 @@
         <value>/views/security/tiles.xml</value>
         <value>/views/user/tiles.xml</value>
         <value>/views/welcome/tiles.xml</value>
+        <value>/views/chirp/tiles.xml</value>
+        <value>/views/configurationSystem/tiles.xml</value>
     </util:list>
 
 </beans>

@@ -164,7 +164,7 @@
 		<property name="phoneNumber" value=""/>
 		<property name="emailAddress" value="user1@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount_user2"/>
+			<ref bean="userAccount3"/>
 		</property>
 	</bean>
 	<bean class="domain.User" id="user_user1">
@@ -245,7 +245,7 @@
 		<property name="phoneNumber" value=""/>
 		<property name="emailAddress" value="user2@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount_user1"/>
+			<ref bean="userAccount4"/>
 		</property>
 	</bean>
 	<bean class="domain.Administrator" id="administrator_admin">
@@ -267,7 +267,7 @@
 		<property name="phoneNumber" value="+99851345"/>
 		<property name="emailAddress" value="admin2@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount_admin1"/>
+			<ref bean="userAccount2"/>
 		</property>
 	</bean>
 	<bean class="domain.Innkeeper" id="innkeeper_innkeeper1">

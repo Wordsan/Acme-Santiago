@@ -21,9 +21,20 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
+			<li><a href="configurationSystem/admin/edit.do"><spring:message code="master.page.editTabooWords" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USER')">
+			<li>
+				<a class="fNiv"> 
+					<spring:message code="master.page.chirps" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>					
+					<li><a href="chirp/user/create.do"><spring:message code="master.page.createChirp" /></a></li>
+					<li><a href="chirp/user/streamChirps.do"><spring:message code="master.page.streamChirp" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('INNKEEPER')">

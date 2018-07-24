@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- 
  * converters.xml
  *
@@ -8,20 +7,33 @@
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
  * http://www.tdg-seville.info/License.html
- -->
-
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd		
-	">
+ --><beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd    ">
 
 	<util:list id="converters">
-		<!-- 
-			Add your own converters using entries of the following form: 
-			<bean class="converters.Class1ToClass2" /> 
-		-->
-	</util:list>
+
+		<!--Chirp converters-->
+		<bean class="converters.StringToChirpConverter"/>
+        <bean class="converters.ChirpToStringConverter"/>
+
+		<!--Comment converters-->
+		<bean class="converters.StringToCommentConverter"/>
+        <bean class="converters.CommentToStringConverter"/>
+
+		<!--ConfigurationSystem converters-->
+		<bean class="converters.StringToConfigurationSystemConverter"/>
+        <bean class="converters.ConfigurationSystemToStringConverter"/>
+
+		<!--Hike converters-->
+		<bean class="converters.StringToHikeConverter"/>
+        <bean class="converters.HikeToStringConverter"/>
+
+		<!--Route converters-->
+		<bean class="converters.StringToRouteConverter"/>
+        <bean class="converters.RouteToStringConverter"/>
+
+		<!--User converters-->
+		<bean class="converters.StringToUserConverter"/>
+        <bean class="converters.UserToStringConverter"/>
+    </util:list>
 	
 </beans>

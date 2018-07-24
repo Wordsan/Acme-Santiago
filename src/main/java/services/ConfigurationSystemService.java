@@ -22,8 +22,10 @@ public class ConfigurationSystemService {
 	@Autowired
 	private ConfigurationSystemRepository	configurationSystemRepository;
 
-
 	/* SERVICES */
+	@Autowired
+	private AdministratorService			adminService;
+
 
 	/* CONSTRUCTOR */
 	public ConfigurationSystemService() {
@@ -33,7 +35,7 @@ public class ConfigurationSystemService {
 	/* CRUD */
 
 	public ConfigurationSystem save(final ConfigurationSystem cs) {
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains("ADMIN"));
+		Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		return this.configurationSystemRepository.save(cs);
 	}
 
