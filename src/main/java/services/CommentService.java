@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,8 @@ import org.springframework.util.Assert;
 import repositories.CommentRepository;
 import security.LoginService;
 import domain.Comment;
+import domain.Hike;
+import domain.Route;
 import domain.User;
 
 @Service
@@ -31,6 +34,10 @@ public class CommentService {
 	private ConfigurationSystemService	csService;
 	@Autowired
 	private AdministratorService		administratorService;
+	@Autowired
+	private RouteService				routeService;
+	@Autowired
+	private HikeService					hikeService;
 
 
 	/* CONSTRUCTOR */
@@ -39,6 +46,45 @@ public class CommentService {
 	}
 
 	/* CRUD */
+
+	public Comment create() {
+		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
+		final Comment c = new Comment();
+		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
+
+		c.setWriteMoment(new Date());
+		c.setRate(0);
+		c.setOwner(u);
+
+		return c;
+	}
+
+	public Comment save(final Comment comment) {
+		Assert.notNull(comment);
+		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
+		final User u = comment.getOwner();
+		final Hike h = comment.getHike();
+		final Route r = comment.getRoute();
+
+		final Comment saved = this.commentRepository.save(comment);
+
+		if (h == null && r != null) {
+			u.getRouteComments().add(saved);
+
+			r.getComments().add(saved);
+			this.routeService.save(r);
+		} else if (h != null && r == null) {
+			u.getHikeComments().add(saved);
+
+			h.getComments().add(saved);
+			this.hikeService.save(h);
+		} else
+			throw new IllegalArgumentException("Hike or Route must be null.");
+
+		this.userService.save(u);
+
+		return saved;
+	}
 
 	public Collection<Comment> findAll() {
 		return this.commentRepository.findAll();
@@ -52,16 +98,24 @@ public class CommentService {
 		Assert.notNull(this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		Assert.notNull(comment);
 		final User u = comment.getOwner();
+		final Hike h = comment.getHike();
+		final Route r = comment.getRoute();
 
-		if (u.getHikeComments().contains(comment))
-			u.getHikeComments().remove(comment);
-		else
+		if (h == null && r != null) {
 			u.getRouteComments().remove(comment);
+
+			r.getComments().remove(comment);
+			this.routeService.save(r);
+		} else if (h != null && r == null) {
+			u.getHikeComments().remove(comment);
+
+			h.getComments().remove(comment);
+			this.hikeService.save(h);
+		}
 
 		this.userService.save(u);
 		this.commentRepository.delete(comment);
 	}
-
 	/* OTHERS */
 	public List<Comment> tabooComments() {
 		List<Comment> all;

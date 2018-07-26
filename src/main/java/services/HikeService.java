@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.HikeRepository;
 import domain.Hike;
@@ -32,6 +33,11 @@ public class HikeService {
 
 	public void delete(final Hike hike) {
 		this.hikeRepository.delete(hike);
+	}
+
+	public Hike save(final Hike hike) {
+		Assert.notNull(hike);
+		return this.hikeRepository.save(hike);
 	}
 
 	/* OTHERS */

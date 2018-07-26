@@ -58,8 +58,6 @@ public class RouteService {
 	}
 
 	public Route save(final Route route) {
-		//Comprobamos que el creador de la route sea el mismo que el que va a editar
-		Assert.isTrue(LoginService.getPrincipal().equals(route.getCreator().getUserAccount()));
 		return this.routeRepository.save(route);
 	}
 

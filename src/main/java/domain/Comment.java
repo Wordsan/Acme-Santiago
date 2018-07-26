@@ -15,7 +15,6 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
@@ -32,8 +31,9 @@ public class Comment extends DomainEntity {
 	/* RELATIONSHIPS */
 
 	private User	owner;
-	private Route   route;
-	private Hike    hike;
+	private Route	route;
+	private Hike	hike;
+
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -64,7 +64,7 @@ public class Comment extends DomainEntity {
 	}
 
 	@URL
-	@NotEmpty
+	@NotBlank
 	public String getPictures() {
 		return this.pictures;
 	}
@@ -96,36 +96,33 @@ public class Comment extends DomainEntity {
 
 	@AssertTrue
 	@Transient
-	public boolean isValidHasEitherRouteOrHike()
-	{
+	public boolean isValidHasEitherRouteOrHike() {
 		// El @AssertTrue encima hace que el validador compruebe que esto devuelve true.
 		// Comprueba que el comentario esta asociado solo a un route o a un hike, si no no es valido.
-		if (getRoute() != null && getHike() == null) return true;
-		if (getRoute() == null && getHike() != null) return true;
+		if (this.getRoute() != null && this.getHike() == null)
+			return true;
+		if (this.getRoute() == null && this.getHike() != null)
+			return true;
 		return false;
 	}
 
 	@Valid
 	@ManyToOne(optional = true)
-	public Route getRoute()
-	{
-		return route;
+	public Route getRoute() {
+		return this.route;
 	}
 
-	public void setRoute(Route route)
-	{
+	public void setRoute(final Route route) {
 		this.route = route;
 	}
 
 	@Valid
 	@ManyToOne(optional = true)
-	public Hike getHike()
-	{
-		return hike;
+	public Hike getHike() {
+		return this.hike;
 	}
 
-	public void setHike(Hike hike)
-	{
+	public void setHike(final Hike hike) {
 		this.hike = hike;
 	}
 }

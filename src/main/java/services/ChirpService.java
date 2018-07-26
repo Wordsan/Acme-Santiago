@@ -59,11 +59,13 @@ public class ChirpService {
 	public Chirp save(final Chirp chirp) {
 		Assert.notNull(chirp);
 		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
+		Assert.isTrue(chirp.getId() == 0);
 		final User u = chirp.getUser();
-		u.getChirps().add(chirp);
+		final Chirp saved = this.chirpRepository.save(chirp);
+		u.getChirps().add(saved);
 		this.userService.save(u);
 
-		return this.chirpRepository.save(chirp);
+		return saved;
 	}
 
 	public void delete(final Chirp chirp) {
