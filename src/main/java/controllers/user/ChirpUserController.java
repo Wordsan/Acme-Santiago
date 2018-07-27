@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.ChirpService;
 import services.UserService;
+import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.Chirp;
 import domain.User;
@@ -73,7 +74,7 @@ public class ChirpUserController extends AbstractController {
 		else
 			try {
 				this.chirpService.save(chirp);
-				result = new ModelAndView("welcome/index");
+				result = ControllerUtils.redirect("/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(chirp, "chirp.commit.error");
 			}

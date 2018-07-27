@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationSystemService;
+import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.ConfigurationSystem;
 
@@ -48,7 +49,7 @@ public class ConfigurationSystemAdministratorController extends AbstractControll
 		else
 			try {
 				this.csService.save(cs);
-				result = new ModelAndView("welcome/index");
+				result = ControllerUtils.redirect("/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(cs, "cs.commit.error");
 			}

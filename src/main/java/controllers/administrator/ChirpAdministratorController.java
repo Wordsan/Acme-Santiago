@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChirpService;
+import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.Chirp;
 
@@ -51,7 +52,7 @@ public class ChirpAdministratorController extends AbstractController {
 		try {
 			final Chirp chirp = this.chirpService.findOne(chirpId);
 			this.chirpService.delete(chirp);
-			result = new ModelAndView("welcome/index");
+			result = ControllerUtils.redirect("/welcome/index.do");
 		} catch (final Throwable oops) {
 			result = this.list();
 			result.addObject("message", "chirp.commit.error");
