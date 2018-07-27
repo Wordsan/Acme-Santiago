@@ -22,7 +22,7 @@ import domain.Hike;
 import domain.Route;
 
 @Controller
-@RequestMapping("/chirp/user")
+@RequestMapping("/comment/user")
 public class CommentUserController extends AbstractController {
 
 	/* SERVICES */
@@ -57,17 +57,21 @@ public class CommentUserController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(comment);
+			if (comment.isValidHasEitherRouteOrHike() == false)
+				result = this.createEditModelAndView(comment, "comment1.commit.error");
+			else
+				result = this.createEditModelAndView(comment);
 		else
 			try {
 				this.commentService.save(comment);
 				result = ControllerUtils.redirect("/welcome/index.do");
+
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(comment, "comment.commit.error");
 			}
+
 		return result;
 	}
-
 	/* ANCILLARY METHODS */
 	protected ModelAndView createEditModelAndView(final Comment comment) {
 		ModelAndView result;

@@ -26,13 +26,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="owner"/>
-	
-	<form:label path="writeMoment" >
-	<spring:message code="comment.writeMoment"/>:
-	</form:label>
-	<form:input path="writeMoment" placeholder="dd/MM/yyyy HH:mm"/>
-	<form:errors cssClass="error" path="writeMoment"/>
-	<br />
+	<form:hidden path="writeMoment"/>
 	
 	<form:label path="title">
 	<spring:message code="comment.title"/>:
@@ -67,8 +61,9 @@
 	</form:label>
 	<form:select path="route">
 		<form:option label="----" value="0"/>
-		<form:options items="routes" itemLabel="title" itemValue="id"/>
+		<form:options items="${routes}" itemLabel="name" itemValue="id"/>
 	</form:select>
+	<form:errors cssClass="error" path="route"/>
 	<br/>
 
 	<form:label path="hike">
@@ -76,8 +71,9 @@
 	</form:label>
 	<form:select path="hike">
 		<form:option label="----" value="0"/>
-		<form:options items="hikes" itemLabel="title" itemValue="id"/>
+		<form:options items="${hikes}" itemLabel="name" itemValue="id"/>
 	</form:select>
+	<form:errors cssClass="error" path="hike"/>
 	<br/>
 	
 	<!-- Buttons -->

@@ -79,7 +79,7 @@ public class CommentService {
 			h.getComments().add(saved);
 			this.hikeService.save(h);
 		} else
-			throw new IllegalArgumentException("Hike or Route must be null.");
+			throw new IllegalArgumentException("Or hike or Route must be null.");
 
 		this.userService.save(u);
 
