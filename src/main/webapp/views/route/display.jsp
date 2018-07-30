@@ -17,6 +17,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<div>
+	<a href="${ backURI }"><spring:message code="common.action.back"/></a>
+</div>
 <p>
 	<div>
 		<strong><spring:message code="route.name" />:</strong>
@@ -49,10 +52,11 @@
 		<strong><spring:message code="route.pictures" />:</strong>
 	</div>
 	<div>
-		<img src="<jstl:out value="${ route.name }" />" height="200px;" width="auto"/>
+		<img src="<jstl:out value="${ route.pictures }" />" height="200px;" width="auto"/>
 	</div>
 </p>
 
+${(user != null) && (user.id == route.creator.id)}
 <p>
 	<div>
 		<strong><spring:message code="route.hikes" />:</strong>
@@ -72,7 +76,7 @@
 			</display:column>
 			
 			<security:authorize access="hasRole('USER')">
-				<jstl:if test="${(user != null) && (user.id == route.creator.id)} ">
+				<jstl:if test="${(user != null) && (user.id == route.creator.id)}">
 					<spring:message var="editHeader" code="common.action.edit" />
 					<display:column title="${editHeader}">
 						<a href="hike/user/edit.do?hikeId=${row.id}"> <spring:message code="common.action.edit" /></a>
@@ -82,11 +86,10 @@
 			
 		</display:table>
 		<security:authorize access="hasRole('USER')">
-			<jstl:if test="${(user != null) && (user.id == route.creator.id)} ">
-				<spring:message var="createHeader" code="common.action.create" />
-				<display:column title="${createHeader}">
-					<a href="hike/user/create.do?routeId=${route.id}"> <spring:message code="common.action.create" /></a>
-				</display:column>
+			<jstl:if test="${(user != null) && (user.id == route.creator.id)}">
+				<div>
+					<a href="hike/user/create.do?routeId=${route.id}"> <spring:message code="hike.create" /></a>
+				</div>
 			</jstl:if>
 		</security:authorize>
 	</div>

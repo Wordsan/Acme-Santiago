@@ -1,5 +1,5 @@
 /*
- * RouteController.java
+ * UserController.java
  *
  * Copyright (C) 2017 Universidad de Sevilla
  *
@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Route;
 import domain.User;
+import security.LoginService;
 import services.RouteService;
 import services.UserService;
 
@@ -44,10 +45,23 @@ public class UserController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView view;
 		Collection<User> users;
+		Collection<User> followedUsers;
+		User user;
+
+		try {
+			user = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
+			followedUsers = this.userService.usersThatIFollow(
+					this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()).getId());
+		} catch (Throwable oops) {
+			followedUsers = null;
+			user = null;
+		}
 
 		users = this.userService.findAll();
 		view = new ModelAndView("user/list");
 		view.addObject("users", users);
+		view.addObject("user", user);
+		view.addObject("followedUsers", followedUsers);
 		view.addObject("requestURI", "user/list.do");
 
 		return view;
@@ -66,7 +80,7 @@ public class UserController extends AbstractController {
 		view = new ModelAndView("user/display");
 		view.addObject("user", user);
 		view.addObject("routes", routes);
-		view.addObject("requestURI", "user/display.do?userId=" + user.getId());
+		view.addObject("requestURI", "user/display.do");
 
 		return view;
 	}

@@ -17,21 +17,16 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<p>
-	<div>
-		<strong><spring:message code="route.name" />:</strong>
-	</div>
-	<div>
-		<jstl:out value="${ route.name }" />
-	</div>
-</p>
+<div>
+	<a href="route/display.do?routeId=${hike.route.id}"><spring:message code="common.action.back"/></a>
+</div>
 
 <p>
 	<div>
-		<strong><spring:message code="route.length" />:</strong>
+		<strong><spring:message code="hike.name" />:</strong>
 	</div>
 	<div>
-		<jstl:out value="${ route.length }" />
+		<jstl:out value="${ hike.name }" />
 	</div>
 </p>
 
@@ -46,17 +41,46 @@
 
 <p>
 	<div>
-		<strong><spring:message code="route.pictures" />:</strong>
+		<strong><spring:message code="hike.difficultyLevel" />:</strong>
 	</div>
 	<div>
-		<img src="<jstl:out value="${ route.name }" />" height="200px;" width="auto"/>
+		<jstl:out value="${ hike.difficultyLevel }" />
+	</div>
+</p>
+
+
+<p>
+	<div>
+		<strong><spring:message code="hike.length" />:</strong>
+	</div>
+	<div>
+		<jstl:out value="${ hike.length }" />
 	</div>
 </p>
 
 <p>
 	<div>
-		<strong><spring:message code="route.hikes" />:</strong>
+		<strong><spring:message code="hike.pictures" />:</strong>
 	</div>
 	<div>
+		<img src="<jstl:out value="${ hike.pictures }" />" height="200px;" width="auto"/>
+	</div>
+</p>
+
+<p>
+	<div>
+		<strong><spring:message code="hike.originCity" />:</strong>
+	</div>
+	<div>
+		<jstl:out value="${ hike.originCity }" />
+	</div>
+</p>
+
+<p>
+	<div>
+		<strong><spring:message code="hike.destinationCity" />:</strong>
+	</div>
+	<div>
+		<jstl:out value="${ hike.destinationCity }" />
 	</div>
 </p>

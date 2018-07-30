@@ -17,3 +17,152 @@
 	color: red;
 	font-weight: bolder;
 }
+
+.hidden {
+	display: none;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.banner {
+	width: 100%;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.text-bold {
+	font-weight: bold !important;
+}
+
+.footer-menu {
+	box-sizing: border-box;
+	padding: 15px 0;
+	text-align: center;
+	width: 100%;
+}
+
+.footer-menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 20px;
+}
+
+.footer-menu ul li {
+	box-sizing: border-box;
+	border-right: 1px solid black;
+	display: inline-block;
+	margin: 0;
+	text-align: center;
+}
+
+.footer-menu ul li:last-child {
+	border-right: none;
+}
+
+.footer-menu ul li a {
+	padding: 5px 10px;
+}
+
+.button-container {
+	padding: 15px 0;
+}
+
+.button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.button {
+    -webkit-appearance: none;
+    margin: 0;
+    border: none;
+    overflow: visible;
+    font: inherit;
+    color: #ffffff;
+    text-transform: none;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 12px;
+    background: #999999;
+    vertical-align: middle;
+    line-height: 30px;
+    min-height: 30px;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+}
+.button:not(:disabled) {
+    cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+    background-color: #777777;
+    color: #ffffff;
+    outline: none;
+    text-decoration: none;
+}
+/* Active */
+.button:active,
+.button.active {
+    background-color: #dddddd;
+    color: #444444;
+}
+
+
+/* Button primary */
+.button-primary {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.button-primary:active,
+.button-primary.active {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+/* Button success */
+.button-success {
+    background-color: #8cc14c;
+    color: #ffffff;
+}
+
+.button-success:hover,
+.button-success:focus {
+    background-color: #8ec73b;
+    color: #ffffff;
+}
+
+.button-success:active,
+.button-success.active {
+    background-color: #72ae41;
+    color: #ffffff;
+}
+
+/* Button danger */
+.button-danger {
+    background-color: #e2432d;
+    color: #ffffff;
+}
+
+.button-danger:hover,
+.button-danger:focus {
+    background-color: #c0210b;
+    color: #ffffff;
+}
+
+.button-danger:active,
+.button-danger.active {
+    background-color: #c0210b;
+    color: #ffffff;
+}

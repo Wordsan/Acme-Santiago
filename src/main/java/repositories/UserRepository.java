@@ -29,7 +29,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select u from User u where u.userAccount.id=?1")
 	User getUserByUserAccountId(int userAccountID);
 
-	/* Display a stream with the chirps posted by all of the users that he or she follows. */
+	@Query("select u from User u where u.userAccount.username=?1")
+	User getUserByUsername(String username);
+
+	/*
+	 * Display a stream with the chirps posted by all of the users that he or she
+	 * follows.
+	 */
 	@Query("select f.chirps from User u join u.followedUsers f where u.id =?1")
 	Collection<Chirp> chirpsStream(int userID);
 
@@ -37,11 +43,17 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select avg(u.chirps.size) from User u")
 	Double avgChirpsPerUser();
 
-	/* 16.6 -> The users who have posted more than 75% the average number of chirps per user. */
+	/*
+	 * 16.6 -> The users who have posted more than 75% the average number of chirps
+	 * per user.
+	 */
 	@Query("select u from User u where u.chirps.size >= (select avg(u.chirps.size)*0.75 from User u)")
 	Collection<User> more75ChirpUsers();
 
-	/* 16.6 -> The users who have posted less than 25% the average number of chirps per user. */
+	/*
+	 * 16.6 -> The users who have posted less than 25% the average number of chirps
+	 * per user.
+	 */
 	@Query("select u from User u where u.chirps.size <= (select avg(u.chirps.size)*0.25 from User u)")
 	Collection<User> less25ChirpUsers();
 }

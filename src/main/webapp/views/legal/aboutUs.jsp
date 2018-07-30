@@ -1,5 +1,5 @@
 <%--
- * action-2.jsp
+ * action-1.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,4 +16,21 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="administrator.action.2" /></p>
+<div>
+	<div>
+		<h3><spring:message code="legal.aboutus.companyname" /></h3>
+		<p><jstl:out value="${companyName}"/></p>
+	</div>
+	<div>
+		<h3><spring:message code="legal.aboutus.address" /></h3>
+		<p><jstl:out value="${address}"/></p>
+	</div>
+	<div>
+		<h3><spring:message code="legal.aboutus.vatnumber" /></h3>
+		<p><jstl:out value="${vatNumber}"/></p>
+	</div>
+	<div>
+		<h3><spring:message code="legal.aboutus.contactemail" /></h3>
+		<p><jstl:out value="${contactEmail}"/></p>
+	</div>
+</div>

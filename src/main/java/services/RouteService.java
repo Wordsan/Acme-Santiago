@@ -12,12 +12,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
-import repositories.RouteRepository;
-import security.LoginService;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
+import repositories.RouteRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -25,12 +27,17 @@ public class RouteService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private RouteRepository	routeRepository;
+	private RouteRepository routeRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService		userService;
+	private UserService userService;
 
+	@Autowired
+	private AdministratorService administratorService;
+
+	@Autowired
+	private Validator validator;
 
 	/* CONSTRUCTOR */
 	public RouteService() {
@@ -40,8 +47,8 @@ public class RouteService {
 	/* CRUD */
 
 	public Route create() {
-		//Comprobamos que sea un user el que esta creando una route
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains("USER"));
+		// Comprobamos que sea un user el que esta creando una route
+		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
 		final Route r = new Route();
 		r.setComposedHikes(new ArrayList<Hike>());
 		r.setComments(new ArrayList<Comment>());
@@ -58,20 +65,25 @@ public class RouteService {
 	}
 
 	public Route save(final Route route) {
+		// Comprobamos que el creador de la route sea el mismo que el que va a editar
+		Assert.isTrue(LoginService.getPrincipal().equals(route.getCreator().getUserAccount()));
 		return this.routeRepository.save(route);
 	}
 
 	public void delete(final Route route) {
 		Assert.notNull(route);
 
-		if (LoginService.getPrincipal().getAuthorities().contains("ADMIN") || LoginService.getPrincipal().equals(route.getCreator().getUserAccount())) { //Si es admin o el user creador
+		if ((this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null)
+				|| LoginService.getPrincipal().equals(route.getCreator().getUserAccount())) { // Si es admin o el user
+																								// creador
 
 			route.getCreator().getRegistredRoutes().remove(route);
 			this.routeRepository.delete(route);
 
-		} else
-			//Lanzamos la excepcion del assert
+		} else {
+			// Lanzamos la excepcion del assert
 			throw new IllegalArgumentException("You need to be administrator or the route's owner.");
+		}
 	}
 
 	/* OTHERS */
@@ -130,5 +142,26 @@ public class RouteService {
 		res = this.routeRepository.routesByHikesSize();
 		Assert.notNull(res);
 		return res;
+	}
+
+	public Route reconstruct(Route route, BindingResult binding) {
+		Route routeReconstructed;
+
+		if (route.getId() == 0) {
+			routeReconstructed = this.create();
+		} else {
+			routeReconstructed = this.findOne(route.getId());
+		}
+
+		routeReconstructed.setDescription(route.getDescription());
+		routeReconstructed.setName(route.getName());
+		routeReconstructed.setLength(route.getLength());
+		routeReconstructed.setPictures(route.getPictures());
+
+		this.validator.validate(routeReconstructed, binding);
+
+		Assert.isTrue(!binding.hasErrors());
+
+		return routeReconstructed;
 	}
 }

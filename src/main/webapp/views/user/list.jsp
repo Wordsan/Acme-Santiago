@@ -29,5 +29,20 @@
 	<spring:message var="viewHeader" code="common.action.view" />
 	<display:column title="${viewHeader}">
 		<a href="user/display.do?userId=${row.id}"> <spring:message code="common.action.view" /></a>
+	
 	</display:column>
+	
+	<security:authorize access="hasRole('USER')">
+		<jstl:if test="${(followedUsers != null) && (row != null)}">
+			<spring:eval var="isFollowed" expression="followedUsers.contains(row)" />
+			<display:column>
+				<jstl:if test="${isFollowed && (row.id != user.id)}">
+					<a href="user/user/unfollow.do?userId=${row.id}"> <spring:message code="user.unfollow" /></a>
+				</jstl:if>
+				<jstl:if test="${!isFollowed && (row.id != user.id)}">
+					<a href="user/user/follow.do?userId=${row.id}"> <spring:message code="user.follow" /></a>
+				</jstl:if>
+			</display:column>
+		</jstl:if>
+	</security:authorize>
 </display:table>

@@ -1,5 +1,5 @@
 /*
- * RouteController.java
+ * HikeController.java
  *
  * Copyright (C) 2017 Universidad de Sevilla
  *
@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Hike;
+import domain.User;
+import security.LoginService;
 import services.HikeService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/hike")
@@ -26,6 +29,9 @@ public class HikeController extends AbstractController {
 
 	@Autowired
 	private HikeService hikeService;
+
+	@Autowired
+	private UserService userService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -37,12 +43,19 @@ public class HikeController extends AbstractController {
 	public ModelAndView display(@RequestParam(required = true) int hikeId) {
 		ModelAndView view;
 		Hike hike;
+		User user;
 
-		// hike = this.hikeService.findOne(hikeId);
-		hike = null;
+		try {
+			user = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
+		} catch (Throwable oops) {
+			user = null;
+		}
+
+		hike = this.hikeService.findOne(hikeId);
 
 		view = new ModelAndView("hike/display");
 		view.addObject("hike", hike);
+		view.addObject("user", user);
 
 		return view;
 	}

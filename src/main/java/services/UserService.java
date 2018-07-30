@@ -9,15 +9,21 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
-import repositories.UserRepository;
-import security.LoginService;
 import domain.Chirp;
 import domain.Comment;
 import domain.Route;
 import domain.User;
+import forms.SigninForm;
+import repositories.UserRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -25,10 +31,11 @@ public class UserService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private UserRepository	userRepository;
-
+	private UserRepository userRepository;
 
 	/* SERVICES */
+	@Autowired
+	private Validator validator;
 
 	/* CONSTRUCTOR */
 	public UserService() {
@@ -38,9 +45,25 @@ public class UserService {
 	/* CRUD */
 
 	public User create() {
+		UserAccount userAccount;
+		Authority authority;
+		User u;
+		Boolean anonymous;
 		// Comprobamos que no se esté autentificado
-		Assert.isTrue(LoginService.getPrincipal().equals(null));
-		final User u = new User();
+		try {
+			LoginService.getPrincipal();
+			anonymous = false;
+		} catch (Throwable oops) {
+			anonymous = true;
+		}
+
+		Assert.isTrue(anonymous);
+		u = new User();
+		userAccount = new UserAccount();
+		authority = new Authority();
+		authority.setAuthority("USER");
+		userAccount.addAuthority(authority);
+		u.setUserAccount(userAccount);
 		u.setFollowedUsers(new ArrayList<User>());
 		u.setRegistredRoutes(new ArrayList<Route>());
 		u.setChirps(new ArrayList<Chirp>());
@@ -61,6 +84,18 @@ public class UserService {
 		Assert.notNull(user);
 
 		return user;
+	}
+
+	private boolean existsUserWithUserName(String username) {
+		boolean exists;
+
+		if (this.userRepository.getUserByUsername(username) == null) {
+			exists = false;
+		} else {
+			exists = true;
+		}
+
+		return exists;
 	}
 
 	public User save(final User user) {
@@ -104,5 +139,41 @@ public class UserService {
 
 	public Collection<User> less25ChirpUsers() {
 		return this.userRepository.less25ChirpUsers();
+	}
+
+	public User signinReconstruct(SigninForm signinForm, BindingResult binding) {
+		User user;
+		Md5PasswordEncoder encoder;
+
+		this.validator.validate(signinForm, binding);
+
+		if (!signinForm.getPassword().equals(signinForm.getConfirmPassword())) {
+			binding.rejectValue("password", "signin.validation.passwords");
+			binding.rejectValue("confirmPassword", "signin.validation.passwords");
+		}
+
+		if ((signinForm.getConditionsAccepted() == null) || (!signinForm.getConditionsAccepted())) {
+			binding.rejectValue("conditionsAccepted", "signin.validation.conditionsAccepted");
+		}
+
+		if (this.existsUserWithUserName(signinForm.getUsername())) {
+			binding.rejectValue("username", "signin.validation.username");
+		}
+
+		Assert.isTrue(!binding.hasErrors());
+
+		user = this.create();
+		encoder = new Md5PasswordEncoder();
+
+		user.getUserAccount().setUsername(signinForm.getUsername());
+		user.getUserAccount().setPassword(encoder.encodePassword(signinForm.getPassword(), null));
+		user.setName(signinForm.getName());
+		user.setSurname(signinForm.getSurname());
+		user.setPicture(signinForm.getPicture());
+		user.setPostalAddress(signinForm.getPostalAddress());
+		user.setPhoneNumber(signinForm.getPhoneNumber());
+		user.setEmailAddress(signinForm.getEmailAddress());
+
+		return user;
 	}
 }

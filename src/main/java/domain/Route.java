@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -19,17 +20,16 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Route extends DomainEntity {
 
-	private String				name;
-	private Double				length;
-	private String				description;
-	private String				pictures;
+	private String name;
+	private Double length;
+	private String description;
+	private String pictures;
 
 	/* RELATIONSHIPS */
 
-	private Collection<Hike>	composedHikes;
-	private Collection<Comment>	comments;
-	private User				creator;
-
+	private Collection<Hike> composedHikes;
+	private Collection<Comment> comments;
+	private User creator;
 
 	@NotBlank
 	public String getName() {
@@ -41,6 +41,7 @@ public class Route extends DomainEntity {
 	}
 
 	@NotNull
+	@Min(value = 0)
 	public Double getLength() {
 		return this.length;
 	}
@@ -68,7 +69,7 @@ public class Route extends DomainEntity {
 		this.pictures = pictures;
 	}
 
-	//RELATIONSHIPS
+	// RELATIONSHIPS
 
 	@Valid
 	@NotNull

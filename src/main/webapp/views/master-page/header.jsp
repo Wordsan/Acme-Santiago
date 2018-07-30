@@ -32,6 +32,7 @@
 					<li><a href="comment/admin/list.do"><spring:message code="master.page.tabooComments" /></a></li>
 				</ul>
 			</li>
+			<li><a href="administrator/dashboard.do"><spring:message code="master.page.dashboard" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USER')">
@@ -64,11 +65,24 @@
 					</security:authorize>
 				</ul>
 			</li>
-			<li><a class="fNiv" href="user/list.do"><spring:message code="master.page.users" /></a></li>
+			<li>
+				<a class="fNiv"> 
+					<spring:message code="master.page.users" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>					
+					<li><a href="user/list.do"><spring:message code="master.page.users.browse" /></a></li>
+					<security:authorize access="hasRole('USER')">
+						<li><a href="user/user/followedUsers.do"><spring:message code="master.page.users.follow" /></a></li>
+						<li><a href="user/user/followerUsers.do"><spring:message code="master.page.users.follower" /></a></li>
+					</security:authorize>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv" href="security/user/signin.do"><spring:message code="master.page.signin" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

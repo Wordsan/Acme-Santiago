@@ -21,6 +21,16 @@
 		<put-attribute name="body" value="/views/user/list.jsp" />
 	</definition>
 	
+	<definition name="user/followedUsers" extends="master.page">	
+		<put-attribute name="title" value="Followed users" />
+		<put-attribute name="body" value="/views/user/list.jsp" />
+	</definition>
+	
+	<definition name="user/followerUsers" extends="master.page">	
+		<put-attribute name="title" value="Follower users" />
+		<put-attribute name="body" value="/views/user/list.jsp" />
+	</definition>
+	
 	<definition name="user/display" extends="master.page">	
 		<put-attribute name="title" value="Details of the user" />
 		<put-attribute name="body" value="/views/user/display.jsp" />

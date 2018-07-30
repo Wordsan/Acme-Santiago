@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,9 +10,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
-import repositories.HikeRepository;
+import domain.Comment;
 import domain.Hike;
+import domain.Route;
+import repositories.HikeRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -19,10 +25,11 @@ public class HikeService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private HikeRepository	hikeRepository;
-
+	private HikeRepository hikeRepository;
 
 	/* SERVICES */
+	@Autowired
+	Validator validator;
 
 	/* CONSTRUCTOR */
 	public HikeService() {
@@ -30,6 +37,25 @@ public class HikeService {
 	}
 
 	/* CRUD */
+	public Hike create(Route route) {
+		Hike hike;
+
+		hike = new Hike();
+		hike.setComments(new ArrayList<Comment>());
+		hike.setRoute(route);
+
+		return hike;
+	}
+
+	public Hike findOne(int hikeId) {
+		Hike hike;
+
+		Assert.notNull(hikeId);
+		hike = this.hikeRepository.findOne(hikeId);
+		Assert.notNull(hike);
+
+		return hike;
+	}
 
 	public void delete(final Hike hike) {
 		this.hikeRepository.delete(hike);
@@ -37,6 +63,7 @@ public class HikeService {
 
 	public Hike save(final Hike hike) {
 		Assert.notNull(hike);
+		Assert.isTrue(LoginService.getPrincipal().equals(hike.getRoute().getCreator().getUserAccount()));
 		return this.hikeRepository.save(hike);
 	}
 
@@ -49,5 +76,28 @@ public class HikeService {
 		res.put("STD", statistics[1]);
 
 		return res;
+	}
+
+	public Hike reconstruct(Hike hike, BindingResult binding) {
+		Hike hikeReconstructed;
+
+		if (hike.getId() == 0) {
+			hikeReconstructed = this.create(hike.getRoute());
+		} else {
+			hikeReconstructed = this.findOne(hike.getId());
+		}
+
+		hikeReconstructed.setName(hike.getName());
+		hikeReconstructed.setDescription(hike.getDescription());
+		hikeReconstructed.setDifficultyLevel(hike.getDifficultyLevel());
+		hikeReconstructed.setLength(hike.getLength());
+		hikeReconstructed.setPictures(hike.getPictures());
+		hikeReconstructed.setOriginCity(hike.getOriginCity());
+		hikeReconstructed.setDestinationCity(hike.getDestinationCity());
+
+		this.validator.validate(hikeReconstructed, binding);
+		Assert.isTrue(!binding.hasErrors());
+
+		return hikeReconstructed;
 	}
 }

@@ -21,28 +21,42 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="${ requestURI }" modelAttribute="configuration">
+<form:form action="hike/user/edit.do" modelAttribute="hike">
 
 	<form:hidden path="id" />
+	<jstl:if test="${ hike.id == 0 }">
+		<form:hidden path="route" />
+	</jstl:if>
 	
-
-	<acme:textbox code="configuration.name" path="name" readonly="true"/>
-	<br />
+	<acme:textbox code="hike.name" path="name"/>
+	<br/>
 	
-	<acme:textbox code="configuration.type" path="type" readonly="true"/>
-	<br />
+	<acme:textarea code="hike.description" path="description"/>
+	<br/>
 	
-	<acme:textarea code="configuration.validations" path="validations" readonly="true"/>
-	<br />
+	<acme:textbox code="hike.difficultyLevel" path="difficultyLevel"/>
+	<br/>
 	
-	<acme:textarea code="configuration.value" path="value"/>
-	<br />
+	<acme:textbox code="hike.length" path="length"/>
+	<br/>
 	
+	<acme:textbox code="hike.pictures" path="pictures"/>
+	<br/>
+	
+	<acme:textbox code="hike.originCity" path="originCity"/>
+	<br/>
+	
+	<acme:textbox code="hike.destinationCity" path="destinationCity"/>
+	<br/>
 
 	<!-- Buttons -->
 
-	<acme:cancel url="configuration/administrator/list.do" code="common.action.cancel"/>
+	<acme:cancel url="/route/display.do?routeId=${ hike.route.id }" code="common.action.cancel"/>
 		
 	<acme:submit name="save" code="common.action.save" />
+	
+	<jstl:if test="${hike.id != 0}">
+		<acme:delete name="delete" code="common.action.delete" confirm="common.message.confirm" />
+	</jstl:if>
 			
 </form:form>

@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -18,17 +19,16 @@ import security.UserAccount;
 @Access(AccessType.PROPERTY)
 public class Actor extends DomainEntity {
 
-	private String		name;
-	private String		surname;
-	private String		picture;
-	private String		postalAddress;
-	private String		phoneNumber;
-	private String		emailAddress;
+	private String name;
+	private String surname;
+	private String picture;
+	private String postalAddress;
+	private String phoneNumber;
+	private String emailAddress;
 
 	/* RELATIONSHIPS */
 
-	private UserAccount	userAccount;
-
+	private UserAccount userAccount;
 
 	@NotBlank
 	public String getName() {
@@ -85,7 +85,7 @@ public class Actor extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToOne(optional = false)
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public UserAccount getUserAccount() {
 		return this.userAccount;
 	}

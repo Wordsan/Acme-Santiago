@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -20,19 +21,18 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Hike extends DomainEntity {
 
-	private String				name;
-	private Double				length;
-	private String				originCity;
-	private String				destinationCity;
-	private String				description;
-	private String				pictures;
-	private String				difficultyLevel;
+	private String name;
+	private Double length;
+	private String originCity;
+	private String destinationCity;
+	private String description;
+	private String pictures;
+	private String difficultyLevel;
 
 	/* RELATIONSHIPS */
 
-	private Route				route;
-	private Collection<Comment>	comments;
-
+	private Route route;
+	private Collection<Comment> comments;
 
 	@NotBlank
 	public String getName() {
@@ -44,6 +44,7 @@ public class Hike extends DomainEntity {
 	}
 
 	@NotNull
+	@Min(value = 0)
 	public Double getLength() {
 		return this.length;
 	}
