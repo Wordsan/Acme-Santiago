@@ -20,8 +20,6 @@
 <p>
 	<div>
 		<strong><spring:message code="user.name" />:</strong>
-	</div>
-	<div>
 		<jstl:out value="${ user.name }" />
 	</div>
 </p>
@@ -29,8 +27,6 @@
 <p>
 	<div>
 		<strong><spring:message code="user.surname" />:</strong>
-	</div>
-	<div>
 		<jstl:out value="${ user.surname }" />
 	</div>
 </p>
@@ -38,17 +34,13 @@
 <p>
 	<div>
 		<strong><spring:message code="user.picture" />:</strong>
-	</div>
-	<div>
-		<img src="<jstl:out value="${ user.picture }" />" height="200px;" width="auto"/>
+		<img src="<jstl:out value="${ user.picture }" />" height="100px;" width="auto"/>
 	</div>
 </p>
 
 <p>
 	<div>
 		<strong><spring:message code="user.postalAddress" />:</strong>
-	</div>
-	<div>
 		<jstl:out value="${ user.postalAddress }" />
 	</div>
 </p>
@@ -56,8 +48,6 @@
 <p>
 	<div>
 		<strong><spring:message code="user.phone" />:</strong>
-	</div>
-	<div>
 		<jstl:out value="${ user.phoneNumber }" />
 	</div>
 </p>
@@ -65,8 +55,6 @@
 <p>
 	<div>
 		<strong><spring:message code="user.email" />:</strong>
-	</div>
-	<div>
 		<jstl:out value="${ user.emailAddress }" />
 	</div>
 </p>
@@ -82,7 +70,7 @@
 			<display:column property="name" title="${nameHeader}" />
 			
 			<spring:message code="route.length" var="lengthHeader"  />
-			<display:column property="length" title="${valueHeader}" />
+			<display:column property="length" title="${lengthHeader}" />
 			
 			<spring:message code="route.numHikes" var="numHikesHeader"  />
 			<display:column title="${numHikesHeader}">

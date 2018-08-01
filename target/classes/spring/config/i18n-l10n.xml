@@ -11,18 +11,20 @@
 
 	<util:list id="messages">
         <value>/views/administrator/messages</value>
+        <value>/views/chirp/messages</value>
+        <value>/views/comment/messages</value>
         <value>/views/common/messages</value>
+        <value>/views/configurationSystem/messages</value>
         <value>/views/hike/messages</value>
+        <value>/views/legal/messages</value>
         <value>/views/master-page/messages</value>
         <value>/views/misc/messages</value>
         <value>/views/profile/messages</value>
         <value>/views/route/messages</value>
         <value>/views/security/messages</value>
+        <value>/views/signin/messages</value>
         <value>/views/user/messages</value>
         <value>/views/welcome/messages</value>
-        <value>/views/chirp/messages</value>
-        <value>/views/configurationSystem/messages</value>
-        <value>/views/comment/messages</value>
     </util:list>
 
 </beans>

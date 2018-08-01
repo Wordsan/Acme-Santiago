@@ -89,7 +89,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean class="domain.User" id="user_user2">
+	<bean class="domain.User" id="user_user1">
 		<property name="followedUsers">
 			<list/>
 		</property>
@@ -164,13 +164,13 @@
 		<property name="phoneNumber" value=""/>
 		<property name="emailAddress" value="user1@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount3"/>
+			<ref bean="userAccount4"/>
 		</property>
 	</bean>
-	<bean class="domain.User" id="user_user1">
+	<bean class="domain.User" id="user_user2">
 		<property name="followedUsers">
 			<list>
-				<ref bean="user_user2"/>
+				<ref bean="user_user1"/>
 			</list>
 		</property>
 		<property name="registredRoutes">
@@ -222,6 +222,12 @@
 			<list>
 				<ref bean="chirp_2"/>
 				<ref bean="chirp_3"/>
+				<ref bean="chirp_4"/>
+				<ref bean="chirp_5"/>
+				<ref bean="chirp_6"/>
+				<ref bean="chirp_7"/>
+				<ref bean="chirp_8"/>
+				<ref bean="chirp_9"/>
 			</list>
 		</property>
 		<property name="routeComments">
@@ -245,7 +251,7 @@
 		<property name="phoneNumber" value=""/>
 		<property name="emailAddress" value="user2@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount4"/>
+			<ref bean="userAccount3"/>
 		</property>
 	</bean>
 	<bean class="domain.Administrator" id="administrator_admin">
@@ -326,6 +332,63 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
+	
+	<bean class="domain.Chirp" id="chirp_4">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp4"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	
+	
+	<bean class="domain.Chirp" id="chirp_5">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp5"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	
+	
+	<bean class="domain.Chirp" id="chirp_6">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp6"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	
+	<bean class="domain.Chirp" id="chirp_7">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp7"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	
+	<bean class="domain.Chirp" id="chirp_8">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp8"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	
+	<bean class="domain.Chirp" id="chirp_9">
+		<property name="postMoment" value="2016/05/01 08:10:00"/>
+		<property name="title" value="chirp9"/>
+		<property name="description" value="This is a description"/>
+		<property name="user">
+			<ref bean="user_user1"/>
+		</property>
+	</bean>
+	
 	<bean class="domain.Inn" id="inn_1">
 		<property name="name" value="inn1"/>
 		<property name="badge" value="https://www.bagde1.com/"/>

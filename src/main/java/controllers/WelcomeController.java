@@ -13,10 +13,17 @@ package controllers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import security.LoginService;
+import security.UserAccount;
+import services.AdministratorService;
+import services.UserService;
+import domain.User;
 
 @Controller
 @RequestMapping("/welcome")
@@ -28,10 +35,18 @@ public class WelcomeController extends AbstractController {
 		super();
 	}
 
+
+	//Services
+	@Autowired
+	private AdministratorService	adminService;
+	@Autowired
+	private UserService				userService;
+
+
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required = false, defaultValue = "John Doe") final String name) {
+	public ModelAndView index(@RequestParam(required = false, defaultValue = "John Doe") String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
@@ -40,6 +55,19 @@ public class WelcomeController extends AbstractController {
 		moment = formatter.format(new Date());
 
 		result = new ModelAndView("welcome/index");
+
+		try {
+			LoginService.getPrincipal();
+			final UserAccount uA = LoginService.getPrincipal();
+			final User u = this.userService.getUserByUserAccountId(uA.getId());
+			if (u != null)
+				name = u.getName();
+			else
+				name = this.adminService.getAdminByUserAccountId(uA.getId()).getName();
+		} catch (final IllegalArgumentException i) {
+
+		}
+
 		result.addObject("name", name);
 		result.addObject("moment", moment);
 
