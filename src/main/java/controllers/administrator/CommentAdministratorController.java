@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CommentService;
-import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.Comment;
 
@@ -52,7 +51,7 @@ public class CommentAdministratorController extends AbstractController {
 		try {
 			final Comment comment = this.commentService.findOne(commentId);
 			this.commentService.delete(comment);
-			result = ControllerUtils.redirect("/welcome/index.do");
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.list();
 			result.addObject("message", "comment.commit.error");

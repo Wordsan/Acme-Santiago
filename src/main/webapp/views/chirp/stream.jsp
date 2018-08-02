@@ -23,17 +23,13 @@
 <security:authorize access="hasRole('USER') or hasRole('ADMIN')">
 <display:table name="chirps" id="c" requestURI="${requestURI}" pagesize="4" class="displaytag">
 
-<spring:message code="chirp.title" var="titleHeader"/>
-<display:column property="title" title="${titleHeader}" sortable="false"/>
+<acme:column code="chirp.title" property="title"/>
 
-<spring:message code="chirp.postMoment" var="pmHeader"/>
-<display:column property="postMoment" title="${pmHeader}" sortable="false"/>
+<acme:column code="chirp.postMoment" property="postMoment"/>
 
-<spring:message code="chirp.description" var="descriptionHeader"/>
-<display:column property="description" title="${descriptionHeader}" sortable="false"/>
+<acme:column code="chirp.description" property="description"/>
 
-<spring:message code="chirp.user" var="userHeader"/>
-<display:column property="user.name" title="${userHeader}" sortable="true"/>
+<acme:column code="chirp.user" property="user.name" sortable="true"/>
 
 <security:authorize access="hasRole('ADMIN')">
 <spring:message code="chirp.deleteTheChirp" var="deleteTheChirpHeader"/>
@@ -44,6 +40,5 @@
 </security:authorize>
 </display:table>
 
-<spring:message code="chirp.return" var="returnHeader"/>
-<input type="button" name="return" value="${returnHeader}" onclick="javascript:relativeRedir('/welcome/index.do');"/>
+<acme:cancel url="/welcome/index.do" code="chirp.return"/>
 </security:authorize>

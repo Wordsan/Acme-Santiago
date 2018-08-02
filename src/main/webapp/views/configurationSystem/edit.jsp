@@ -26,17 +26,11 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	
-	<form:label path="tabooWords" >
-	<spring:message code="configurationSystem.tabooWords"/>:
-	</form:label>
-	<form:input path="tabooWords" value="${configurationSystem.tabooWords}"/>
-	<form:errors cssClass="error" path="tabooWords"/>
+	<acme:textbox code="configurationSystem.tabooWords" path="tabooWords"/>
 	<br />
 	
 	<!-- Buttons -->
-	<spring:message code="configurationSystem.save" var="saveHeader"/>
-	<input type="submit" name="save" value="${saveHeader}"/>
-	<spring:message code="configurationSystem.cancel" var="cancelHeader"/>
-	<input type="button" name="cancel" value="${cancelHeader}" onclick="javascript:relativeRedir('/welcome/index.do');"/>
+	<acme:submit name="save" code="configurationSystem.save"/>
+	<acme:cancel url="/welcome/index.do" code="configurationSystem.cancel"/>
 </form:form>
 </security:authorize>

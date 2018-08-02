@@ -8,7 +8,6 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -27,34 +26,17 @@
 	<form:hidden path="version"/>
 	<form:hidden path="user"/>
 	
-	
-	<form:label path="postMoment" >
-	<spring:message code="chirp.postMoment"/>:
-	</form:label>
-	<form:input path="postMoment" placeholder="dd/MM/yyyy HH:mm"/>
-	<form:errors cssClass="error" path="postMoment"/>
+	<acme:textbox code="chirp.postMoment" path="postMoment" placeholder="dd/MM/yyyy HH:mm"/>
 	<br />
 	
-	
-	<form:label path="title">
-	<spring:message code="chirp.title"/>:
-	</form:label>
-	<form:input path="title"/>
-	<form:errors cssClass="error" path="title"/>
+	<acme:textbox code="chirp.title" path="title"/>
 	<br />
 
-	
-	<form:label path="description">
-	<spring:message code="chirp.description"/>:
-	</form:label>
-	<form:input path="description"/>
-	<form:errors cssClass="error" path="description"/>
+	<acme:textbox code="chirp.description" path="description"/>
 	<br />
 	
 	<!-- Buttons -->
-	<spring:message code="chirp.save" var="saveHeader"/>
-	<input type="submit" name="save" value="${saveHeader}"/>
-	<spring:message code="chirp.cancel" var="cancelHeader"/>
-	<input type="button" name="cancel" value="${cancelHeader}" onclick="javascript:relativeRedir('/welcome/index.do');"/>
+	<acme:submit name="save" code="chirp.save"/>
+	<acme:cancel url="/welcome/index.do" code="chirp.cancel"/>
 </form:form>
 </security:authorize>

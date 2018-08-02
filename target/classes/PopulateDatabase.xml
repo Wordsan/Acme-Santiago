@@ -266,7 +266,7 @@
 		</property>
 	</bean>
 	<bean class="domain.Administrator" id="administrator_admin1">
-		<property name="name" value="administrador2"/>
+		<property name="name" value="administrador1"/>
 		<property name="surname" value="admin"/>
 		<property name="picture" value="https://www.image.com/"/>
 		<property name="postalAddress" value=""/>
