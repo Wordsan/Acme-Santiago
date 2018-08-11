@@ -7,8 +7,10 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -18,18 +20,22 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "creator_id"), @Index(columnList = "length")
+})
 public class Route extends DomainEntity {
 
-	private String name;
-	private Double length;
-	private String description;
-	private String pictures;
+	private String				name;
+	private Double				length;
+	private String				description;
+	private String				pictures;
 
 	/* RELATIONSHIPS */
 
-	private Collection<Hike> composedHikes;
-	private Collection<Comment> comments;
-	private User creator;
+	private Collection<Hike>	composedHikes;
+	private Collection<Comment>	comments;
+	private User				creator;
+
 
 	@NotBlank
 	public String getName() {

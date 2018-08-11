@@ -19,16 +19,17 @@ import security.UserAccount;
 @Access(AccessType.PROPERTY)
 public class Actor extends DomainEntity {
 
-	private String name;
-	private String surname;
-	private String picture;
-	private String postalAddress;
-	private String phoneNumber;
-	private String emailAddress;
+	private String		name;
+	private String		surname;
+	private String		picture;
+	private String		postalAddress;
+	private String		phoneNumber;
+	private String		emailAddress;
 
 	/* RELATIONSHIPS */
 
-	private UserAccount userAccount;
+	private UserAccount	userAccount;
+
 
 	@NotBlank
 	public String getName() {
