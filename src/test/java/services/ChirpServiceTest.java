@@ -4,7 +4,6 @@ package services;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
@@ -62,6 +61,7 @@ public class ChirpServiceTest extends AbstractTest {
 	}
 
 	/*
+	 * 15.1:
 	 * An actor who is authenticated as a user must be able to:
 	 * Post a chirp. Chirps may not be changed or deleted once they are posted.
 	 */
@@ -98,6 +98,7 @@ public class ChirpServiceTest extends AbstractTest {
 	}
 
 	/*
+	 * 15.1:
 	 * An actor who is authenticated as a user must be able to:
 	 * Post a chirp. Chirps may not be changed or deleted once they are posted.
 	 */
@@ -106,18 +107,32 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driver15_1_1() {
 		final Object testingData[][] = {
 			{
-				"user1", "chirp1", null
+				"user1", "chirp_1", IllegalArgumentException.class
 			}, {
-				"user2", "chirp2", null
+				"user2", "chirp_1", IllegalArgumentException.class
 			}, {
-				"admin1", "chirp3", null
+				"admin1", "chirp_1", IllegalArgumentException.class
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
+		for (int i = 0; i < testingData.length; i++)
 			this.template15_1_1((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	@Test
+	public void driver15_1_2() {
+		final Object testingData[][] = {
+			{
+				"user1", "chirp_1", IllegalArgumentException.class
+			}, {
+				"user2", "chirp_1", IllegalArgumentException.class
+			}, {
+				"admin1", "chirp_1", null
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
 			this.template15_1_2((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
-		}
 	}
 
 	protected void template15_1_1(final String authenticate, final String chirp, final Class<?> expected) {
@@ -153,46 +168,78 @@ public class ChirpServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * List the chirps that contain taboo words.
+	 * 16. An actor who is authenticated as an administrator must be able to:
+	 * 2. List the chirps that contain taboo words.
 	 */
 
 	@Test
-	public void test16_2() {
-		this.authenticate("admin1");
-		final ConfigurationSystem cs = this.csService.get();
-		cs.setTabooWords("yupi");
-		this.csService.save(cs);
+	public void driver16_2() {
+		final Object testingData[][] = {
+			{
+				"user1", "chirp_1", IllegalArgumentException.class
+			}, {
+				"admin1", "chirp_1", null
+			}
+		};
 
-		this.authenticate("user1");
-		final User user = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
-		Chirp chirp, saved;
-		chirp = this.chirpService.create();
-		chirp.setDescription("yupi");
-		chirp.setPostMoment(new Date());
-		chirp.setTitle("title");
-		chirp.setUser(user);
+		for (int i = 0; i < testingData.length; i++)
+			this.template16_2((String) testingData[i][0], this.getEntityId(testingData[i][1].toString()), (Class<?>) testingData[i][2]);
+	}
 
-		saved = this.chirpService.save(chirp);
-		Assert.isTrue(this.chirpService.tabooChirps().contains(saved));
+	protected void template16_2(final String authenticate, final int chirpId, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		Chirp c;
+		try {
+			c = this.chirpService.findOne(chirpId);
+			this.authenticate("admin1");
+			final ConfigurationSystem cs = this.csService.get();
+			cs.setTabooWords(c.getDescription());
+			this.csService.save(cs);
+
+			this.authenticate(authenticate);
+			Assert.isTrue(this.chirpService.tabooChirps().contains(c));
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
 	}
 
 	/*
-	 * Remove a chirp that he or she thinks is inappropriate.
+	 * 16. An actor who is authenticated as an administrator must be able to:
+	 * 3. Remove a chirp that he or she thinks is inappropriate.
 	 */
 
 	@Test
-	public void test16_3() {
-		this.authenticate("user1");
-		final Chirp chirp = this.chirpService.findOne(this.getEntityId("chirp_1"));
-		try {
-			this.chirpService.delete(chirp);
-			throw new RuntimeException();
-		} catch (final IllegalArgumentException i) {
+	public void driver16_3() {
+		final Object testingData[][] = {
+			{
+				"user1", "chirp_1", IllegalArgumentException.class
+			}, {
+				"admin1", "chirp_1", null
+			}
+		};
 
+		for (int i = 0; i < testingData.length; i++)
+			this.template16_3((String) testingData[i][0], this.getEntityId(testingData[i][1].toString()), (Class<?>) testingData[i][2]);
+	}
+
+	protected void template16_3(final String authenticate, final int chirpId, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		Chirp c;
+		try {
+			this.authenticate(authenticate);
+			c = this.chirpService.findOne(chirpId);
+			this.chirpService.delete(c);
+			Assert.isTrue(!(this.chirpService.findAll().contains(c)));
+			Assert.isTrue(!c.getUser().getChirps().contains(c));
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
 		}
 
-		this.authenticate("admin1");
-		this.chirpService.delete(chirp);
-		Assert.isTrue(!(this.chirpService.findAll().contains(chirp)));
+		this.checkExceptions(expected, caught);
 	}
 }

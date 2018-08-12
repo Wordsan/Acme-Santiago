@@ -69,13 +69,15 @@ public class CommentService {
 		final Comment saved = this.commentRepository.save(comment);
 
 		if (h == null && r != null) {
-			u.getRouteComments().add(saved);
+			Assert.isTrue(r.getCreator().equals(u));
 
+			u.getRouteComments().add(saved);
 			r.getComments().add(saved);
 			this.routeService.save(r);
 		} else if (h != null && r == null) {
-			u.getHikeComments().add(saved);
+			Assert.isTrue(h.getRoute().getCreator().equals(u));
 
+			u.getHikeComments().add(saved);
 			h.getComments().add(saved);
 			this.hikeService.save(h);
 		} else
@@ -118,6 +120,7 @@ public class CommentService {
 	}
 	/* OTHERS */
 	public List<Comment> tabooComments() {
+		Assert.notNull(this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		List<Comment> all;
 		final List<Comment> res = new ArrayList<Comment>();
 		all = this.commentRepository.findAll();

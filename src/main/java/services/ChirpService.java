@@ -70,8 +70,8 @@ public class ChirpService {
 
 	public void delete(final Chirp chirp) {
 		//16.3
-		Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		Assert.notNull(chirp);
+		Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		final User u = chirp.getUser();
 		u.getChirps().remove(chirp);
 		this.userService.save(u);
@@ -81,6 +81,7 @@ public class ChirpService {
 
 	/* OTHERS */
 	public List<Chirp> tabooChirps() {
+		Assert.notNull(this.adminService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
 		List<Chirp> all;
 		final List<Chirp> res = new ArrayList<Chirp>();
 		all = this.chirpRepository.findAll();
