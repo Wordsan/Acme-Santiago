@@ -1,177 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<bean class="domain.ConfigurationSystem" id="configurationSystem_1">
-		<property name="tabooWords" value="sex,viagra,cialis"/>
-	</bean>
-	<bean class="security.UserAccount" id="userAccount_admin">
-		<property name="username" value="admin"/>
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3"/>
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="admin1" />
-		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="user2" />
-		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="USER"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="userAccount4" class="security.UserAccount">
-		<property name="username" value="user1" />
-		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="USER"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	<bean class="security.UserAccount" id="userAccount_innkeeper1">
-		<property name="username" value="innkeeper1"/>
-		<property name="password" value="innkeeper1"/>
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="INNKEEPER"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	<bean class="security.UserAccount" id="userAccount_innkeeper2">
-		<property name="username" value="innkeeper2"/>
-		<property name="password" value="innkeeper2"/>
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="INNKEEPER"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	<bean class="security.UserAccount" id="userAccount_super">
-		<property name="username" value="super"/>
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca"/>
-		<property name="authorities">
-			<list value-type="security.Authority">
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN"/>
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="USER"/>
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="INNKEEPER"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
 	<bean class="domain.User" id="user_user1">
 		<property name="followedUsers">
 			<list/>
-		</property>
-		<property name="registredRoutes">
-			<list>
-				<ref bean="route_1"/>
-				<ref bean="route_2"/>
-				<ref bean="route_6"/>
-				<ref bean="route_7"/>
-				<ref bean="route_10"/>
-				<ref bean="route_11"/>
-				<ref bean="route_13"/>
-				<ref bean="route_16"/>
-				<ref bean="route_17"/>
-				<ref bean="route_19"/>
-				<ref bean="route_21"/>
-				<ref bean="route_24"/>
-				<ref bean="route_25"/>
-				<ref bean="route_27"/>
-				<ref bean="route_29"/>
-				<ref bean="route_32"/>
-				<ref bean="route_33"/>
-				<ref bean="route_35"/>
-				<ref bean="route_37"/>
-				<ref bean="route_40"/>
-				<ref bean="route_41"/>
-				<ref bean="route_43"/>
-				<ref bean="route_45"/>
-				<ref bean="route_48"/>
-				<ref bean="route_49"/>
-				<ref bean="route_51"/>
-				<ref bean="route_53"/>
-				<ref bean="route_56"/>
-				<ref bean="route_57"/>
-				<ref bean="route_59"/>
-				<ref bean="route_61"/>
-				<ref bean="route_64"/>
-				<ref bean="route_65"/>
-				<ref bean="route_67"/>
-				<ref bean="route_69"/>
-				<ref bean="route_72"/>
-				<ref bean="route_73"/>
-				<ref bean="route_75"/>
-				<ref bean="route_77"/>
-				<ref bean="route_80"/>
-				<ref bean="route_81"/>
-			</list>
-		</property>
-		<property name="chirps">
-			<list>
-				<ref bean="chirp_1"/>
-			</list>
-		</property>
-		<property name="routeComments">
-			<list>
-				<ref bean="comment_1"/>
-				<ref bean="comment_2"/>
-				<ref bean="comment_5"/>
-			</list>
-		</property>
-		<property name="hikeComments">
-			<list>
-				<ref bean="comment_1"/>
-				<ref bean="comment_2"/>
-				<ref bean="comment_5"/>
-			</list>
-		</property>
-		<property name="name" value="user1"/>
-		<property name="surname" value="user"/>
-		<property name="picture" value="https://www.image1.com/"/>
-		<property name="postalAddress" value="calle francia n3, 40000, Sevilla, España"/>
-		<property name="phoneNumber" value=""/>
-		<property name="emailAddress" value="user1@gmail.com"/>
-		<property name="userAccount">
-			<ref bean="userAccount4"/>
-		</property>
-	</bean>
-	<bean class="domain.User" id="user_user2">
-		<property name="followedUsers">
-			<list>
-				<ref bean="user_user1"/>
-			</list>
 		</property>
 		<property name="registredRoutes">
 			<list>
@@ -244,6 +75,86 @@
 				<ref bean="comment_6"/>
 			</list>
 		</property>
+		<property name="name" value="user1"/>
+		<property name="surname" value="user"/>
+		<property name="picture" value="https://www.image1.com/"/>
+		<property name="postalAddress" value="calle francia n3, 40000, Sevilla, España"/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="user1@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount_user1"/>
+		</property>
+	</bean>
+	<bean class="domain.User" id="user_user2">
+		<property name="followedUsers">
+			<list>
+				<ref bean="user_user1"/>
+			</list>
+		</property>
+		<property name="registredRoutes">
+			<list>
+				<ref bean="route_1"/>
+				<ref bean="route_2"/>
+				<ref bean="route_6"/>
+				<ref bean="route_7"/>
+				<ref bean="route_10"/>
+				<ref bean="route_11"/>
+				<ref bean="route_13"/>
+				<ref bean="route_16"/>
+				<ref bean="route_17"/>
+				<ref bean="route_19"/>
+				<ref bean="route_21"/>
+				<ref bean="route_24"/>
+				<ref bean="route_25"/>
+				<ref bean="route_27"/>
+				<ref bean="route_29"/>
+				<ref bean="route_32"/>
+				<ref bean="route_33"/>
+				<ref bean="route_35"/>
+				<ref bean="route_37"/>
+				<ref bean="route_40"/>
+				<ref bean="route_41"/>
+				<ref bean="route_43"/>
+				<ref bean="route_45"/>
+				<ref bean="route_48"/>
+				<ref bean="route_49"/>
+				<ref bean="route_51"/>
+				<ref bean="route_53"/>
+				<ref bean="route_56"/>
+				<ref bean="route_57"/>
+				<ref bean="route_59"/>
+				<ref bean="route_61"/>
+				<ref bean="route_64"/>
+				<ref bean="route_65"/>
+				<ref bean="route_67"/>
+				<ref bean="route_69"/>
+				<ref bean="route_72"/>
+				<ref bean="route_73"/>
+				<ref bean="route_75"/>
+				<ref bean="route_77"/>
+				<ref bean="route_80"/>
+				<ref bean="route_81"/>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp_1"/>
+			</list>
+		</property>
+		<property name="routeComments">
+			<list>
+				<ref bean="comment_1"/>
+				<ref bean="comment_2"/>
+				<ref bean="comment_5"/>
+			</list>
+		</property>
+		<property name="hikeComments">
+			<list>
+				<ref bean="comment_1"/>
+				<ref bean="comment_2"/>
+				<ref bean="comment_5"/>
+			</list>
+		</property>
 		<property name="name" value="user2"/>
 		<property name="surname" value="user"/>
 		<property name="picture" value=""/>
@@ -251,7 +162,7 @@
 		<property name="phoneNumber" value=""/>
 		<property name="emailAddress" value="user2@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount3"/>
+			<ref bean="userAccount_user2"/>
 		</property>
 	</bean>
 	<bean class="domain.Administrator" id="administrator_admin">
@@ -273,7 +184,7 @@
 		<property name="phoneNumber" value="+99851345"/>
 		<property name="emailAddress" value="admin2@gmail.com"/>
 		<property name="userAccount">
-			<ref bean="userAccount2"/>
+			<ref bean="userAccount_admin1"/>
 		</property>
 	</bean>
 	<bean class="domain.Innkeeper" id="innkeeper_innkeeper1">
@@ -308,6 +219,9 @@
 			<ref bean="userAccount_innkeeper2"/>
 		</property>
 	</bean>
+	<bean class="domain.ConfigurationSystem" id="configurationSystem_1">
+		<property name="tabooWords" value="sex,viagra,cialis"/>
+	</bean>
 	<bean class="domain.Chirp" id="chirp_1">
 		<property name="postMoment" value="2018/10/14 08:10:00"/>
 		<property name="title" value="chirp1"/>
@@ -332,7 +246,6 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
 	<bean class="domain.Chirp" id="chirp_4">
 		<property name="postMoment" value="2016/05/01 08:10:00"/>
 		<property name="title" value="chirp4"/>
@@ -341,8 +254,6 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
-	
 	<bean class="domain.Chirp" id="chirp_5">
 		<property name="postMoment" value="2016/05/01 08:10:00"/>
 		<property name="title" value="chirp5"/>
@@ -351,8 +262,6 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
-	
 	<bean class="domain.Chirp" id="chirp_6">
 		<property name="postMoment" value="2016/05/01 08:10:00"/>
 		<property name="title" value="chirp6"/>
@@ -361,7 +270,6 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
 	<bean class="domain.Chirp" id="chirp_7">
 		<property name="postMoment" value="2016/05/01 08:10:00"/>
 		<property name="title" value="chirp7"/>
@@ -370,7 +278,6 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
 	<bean class="domain.Chirp" id="chirp_8">
 		<property name="postMoment" value="2016/05/01 08:10:00"/>
 		<property name="title" value="chirp8"/>
@@ -379,7 +286,6 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
 	<bean class="domain.Chirp" id="chirp_9">
 		<property name="postMoment" value="2016/05/01 08:10:00"/>
 		<property name="title" value="chirp9"/>
@@ -388,7 +294,89 @@
 			<ref bean="user_user1"/>
 		</property>
 	</bean>
-	
+	<bean class="security.UserAccount" id="userAccount_admin">
+		<property name="username" value="admin"/>
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_admin1">
+		<property name="username" value="admin1"/>
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_user2">
+		<property name="username" value="user2"/>
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="USER"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_user1">
+		<property name="username" value="user1"/>
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="USER"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_innkeeper1">
+		<property name="username" value="innkeeper1"/>
+		<property name="password" value="innkeeper1"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="INNKEEPER"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_innkeeper2">
+		<property name="username" value="innkeeper2"/>
+		<property name="password" value="innkeeper2"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="INNKEEPER"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount_super">
+		<property name="username" value="super"/>
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN"/>
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="USER"/>
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="INNKEEPER"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<bean class="domain.Inn" id="inn_1">
 		<property name="name" value="inn1"/>
 		<property name="badge" value="https://www.bagde1.com/"/>
