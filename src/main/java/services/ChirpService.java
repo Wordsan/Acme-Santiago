@@ -92,4 +92,8 @@ public class ChirpService {
 					res.add(c);
 		return res;
 	}
+
+	public void flush() {
+		this.chirpRepository.flush();
+	}
 }

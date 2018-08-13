@@ -131,4 +131,8 @@ public class CommentService {
 					res.add(c);
 		return res;
 	}
+
+	public void flush() {
+		this.commentRepository.flush();
+	}
 }

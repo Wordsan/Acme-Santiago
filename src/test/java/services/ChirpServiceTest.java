@@ -85,6 +85,7 @@ public class ChirpServiceTest extends AbstractTest {
 			chirp.setUser(user);
 
 			saved = this.chirpService.save(chirp);
+			this.chirpService.flush();
 			all = this.chirpService.findAll();
 			Assert.isTrue(all.contains(saved));
 

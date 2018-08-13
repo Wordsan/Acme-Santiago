@@ -92,43 +92,43 @@ public class CommentServiceTest extends AbstractTest {
 	public void driverCreateComment() {
 
 		final String[] properties = {
-			"11/08/2018 20:20, , , , ", "11/08/2018, , , , ", "11/08/2018 20:20,title,text,URL, ", "11/08/2018 20:20,title,text,https://www.url.es/, ", "11/08/2018 20:20,title,text,https://www.url.es/,0",
-			"11/08/2018 20:20,title,text,https://www.url.es/,2", "11/08/2018 20:20,title,text,https://www.url.es/,3"
+			"11/08/2018 20:20, , , , ", "11/08/2018, , , ,0", "11/08/2018 20:20,title,text,URL,0", "11/08/2018 20:20,title,text,https://www.url.es/,0", "11/08/2018 20:20,title,text,https://www.url.es/,0",
+			"11/08/2018 20:20,title,text,https://www.url.es/,2", "11/08/2018 20:20,title,text,https://www.url.es/,3", "11/08/2018 20:20, , , ,0"
 		};
 		final Object testingData[][] = {
 			{//Probando las properties
-				"user1", "user1", "route_1", "", properties[0], ConstraintViolationException.class
+				//
+				"user1", "user_user1", "route_3", "", properties[0], NumberFormatException.class
 			}, {
-				"user1", "user1", "route_1", "", properties[1], java.text.ParseException.class
+				"user1", "user_user1", "route_3", "", properties[7], ConstraintViolationException.class
 			}, {
-				"user1", "user1", "route_1", "", properties[2], ConstraintViolationException.class
+				"user1", "user_user1", "route_3", "", properties[1], java.text.ParseException.class
 			}, {
-				"user1", "user1", "route_1", "", properties[3], ConstraintViolationException.class
+				"user1", "user_user1", "route_3", "", properties[2], ConstraintViolationException.class
 			}, {//Probando el range
-				"user1", "user1", "route_1", "", properties[4], null
+				"user1", "user_user1", "route_3", "", properties[4], null
 			}, {
-				"user1", "user1", "route_1", "", properties[5], null
+				"user1", "user_user1", "route_3", "", properties[5], null
 			}, {
-				"user1", "user1", "route_1", "", properties[6], null
+				"user1", "user_user1", "route_3", "", properties[6], null
 			}, {//Autenticado no es user
-				"admin1", "user1", "route_1", "", properties[4], IllegalArgumentException.class
+				"admin1", "user_user1", "route_3", "", properties[4], IllegalArgumentException.class
 			}, {//Creador del comment no es el mismo que el de la route
-				"user2", "user1", "route_1", "", properties[4], IllegalArgumentException.class
+				"user2", "user_user2", "route_3", "", properties[4], IllegalArgumentException.class
 			}, {//Creador del comment no es el mismo que el del hike
-				"user2", "user1", "", "hike_1", properties[4], IllegalArgumentException.class
+				"user2", "user_user2", "", "hike_5", properties[4], IllegalArgumentException.class
 			}, {//La ruta no es suya
-				"user1", "user1", "route_8", "", properties[6], IllegalArgumentException.class
+				"user1", "user_user1", "route_1", "", properties[6], IllegalArgumentException.class
 			}, {//El hike no es suyo 
-				"user1", "user1", "", "hike_12", properties[6], IllegalArgumentException.class
+				"user1", "user_user1", "", "hike_1", properties[6], IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.templateCreateComment((String) testingData[i][0], this.getEntityId(testingData[i][1].toString()), this.getEntityId(testingData[i][2].toString()), this.getEntityId(testingData[i][3].toString()), (String) testingData[i][4],
-				(Class<?>) testingData[i][2]);
+			this.templateCreateComment((String) testingData[i][0], this.getEntityId(testingData[i][1].toString()), (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (Class<?>) testingData[i][5]);
 	}
 
-	protected void templateCreateComment(final String authenticate, final int ownerId, final int routeId, final int hikeId, final String properties, final Class<?> expected) {
+	protected void templateCreateComment(final String authenticate, final int ownerId, final String routeName, final String hikeName, final String properties, final Class<?> expected) {
 		Class<?> caught;
 		String[] split;
 		caught = null;
@@ -148,23 +148,28 @@ public class CommentServiceTest extends AbstractTest {
 			comment.setRate(new Integer(split[4]));
 			final User owner = this.userService.findOne(ownerId);
 			comment.setOwner(owner);
-			final Route route = this.routeService.findOne(routeId);
-			final Hike hike = this.hikeService.findOne(hikeId);
-			if (route != null)
+			if (routeName != "") {
+				final int routeId = this.getEntityId(routeName);
+				final Route route = this.routeService.findOne(routeId);
 				comment.setRoute(route);
-			if (hike != null)
+			}
+			if (hikeName != "") {
+				final int hikeId = this.getEntityId(hikeName);
+				final Hike hike = this.hikeService.findOne(hikeId);
 				comment.setHike(hike);
+			}
 
 			saved = this.commentService.save(comment);
+			this.commentService.flush();
 			all = this.commentService.findAll();
 			Assert.isTrue(all.contains(saved));
 
 			Assert.isTrue(owner.getHikeComments().contains(saved) || owner.getRouteComments().contains(saved));
 
-			if (route != null)
-				Assert.isTrue(route.getComments().contains(saved));
-			if (hike != null)
-				Assert.isTrue(hike.getComments().contains(saved));
+			if (routeName != "")
+				Assert.isTrue(comment.getRoute().getComments().contains(saved));
+			if (hikeName != "")
+				Assert.isTrue(comment.getHike().getComments().contains(saved));
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -173,28 +178,28 @@ public class CommentServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	@Test
-	public void test16_4() {
-		this.authenticate("admin1");
-		final ConfigurationSystem cs = this.csService.get();
-		cs.setTabooWords("yupi");
-		this.csService.save(cs);
-
-		this.authenticate("user2");
-		Comment comment, saved;
-		comment = this.commentService.create();
-		comment.setTitle("title");
-		comment.setText("yupi");
-		comment.setPictures("https://www.pic.com/");
-		comment.setRate(1);
-		final Route r = this.routeService.findOne(this.getEntityId("route_81"));
-		comment.setRoute(r);
-
-		saved = this.commentService.save(comment);
-		Assert.isTrue(saved.getOwner().getRouteComments().contains(saved));
-		Assert.isTrue(saved.getRoute().getComments().contains(saved));
-		Assert.isTrue(this.commentService.tabooComments().contains(saved));
-	}
+	//	@Test
+	//	public void test16_4() {
+	//		this.authenticate("admin1");
+	//		final ConfigurationSystem cs = this.csService.get();
+	//		cs.setTabooWords("yupi");
+	//		this.csService.save(cs);
+	//
+	//		this.authenticate("user2");
+	//		Comment comment, saved;
+	//		comment = this.commentService.create();
+	//		comment.setTitle("title");
+	//		comment.setText("yupi");
+	//		comment.setPictures("https://www.pic.com/");
+	//		comment.setRate(1);
+	//		final Route r = this.routeService.findOne(this.getEntityId("route_81"));
+	//		comment.setRoute(r);
+	//
+	//		saved = this.commentService.save(comment);
+	//		Assert.isTrue(saved.getOwner().getRouteComments().contains(saved));
+	//		Assert.isTrue(saved.getRoute().getComments().contains(saved));
+	//		Assert.isTrue(this.commentService.tabooComments().contains(saved));
+	//	}
 
 	/*
 	 * Remove a comment that he or she thinks is inappropriate.
