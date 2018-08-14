@@ -56,6 +56,7 @@ public class HikeController extends AbstractController {
 		view = new ModelAndView("hike/display");
 		view.addObject("hike", hike);
 		view.addObject("user", user);
+		view.addObject("comments", hike.getComments());
 
 		return view;
 	}

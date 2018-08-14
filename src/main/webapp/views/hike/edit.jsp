@@ -34,7 +34,7 @@
 	<acme:textarea code="hike.description" path="description"/>
 	<br/>
 	
-	<acme:textbox code="hike.difficultyLevel" path="difficultyLevel"/>
+	<acme:select itemLabel="--" onlyValues="true" items="${difficultyLevelOptions}" code="hike.difficultyLevel" path="difficultyLevel"/>
 	<br/>
 	
 	<acme:textbox code="hike.length" path="length"/>

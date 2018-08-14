@@ -18,7 +18,7 @@
 
 <hr />
 
-<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme Santiago Co., Inc.</b>
+<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme Santiago, NPO.</b>
 
 <div class="footer-menu">
 	<ul>

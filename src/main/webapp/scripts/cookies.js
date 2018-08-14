@@ -1,13 +1,15 @@
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays, path) {
 	var d = new Date();
 	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
 	var expires = "expires=" + d.toUTCString();
-	document.cookie = cname + "=" + cvalue + "; " + expires;
+	path = (path == undefined) ? "/" : path;
+	document.cookie = cname + "=" + cvalue + "; " + expires + "; path=" + path;
 }
 
-function setSessionCookie(cname, cvalue) {
+function setSessionCookie(cname, cvalue, path) {
 	var expires = "expires=" + 0;
-	document.cookie = cname + "=" + cvalue + "; " + expires;
+	path = (path == undefined) ? "/" : path;
+	document.cookie = cname + "=" + cvalue + "; " + expires + "; path=" + path;
 }
 
 function getCookie(cname) {
@@ -31,7 +33,7 @@ $(document).ready(function() {
 
 	$('#cookie-notice-button').click(function() {
 		if (getCookie('cookiesNotice') == '') {
-			setCookie('cookiesNotice', true, 365 * 5);
+			setCookie('cookiesNotice', true, 365 * 5, $($('relativeBase')[0]).attr('href'));
 		}
 		$('#cookie-notice').addClass('hidden');
 	});

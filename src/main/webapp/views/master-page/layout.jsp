@@ -22,9 +22,10 @@
 <base
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link rel="shortcut icon" href="favicon.ico"/> 
+<link rel="shortcut icon" href="favicon.ico?ver=1"/> 
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>

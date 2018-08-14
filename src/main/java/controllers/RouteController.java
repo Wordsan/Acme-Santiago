@@ -91,6 +91,7 @@ public class RouteController extends AbstractController {
 		view = new ModelAndView("route/display");
 		view.addObject("route", route);
 		view.addObject("hikes", hikes);
+		view.addObject("comments", route.getComments());
 		view.addObject("user", user);
 		view.addObject("backURI", backURI);
 		view.addObject("requestURI", "route/display.do");

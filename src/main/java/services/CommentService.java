@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.CommentRepository;
-import security.LoginService;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
 import domain.User;
+import repositories.CommentRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -25,20 +25,19 @@ public class CommentService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private CommentRepository			commentRepository;
+	private CommentRepository commentRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService					userService;
+	private UserService userService;
 	@Autowired
-	private ConfigurationSystemService	csService;
+	private ConfigurationSystemService csService;
 	@Autowired
-	private AdministratorService		administratorService;
+	private AdministratorService administratorService;
 	@Autowired
-	private RouteService				routeService;
+	private RouteService routeService;
 	@Autowired
-	private HikeService					hikeService;
-
+	private HikeService hikeService;
 
 	/* CONSTRUCTOR */
 	public CommentService() {
@@ -52,7 +51,7 @@ public class CommentService {
 		final Comment c = new Comment();
 		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
 
-		c.setWriteMoment(new Date());
+		c.setWriteMoment(new Date(System.currentTimeMillis() - 10));
 		c.setRate(0);
 		c.setOwner(u);
 
@@ -68,20 +67,21 @@ public class CommentService {
 
 		final Comment saved = this.commentRepository.save(comment);
 
-		if (h == null && r != null) {
+		if ((h == null) && (r != null)) {
 			Assert.isTrue(r.getCreator().equals(u));
 
 			u.getRouteComments().add(saved);
 			r.getComments().add(saved);
 			this.routeService.save(r);
-		} else if (h != null && r == null) {
+		} else if ((h != null) && (r == null)) {
 			Assert.isTrue(h.getRoute().getCreator().equals(u));
 
 			u.getHikeComments().add(saved);
 			h.getComments().add(saved);
 			this.hikeService.save(h);
-		} else
+		} else {
 			throw new IllegalArgumentException("Or hike or Route must be null.");
+		}
 
 		this.userService.save(u);
 
@@ -103,12 +103,12 @@ public class CommentService {
 		final Hike h = comment.getHike();
 		final Route r = comment.getRoute();
 
-		if (h == null && r != null) {
+		if ((h == null) && (r != null)) {
 			u.getRouteComments().remove(comment);
 
 			r.getComments().remove(comment);
 			this.routeService.save(r);
-		} else if (h != null && r == null) {
+		} else if ((h != null) && (r == null)) {
 			u.getHikeComments().remove(comment);
 
 			h.getComments().remove(comment);
@@ -118,6 +118,7 @@ public class CommentService {
 		this.userService.save(u);
 		this.commentRepository.delete(comment);
 	}
+
 	/* OTHERS */
 	public List<Comment> tabooComments() {
 		Assert.notNull(this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));
@@ -125,10 +126,13 @@ public class CommentService {
 		final List<Comment> res = new ArrayList<Comment>();
 		all = this.commentRepository.findAll();
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
-		for (final Comment c : all)
-			for (final String s : tabooWords)
-				if ((c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+		for (final Comment c : all) {
+			for (final String s : tabooWords) {
+				if ((c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s))) {
 					res.add(c);
+				}
+			}
+		}
 		return res;
 	}
 

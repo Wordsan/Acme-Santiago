@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<img src="images/cruz_santiago.jpg" height="450px"  width="1080px" alt="Acme Santiago Co., Inc." />
+	<img src="images/logo.png" height="250px"  alt="Acme Santiago Co., Inc." />
 </div>
 
 <div>

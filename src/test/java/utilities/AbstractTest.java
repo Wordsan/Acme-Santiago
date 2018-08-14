@@ -1,10 +1,10 @@
 /*
  * AbstractTest.java
- * 
+ *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
+ *
+ * The use of this project is hereby constrained to the conditions of the TDG
+ * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  */
 
@@ -36,16 +36,15 @@ public abstract class AbstractTest {
 	// Supporting services --------------------------------
 
 	@Autowired
-	private LoginService						loginService;
+	private LoginService loginService;
 	@Autowired
-	private JpaTransactionManager				transactionManager;
+	private JpaTransactionManager transactionManager;
 
 	// Internal state -------------------------------------
 
-	private final DefaultTransactionDefinition	transactionDefinition;
-	private TransactionStatus					currentTransaction;
-	private final Properties					entityMap;
-
+	private final DefaultTransactionDefinition transactionDefinition;
+	private TransactionStatus currentTransaction;
+	private final Properties entityMap;
 
 	// Constructor ----------------------------------------
 
@@ -81,9 +80,9 @@ public abstract class AbstractTest {
 		TestingAuthenticationToken authenticationToken;
 		SecurityContext context;
 
-		if (username == null)
+		if (username == null) {
 			authenticationToken = null;
-		else {
+		} else {
 			userDetails = this.loginService.loadUserByUsername(username);
 			authenticationToken = new TestingAuthenticationToken(userDetails, null);
 		}
@@ -97,12 +96,13 @@ public abstract class AbstractTest {
 	}
 
 	protected void checkExceptions(final Class<?> expected, final Class<?> caught) {
-		if (expected != null && caught == null)
+		if ((expected != null) && (caught == null)) {
 			throw new RuntimeException(expected.getName() + " was expected");
-		else if (expected == null && caught != null)
+		} else if ((expected == null) && (caught != null)) {
 			throw new RuntimeException(caught.getName() + " was unexpected");
-		else if (expected != null && caught != null && !expected.equals(caught))
+		} else if ((expected != null) && (caught != null) && !expected.equals(caught)) {
 			throw new RuntimeException(expected.getName() + " was expected, but " + caught.getName() + " was thrown");
+		}
 	}
 
 	protected void startTransaction() {
@@ -122,7 +122,7 @@ public abstract class AbstractTest {
 	}
 
 	protected boolean existsEntity(final String beanName) {
-		assert beanName != null && beanName.matches("^[A-Za-z0-9\\-]+$");
+		assert (beanName != null) && beanName.matches("^[A-Za-z0-9\\-]+$");
 
 		boolean result;
 
@@ -132,7 +132,7 @@ public abstract class AbstractTest {
 	}
 
 	protected int getEntityId(final String beanName) {
-		assert beanName != null && beanName.matches("^[A-Za-z0-9\\-]+$");
+		assert (beanName != null) && beanName.matches("^[A-Za-z0-9\\-]+$");
 		assert this.existsEntity(beanName);
 
 		int result;

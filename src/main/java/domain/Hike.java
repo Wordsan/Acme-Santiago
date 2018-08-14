@@ -92,7 +92,7 @@ public class Hike extends DomainEntity {
 	}
 
 	@Valid
-	@Pattern(regexp = ("EASY|MEDIUM|DIFFICULT"))
+	@Pattern(regexp = ("^EASY|MEDIUM|DIFFICULT$"))
 	public String getDifficultyLevel() {
 		return this.difficultyLevel;
 	}

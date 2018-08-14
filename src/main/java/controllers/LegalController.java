@@ -33,7 +33,7 @@ public class LegalController extends AbstractController {
 		String vatNumber;
 		String contactEmail;
 
-		companyName = "Acme Santiago";
+		companyName = "Acme Santiago, NPO.";
 		address = "Avenida Reina Mercedes s/n - 41012 - Sevilla";
 		vatNumber = "R2028110A";
 		contactEmail = "infoacmesantiago@acme.com";
@@ -58,7 +58,7 @@ public class LegalController extends AbstractController {
 		String contactEmail;
 		String tabooWords;
 
-		companyName = "Acme Santiago";
+		companyName = "Acme Santiago, NPO.";
 		address = "Avenida Reina Mercedes s/n - 41012 - Sevilla";
 		vatNumber = "R2028110A";
 		contactEmail = "termsacmesantiago@acme.com";
@@ -94,7 +94,7 @@ public class LegalController extends AbstractController {
 		String address;
 		String contactEmail;
 
-		companyName = "Acme Santiago";
+		companyName = "Acme Santiago, NPO.";
 		address = "Avenida Reina Mercedes s/n - 41012 - Sevilla";
 		contactEmail = "privacyacmesantiago@acme.com";
 

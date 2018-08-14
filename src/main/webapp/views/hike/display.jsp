@@ -84,3 +84,30 @@
 		<jstl:out value="${ hike.destinationCity }" />
 	</div>
 </p>
+
+<p>
+	<div>
+		<strong><spring:message code="route.comments" />:</strong>
+	</div>
+	<div>
+		<display:table name="comments" id="row" requestURI="${requestURI}" pagesize="3" class="displaytag">
+	
+			<spring:message code="comment.title" var="titleHeader"  />
+			<display:column property="title" title="${titleHeader}" />
+			
+			<spring:message code="comment.text" var="textHeader"  />
+			<display:column property="text" title="${textHeader}" />
+			
+			<spring:message code="comment.rate" var="rateHeader"  />
+			<display:column property="rate" title="${rateHeader}" />
+			
+			<spring:message code="comment.writeMoment" var="writeMomentHeader"  />
+			<display:column property="writeMoment" title="${writeMomentHeader}" format="{0,date,dd/MM/yyyy HH:mm}"/>
+			
+			<spring:message code="comment.owner" var="ownerHeader"  />
+			<display:column title="${ownerHeader}">
+				<a href="user/display.do?userId=${row.owner.id}"><jstl:out value="${row.owner.name}"/> <jstl:out value="${row.owner.surname}"/></a>
+			</display:column>
+		</display:table>
+	</div>
+</p>

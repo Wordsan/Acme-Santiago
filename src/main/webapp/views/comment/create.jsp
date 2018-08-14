@@ -26,12 +26,11 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="owner"/>
-	<form:hidden path="writeMoment"/>
 	
 	<acme:textbox code="comment.title" path="title"/>
 	<br />
 
-	<acme:textbox code="comment.text" path="text"/>
+	<acme:textarea code="comment.text" path="text"/>
 	<br />
 
 	<acme:textbox code="comment.pictures" path="pictures"/>
@@ -46,8 +45,11 @@
 	<acme:select items="${hikes}" itemLabel="name" code="comment.hike" path="hike"/>
 	<br/>
 	
+	<acme:textbox code="comment.writeMoment" path="writeMoment" placeholder="dd/MM/yyyy HH:mm" readonly="true"/>
+	<br />
+	
 	<!-- Buttons -->
-	<acme:submit name="save" code="comment.save"/>
 	<acme:cancel url="/welcome/index.do" code="comment.cancel"/>
+	<acme:submit name="save" code="comment.save"/>
 </form:form>
 </security:authorize>

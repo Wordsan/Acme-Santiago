@@ -20,25 +20,30 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<div>
+	<a href="" onclick="relativeRedir('/')"><spring:message code="common.action.back" /></a>
+</div>
 <security:authorize access="hasRole('USER') or hasRole('ADMIN')">
 <display:table name="chirps" id="c" requestURI="${requestURI}" pagesize="4" class="displaytag">
 
 <acme:column code="chirp.title" property="title"/>
 
-<acme:column code="chirp.postMoment" property="postMoment"/>
-
 <acme:column code="chirp.description" property="description"/>
 
-<acme:column code="chirp.user" property="user.name" sortable="true"/>
+<acme:column code="chirp.postMoment" property="postMoment" format="{0,date,dd/MM/yyyy HH:mm}"/>
+
+<spring:message code="chirp.user" var="userHeader"/>
+<display:column title="${userHeader}" sortable="true">
+<a href="user/display.do?userId=${c.user.id}"><jstl:out value="${c.user.name}" /> <jstl:out value="${c.user.surname}" /></a>
+</display:column>
 
 <security:authorize access="hasRole('ADMIN')">
 <spring:message code="chirp.deleteTheChirp" var="deleteTheChirpHeader"/>
 <display:column title="${deleteTheChirpHeader}" sortable="false">
 <spring:message code="chirp.delete" var="deleteHeader"/>
-<a href="chirp/admin/delete.do?chirpId=${c.id}">${deleteHeader}</a>
+	<a href="chirp/admin/delete.do?chirpId=${c.id}" onclick="return askSubmit('<spring:message code="common.message.confirm"/>')">${deleteHeader}</a>
 </display:column>
 </security:authorize>
 </display:table>
 
-<acme:cancel url="/welcome/index.do" code="chirp.return"/>
 </security:authorize>

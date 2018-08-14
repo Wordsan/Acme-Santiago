@@ -3,8 +3,8 @@
  *
  * Copyright (C) 2017 Universidad de Sevilla
  *
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
+ * The use of this project is hereby constrained to the conditions of the TDG
+ * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  */
 
@@ -73,17 +73,9 @@ public class UserUserController extends AbstractController {
 	public ModelAndView followUser(@RequestParam(required = true) int userId, RedirectAttributes redirectAttrs,
 			HttpServletRequest request) {
 		ModelAndView view;
-		User userFollow;
-		User userLogged;
 
 		try {
-
-			userLogged = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
-			userFollow = this.userService.findOne(userId);
-
-			userLogged.getFollowedUsers().add(userFollow);
-			this.userService.save(userLogged);
-
+			this.userService.follow(userId);
 			view = new ModelAndView(
 					"redirect:" + ((request.getHeader("Referer") != null) ? request.getHeader("Referer") : "/"));
 			redirectAttrs.addFlashAttribute("message", "common.message.success");
@@ -100,17 +92,9 @@ public class UserUserController extends AbstractController {
 	public ModelAndView unfollowUser(@RequestParam(required = true) int userId, RedirectAttributes redirectAttrs,
 			HttpServletRequest request) {
 		ModelAndView view;
-		User userFollow;
-		User userLogged;
 
 		try {
-
-			userLogged = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
-			userFollow = this.userService.findOne(userId);
-
-			userLogged.getFollowedUsers().remove(userFollow);
-			this.userService.save(userLogged);
-
+			this.userService.unfollow(userId);
 			view = new ModelAndView(
 					"redirect:" + ((request.getHeader("Referer") != null) ? request.getHeader("Referer") : "/"));
 			redirectAttrs.addFlashAttribute("message", "common.message.success");
