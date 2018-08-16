@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Chirp extends DomainEntity {
 
 	private Date	postMoment;
-	private String	titulo;
+	private String	title;
 	private String	description;
 
 	/* RELATIONSHIPS */
