@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
@@ -40,6 +42,8 @@ public class CommentServiceTest extends AbstractTest {
 	private UserService					userService;
 	@Autowired
 	private HikeService					hikeService;
+	@PersistenceContext
+	private EntityManager				entityManager;
 
 
 	/* TESTS */
@@ -121,6 +125,8 @@ public class CommentServiceTest extends AbstractTest {
 				"user1", "user_user1", "route_1", "", properties[6], IllegalArgumentException.class
 			}, {//El hike no es suyo 
 				"user1", "user_user1", "", "hike_1", properties[6], IllegalArgumentException.class
+			}, {//Route y hike a la vez 
+				"user1", "user_user1", "route_3", "hike_5", properties[4], ConstraintViolationException.class
 			}
 		};
 
@@ -173,54 +179,56 @@ public class CommentServiceTest extends AbstractTest {
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
+		} finally {
+			try {
+				this.entityManager.flush();
+			} catch (final Exception ignored) {
+			}
+			this.entityManager.clear();
+
 		}
 
 		this.checkExceptions(expected, caught);
 	}
 
-	//	@Test
-	//	public void test16_4() {
-	//		this.authenticate("admin1");
-	//		final ConfigurationSystem cs = this.csService.get();
-	//		cs.setTabooWords("yupi");
-	//		this.csService.save(cs);
-	//
-	//		this.authenticate("user2");
-	//		Comment comment, saved;
-	//		comment = this.commentService.create();
-	//		comment.setTitle("title");
-	//		comment.setText("yupi");
-	//		comment.setPictures("https://www.pic.com/");
-	//		comment.setRate(1);
-	//		final Route r = this.routeService.findOne(this.getEntityId("route_81"));
-	//		comment.setRoute(r);
-	//
-	//		saved = this.commentService.save(comment);
-	//		Assert.isTrue(saved.getOwner().getRouteComments().contains(saved));
-	//		Assert.isTrue(saved.getRoute().getComments().contains(saved));
-	//		Assert.isTrue(this.commentService.tabooComments().contains(saved));
-	//	}
-
 	/*
-	 * Remove a comment that he or she thinks is inappropriate.
+	 * 16. An actor who is authenticated as an administrator must be able to:
+	 * 5. Remove a comment that he or she thinks is inappropriate.
 	 */
 
 	@Test
-	public void test16_5() {
-		this.authenticate("user2");
-		final Comment comment = this.commentService.findOne(this.getEntityId("comment_1"));
-		try {
-			this.commentService.delete(comment);
-			throw new RuntimeException();
-		} catch (final IllegalArgumentException i) {
+	public void driver16_5() {
+		final Object testingData[][] = {
+			{
+				"user1", "comment_1", IllegalArgumentException.class
+			}, {
+				"admin1", "comment_1", null
+			}
+		};
 
-		}
-
-		this.authenticate("admin1");
-		this.commentService.delete(comment);
-		Assert.isTrue(!(this.commentService.findAll().contains(comment)));
-		Assert.isTrue(!(comment.getOwner().getRouteComments().contains(comment)));
-		Assert.isTrue(!(comment.getRoute().getComments().contains(comment)));
+		for (int i = 0; i < testingData.length; i++)
+			this.template16_5((String) testingData[i][0], this.getEntityId(testingData[i][1].toString()), (Class<?>) testingData[i][2]);
 	}
 
+	protected void template16_5(final String authenticate, final int commentId, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		Comment c;
+		try {
+			this.authenticate(authenticate);
+			c = this.commentService.findOne(commentId);
+			this.commentService.delete(c);
+			Assert.isTrue(!(this.commentService.findAll().contains(c)));
+			Assert.isTrue(!(c.getOwner().getRouteComments().contains(c) || c.getOwner().getHikeComments().contains(c)));
+			if (c.getHike() != null)
+				Assert.isTrue(!(c.getHike().getComments().contains(c)));
+			else
+				Assert.isTrue(!(c.getRoute().getComments().contains(c)));
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
 }

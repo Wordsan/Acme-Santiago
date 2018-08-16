@@ -24,12 +24,12 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
 	@Query("select avg(r.length),sqrt(sum(r.length * r.length) / count(r.length) - (avg(r.length) * avg(r.length))) from Route r")
 	Double[] routeLengthStadistics();
 
-	/*
-	 * 3.3 -> Search for routes using a single key word that must appear somewhere
-	 * in their names, their descriptions, or their hikes.
-	 */
-	@Query("select distinct r from Route r join r.composedHikes h where r.name like concat('%', ?1, '%') or r.description like concat('%', ?1, '%') or h.name like concat('%', ?1, '%') or h.originCity like concat('%', ?1, '%') or h.destinationCity like concat('%', ?1, '%') or h.description like concat('%', ?1, '%')")
-	List<Route> searchRoutesFromKeyWord(String keyWord);
+	//	/*
+	//	 * 3.3 -> Search for routes using a single key word that must appear somewhere
+	//	 * in their names, their descriptions, or their hikes.
+	//	 */
+	//	@Query("select distinct r from Route r join r.composedHikes h where r.name like concat('%', ?1, '%') or r.description like concat('%', ?1, '%') or h.name like concat('%', ?1, '%') or h.originCity like concat('%', ?1, '%') or h.destinationCity like concat('%', ?1, '%') or h.description like concat('%', ?1, '%')")
+	//	List<Route> searchRoutesFromKeyWord(String keyWord);
 
 	/* 6.2 -> The outlier routes according to their lengths. */
 	@Query("select r from Route r where r.length <= ((select avg(r.length) from Route r) - 3*(select stddev(r.length) from Route r)) or r.length >= ((select avg(r.length) from Route r) + 3*(select stddev(r.length) from Route r))")

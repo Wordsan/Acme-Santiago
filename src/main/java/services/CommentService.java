@@ -62,6 +62,7 @@ public class CommentService {
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
 		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
+		Assert.isTrue(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()).equals(comment.getOwner()));
 		final User u = comment.getOwner();
 		final Hike h = comment.getHike();
 		final Route r = comment.getRoute();
@@ -80,14 +81,12 @@ public class CommentService {
 			u.getHikeComments().add(saved);
 			h.getComments().add(saved);
 			this.hikeService.save(h);
-		} else
-			throw new IllegalArgumentException("Or hike or Route must be null.");
+		}
 
 		this.userService.save(u);
 
 		return saved;
 	}
-
 	public Collection<Comment> findAll() {
 		return this.commentRepository.findAll();
 	}

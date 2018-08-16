@@ -14,9 +14,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+@Indexed
 @Entity
 @Access(AccessType.PROPERTY)
 public class Hike extends DomainEntity {
@@ -35,6 +38,7 @@ public class Hike extends DomainEntity {
 	private Collection<Comment>	comments;
 
 
+	@Field
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -54,6 +58,7 @@ public class Hike extends DomainEntity {
 		this.length = length;
 	}
 
+	@Field
 	@NotBlank
 	public String getOriginCity() {
 		return this.originCity;
@@ -63,6 +68,7 @@ public class Hike extends DomainEntity {
 		this.originCity = originCity;
 	}
 
+	@Field
 	@NotBlank
 	public String getDestinationCity() {
 		return this.destinationCity;
@@ -72,6 +78,7 @@ public class Hike extends DomainEntity {
 		this.destinationCity = destinationCity;
 	}
 
+	@Field
 	@NotBlank
 	public String getDescription() {
 		return this.description;

@@ -15,11 +15,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Indexed
 @Table(indexes = {
 	@Index(columnList = "creator_id"), @Index(columnList = "length")
 })
@@ -37,6 +41,7 @@ public class Route extends DomainEntity {
 	private User				creator;
 
 
+	@Field
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -56,6 +61,7 @@ public class Route extends DomainEntity {
 		this.length = length;
 	}
 
+	@Field
 	@NotBlank
 	public String getDescription() {
 		return this.description;
@@ -77,6 +83,7 @@ public class Route extends DomainEntity {
 
 	// RELATIONSHIPS
 
+	@IndexedEmbedded
 	@Valid
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "route")

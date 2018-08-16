@@ -20,6 +20,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Version;
 
+import org.hibernate.search.annotations.DocumentId;
+
 @Entity
 @Access(AccessType.PROPERTY)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -34,6 +36,7 @@ public abstract class DomainEntity {
 
 	// Identification ---------------------------------------------------------
 
+	@DocumentId
 	private int	id;
 	private int	version;
 

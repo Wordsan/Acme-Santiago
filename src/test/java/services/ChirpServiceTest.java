@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
@@ -35,6 +37,8 @@ public class ChirpServiceTest extends AbstractTest {
 	private UserService					userService;
 	@Autowired
 	private ConfigurationSystemService	csService;
+	@PersistenceContext
+	private EntityManager				entityManager;
 
 
 	/* TESTS */
@@ -93,6 +97,12 @@ public class ChirpServiceTest extends AbstractTest {
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
+		} finally {
+			try {
+				this.entityManager.flush();
+			} catch (final Exception ignored) {
+			}
+			this.entityManager.clear();
 		}
 
 		this.checkExceptions(expected, caught);

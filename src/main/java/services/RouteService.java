@@ -7,8 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.hibernate.search.errors.EmptyQueryException;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -38,6 +43,10 @@ public class RouteService {
 
 	@Autowired
 	private Validator				validator;
+
+	/* HIBERNATE SEARCH */
+	@PersistenceContext
+	private EntityManager			entityManager;
 
 
 	/* CONSTRUCTOR */
@@ -113,10 +122,32 @@ public class RouteService {
 		return res;
 	}
 
+	/*
+	 * 3.3 -> Search for routes using a single key word that must appear somewhere
+	 * in their names, their descriptions, or their hikes.
+	 */
+
 	public List<Route> searchRoutesFromKeyWord(final String keyWord) {
-		List<Route> res;
-		res = this.routeRepository.searchRoutesFromKeyWord(keyWord);
-		Assert.notNull(res);
+		List<Route> res = new ArrayList<Route>();
+
+		if (keyWord != null && !keyWord.trim().isEmpty())
+			try {
+				final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(this.entityManager);
+				fullTextEntityManager.createIndexer().start();
+
+				final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Route.class).get();
+				final org.apache.lucene.search.Query query = qb.keyword().onFields("name", "description", "composedHikes.name", "composedHikes.originCity", "composedHikes.destinationCity", "composedHikes.description").matching(keyWord).createQuery();
+
+				//Turn Lucene's query in a javax.persistence.Query
+				final javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, Route.class);
+
+				//Now we execute the search
+				res = persistenceQuery.getResultList();
+
+			} catch (final EmptyQueryException e) {
+
+			}
+
 		return res;
 
 	}
