@@ -13,11 +13,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.HikeRepository;
-import security.LoginService;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
+import repositories.HikeRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -25,14 +25,13 @@ public class HikeService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private HikeRepository	hikeRepository;
+	private HikeRepository hikeRepository;
 
 	/* SERVICES */
 	@Autowired
-	Validator				validator;
+	Validator validator;
 	@Autowired
-	AdministratorService	adminService;
-
+	AdministratorService adminService;
 
 	/* CONSTRUCTOR */
 	public HikeService() {
@@ -89,10 +88,11 @@ public class HikeService {
 	public Hike reconstruct(final Hike hike, final BindingResult binding) {
 		Hike hikeReconstructed;
 
-		if (hike.getId() == 0)
+		if (hike.getId() == 0) {
 			hikeReconstructed = this.create(hike.getRoute());
-		else
+		} else {
 			hikeReconstructed = this.findOne(hike.getId());
+		}
 
 		hikeReconstructed.setName(hike.getName());
 		hikeReconstructed.setDescription(hike.getDescription());
@@ -106,5 +106,9 @@ public class HikeService {
 		Assert.isTrue(!binding.hasErrors());
 
 		return hikeReconstructed;
+	}
+
+	public void flush() {
+		this.hikeRepository.flush();
 	}
 }

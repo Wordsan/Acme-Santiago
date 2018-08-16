@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ChirpRepository;
-import security.LoginService;
 import domain.Chirp;
 import domain.User;
+import repositories.ChirpRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -22,16 +23,15 @@ public class ChirpService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private ChirpRepository				chirpRepository;
+	private ChirpRepository chirpRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService					userService;
+	private UserService userService;
 	@Autowired
-	private ConfigurationSystemService	csService;
+	private ConfigurationSystemService csService;
 	@Autowired
-	private AdministratorService		adminService;
-
+	private AdministratorService adminService;
 
 	/* CONSTRUCTOR */
 	public ChirpService() {
@@ -45,6 +45,7 @@ public class ChirpService {
 		final Chirp c = new Chirp();
 		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
 		c.setUser(u);
+		c.setPostMoment(new Date(System.currentTimeMillis() - 10));
 		return c;
 	}
 
@@ -86,10 +87,13 @@ public class ChirpService {
 		final List<Chirp> res = new ArrayList<Chirp>();
 		all = this.chirpRepository.findAll();
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
-		for (final Chirp c : all)
-			for (final String s : tabooWords)
-				if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+		for (final Chirp c : all) {
+			for (final String s : tabooWords) {
+				if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s))) {
 					res.add(c);
+				}
+			}
+		}
 		return res;
 	}
 

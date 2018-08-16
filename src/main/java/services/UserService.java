@@ -104,11 +104,53 @@ public class UserService {
 
 	/* OTHERS */
 	public Collection<User> usersThatFollowsMe(final int userID) {
-		return this.userRepository.usersThatFollowsMe(userID);
+		Collection<User> users;
+
+		Assert.notNull(userID);
+		users = this.userRepository.usersThatFollowsMe(userID);
+		Assert.notNull(users);
+
+		return users;
 	}
 
 	public Collection<User> usersThatIFollow(final int userID) {
-		return this.userRepository.usersThatIFollow(userID);
+		Collection<User> users;
+
+		Assert.notNull(userID);
+		users = this.userRepository.usersThatIFollow(userID);
+		Assert.notNull(users);
+
+		return users;
+	}
+
+	public void follow(int userId) {
+		User userLogged, userToFollow;
+
+		userLogged = this.getUserByUserAccountId(LoginService.getPrincipal().getId());
+		userToFollow = this.findOne(userId);
+
+		if (!userLogged.getFollowedUsers().contains(userToFollow)) {
+			userLogged.getFollowedUsers().add(userToFollow);
+			this.save(userLogged);
+		}
+
+		Assert.isTrue(userLogged.getFollowedUsers().contains(userToFollow));
+
+	}
+
+	public void unfollow(int userId) {
+		User userLogged, userToFollow;
+
+		userLogged = this.getUserByUserAccountId(LoginService.getPrincipal().getId());
+		userToFollow = this.findOne(userId);
+
+		if (userLogged.getFollowedUsers().contains(userToFollow)) {
+			userLogged.getFollowedUsers().remove(userToFollow);
+			this.save(userLogged);
+		}
+
+		Assert.isTrue(!userLogged.getFollowedUsers().contains(userToFollow));
+
 	}
 
 	public Map<String, Double> routesPerUserStadistics() {
@@ -122,7 +164,13 @@ public class UserService {
 	}
 
 	public User getUserByUserAccountId(final int userAccountID) {
-		return this.userRepository.getUserByUserAccountId(userAccountID);
+		User user;
+
+		Assert.notNull(userAccountID);
+		user = this.userRepository.getUserByUserAccountId(userAccountID);
+		Assert.notNull(user);
+
+		return user;
 	}
 
 	public Collection<Chirp> chirpsStream(final int userID) {
@@ -175,5 +223,9 @@ public class UserService {
 		user.setEmailAddress(signinForm.getEmailAddress());
 
 		return user;
+	}
+
+	public void flush() {
+		this.userRepository.flush();
 	}
 }

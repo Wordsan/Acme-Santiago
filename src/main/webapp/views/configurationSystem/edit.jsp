@@ -30,7 +30,7 @@
 	<br />
 	
 	<!-- Buttons -->
-	<acme:submit name="save" code="configurationSystem.save"/>
 	<acme:cancel url="/welcome/index.do" code="configurationSystem.cancel"/>
+	<acme:submit name="save" code="configurationSystem.save"/>
 </form:form>
 </security:authorize>

@@ -52,7 +52,7 @@ public class CommentService {
 		final Comment c = new Comment();
 		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
 
-		c.setWriteMoment(new Date());
+		c.setWriteMoment(new Date(System.currentTimeMillis() - 10));
 		c.setRate(0);
 		c.setOwner(u);
 
@@ -69,13 +69,13 @@ public class CommentService {
 
 		final Comment saved = this.commentRepository.save(comment);
 
-		if (h == null && r != null) {
+		if ((h == null) && (r != null)) {
 			Assert.isTrue(r.getCreator().equals(u));
 
 			u.getRouteComments().add(saved);
 			r.getComments().add(saved);
 			this.routeService.save(r);
-		} else if (h != null && r == null) {
+		} else if ((h != null) && (r == null)) {
 			Assert.isTrue(h.getRoute().getCreator().equals(u));
 
 			u.getHikeComments().add(saved);
@@ -102,12 +102,12 @@ public class CommentService {
 		final Hike h = comment.getHike();
 		final Route r = comment.getRoute();
 
-		if (h == null && r != null) {
+		if ((h == null) && (r != null)) {
 			u.getRouteComments().remove(comment);
 
 			r.getComments().remove(comment);
 			this.routeService.save(r);
-		} else if (h != null && r == null) {
+		} else if ((h != null) && (r == null)) {
 			u.getHikeComments().remove(comment);
 
 			h.getComments().remove(comment);
@@ -117,6 +117,7 @@ public class CommentService {
 		this.userService.save(u);
 		this.commentRepository.delete(comment);
 	}
+
 	/* OTHERS */
 	public List<Comment> tabooComments() {
 		Assert.notNull(this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()));

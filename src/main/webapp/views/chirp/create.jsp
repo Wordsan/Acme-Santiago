@@ -25,18 +25,18 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="user"/>
-	
-	<acme:textbox code="chirp.postMoment" path="postMoment" placeholder="dd/MM/yyyy HH:mm"/>
-	<br />
-	
+		
 	<acme:textbox code="chirp.title" path="title"/>
 	<br />
 
-	<acme:textbox code="chirp.description" path="description"/>
+	<acme:textarea code="chirp.description" path="description"/>
+	<br />
+	
+	<acme:textbox code="chirp.postMoment" path="postMoment" placeholder="dd/MM/yyyy HH:mm" readonly="true"/>
 	<br />
 	
 	<!-- Buttons -->
-	<acme:submit name="save" code="chirp.save"/>
 	<acme:cancel url="/welcome/index.do" code="chirp.cancel"/>
+	<acme:submit name="save" code="chirp.save"/>
 </form:form>
 </security:authorize>

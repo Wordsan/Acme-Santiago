@@ -10,6 +10,9 @@
 
 package controllers.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -137,10 +140,17 @@ public class HikeUserController extends AbstractController {
 
 	private ModelAndView createEditModelAndView(Hike hike, String message) {
 		ModelAndView view;
+		Collection<String> difficultyLevelOptions;
+
+		difficultyLevelOptions = new ArrayList<String>();
+		difficultyLevelOptions.add("EASY");
+		difficultyLevelOptions.add("MEDIUM");
+		difficultyLevelOptions.add("DIFFICULT");
 
 		view = new ModelAndView("hike/edit");
 		view.addObject("hike", hike);
 		view.addObject("message", message);
+		view.addObject("difficultyLevelOptions", difficultyLevelOptions);
 
 		return view;
 	}
