@@ -133,7 +133,6 @@ public class RouteService {
 		if (keyWord != null && !keyWord.trim().isEmpty())
 			try {
 				final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(this.entityManager);
-				fullTextEntityManager.createIndexer().start();
 
 				final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Route.class).get();
 				final org.apache.lucene.search.Query query = qb.keyword().onFields("name", "description", "composedHikes.name", "composedHikes.originCity", "composedHikes.destinationCity", "composedHikes.description").matching(keyWord).createQuery();

@@ -37,8 +37,12 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.internal.util.ReflectHelper;
 import org.hibernate.jdbc.Work;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 
 import utilities.DatabaseConfig;
+import utilities.ReflectionUtils;
 import domain.DomainEntity;
 
 public class DatabaseUtil {
@@ -248,6 +252,26 @@ public class DatabaseUtil {
 	protected void printProperties(final Map<String, Object> properties) {
 		for (final Entry<String, Object> entry : properties.entrySet())
 			System.out.println(String.format("%s=`%s'", entry.getKey(), entry.getValue()));
+	}
+
+	public void recreateLuceneIndex() {
+		boolean hasAnyIndexedEntity = false;
+		for (final Class<?> entity : ReflectionUtils.findAllDomainEntityClasses())
+			if (entity.isAnnotationPresent(Indexed.class)) {
+				hasAnyIndexedEntity = true;
+				break;
+			}
+
+		// Check if there's any indexed entity before doing this to avoid a warning message.
+		if (hasAnyIndexedEntity) {
+			final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(this.entityManager);
+
+			try {
+				fullTextEntityManager.createIndexer().startAndWait();
+			} catch (final InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 }

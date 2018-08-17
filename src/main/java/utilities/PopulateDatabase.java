@@ -53,6 +53,9 @@ public class PopulateDatabase {
 			System.out.printf("Creating database `%s' (%s).%n", databaseUtil.getDatabaseName(), databaseUtil.getDatabaseDialectName());
 			databaseUtil.recreateDatabase();
 
+			System.out.println("Recreating Lucene index if required.");
+			databaseUtil.recreateLuceneIndex();
+
 			System.out.printf("Reading web of entities from `%s'.", DatabaseConfig.entitySpecificationFilename);
 			populationContext = new ClassPathXmlApplicationContext("classpath:PopulateDatabase.xml");
 			entityMap = populationContext.getBeansOfType(DomainEntity.class);
