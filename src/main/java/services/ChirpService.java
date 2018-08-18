@@ -117,6 +117,8 @@ public class ChirpService {
 
 		this.validator.validate(reconstructed, binding);
 
+		Assert.isTrue(!binding.hasErrors());
+
 		return reconstructed;
 	}
 }

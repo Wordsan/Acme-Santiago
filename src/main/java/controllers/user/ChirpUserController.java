@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.ChirpService;
@@ -64,19 +65,25 @@ public class ChirpUserController extends AbstractController {
 
 	/* EDITION */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Chirp chirp, final BindingResult binding) {
+	public ModelAndView save(Chirp chirp, final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 
-		chirp = this.chirpService.reconstruct(chirp, binding);
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(chirp);
-		else
-			try {
+		try {
+			chirp = this.chirpService.reconstruct(chirp, binding);
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(chirp);
+			else {
 				this.chirpService.save(chirp);
 				result = ControllerUtils.redirect("/welcome/index.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(chirp, "chirp.commit.error");
+				redirectAttrs.addFlashAttribute("message", "common.message.success");
 			}
+		} catch (final Throwable oops) {
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(chirp);
+			else
+				result = this.createEditModelAndView(chirp, "chirp.commit.error");
+
+		}
 		return result;
 	}
 

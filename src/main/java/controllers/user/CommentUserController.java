@@ -10,14 +10,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import security.LoginService;
 import services.CommentService;
 import services.RouteService;
+import services.UserService;
 import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
+import domain.User;
 
 @Controller
 @RequestMapping("/comment/user")
@@ -28,6 +32,8 @@ public class CommentUserController extends AbstractController {
 	private CommentService	commentService;
 	@Autowired
 	private RouteService	routeService;
+	@Autowired
+	private UserService		userService;
 
 
 	/* CONSTRUCTORS */
@@ -51,24 +57,29 @@ public class CommentUserController extends AbstractController {
 
 	/* EDITION */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Comment comment, final BindingResult binding) {
-		ModelAndView result;
+	public ModelAndView save(Comment comment, final BindingResult binding, final RedirectAttributes redirectAttrs) {
+		ModelAndView result = new ModelAndView();
 
-		comment = this.commentService.reconstruct(comment, binding);
-
-		if (binding.hasErrors())
-			if (comment.isValidHasEitherRouteOrHike() == false)
-				result = this.createEditModelAndView(comment, "comment1.commit.error");
-			else
-				result = this.createEditModelAndView(comment);
-		else
-			try {
+		try {
+			comment = this.commentService.reconstruct(comment, binding);
+			if (binding.hasErrors()) {
+				if (comment.isValidHasEitherRouteOrHike() == false)
+					result = this.createEditModelAndView(comment, "comment1.commit.error");
+				else
+					result = this.createEditModelAndView(comment);
+			} else {
 				this.commentService.save(comment);
 				result = ControllerUtils.redirect("/welcome/index.do");
-
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(comment, "comment.commit.error");
+				redirectAttrs.addFlashAttribute("message", "common.message.success");
 			}
+		} catch (final Throwable oops) {
+			if (binding.hasErrors())
+				if (comment.isValidHasEitherRouteOrHike() == false)
+					result = this.createEditModelAndView(comment, "comment1.commit.error");
+				else
+					result = this.createEditModelAndView(comment, "comment.commit.error");
+
+		}
 
 		return result;
 	}
@@ -83,8 +94,12 @@ public class CommentUserController extends AbstractController {
 		ModelAndView result;
 		Collection<Route> routes = new ArrayList<Route>();
 		final Collection<Hike> hikes = new ArrayList<Hike>();
-
-		routes = this.routeService.routesFromCreator(comment.getOwner().getId());
+		User u = new User();
+		if (comment.getOwner() == null)
+			u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
+		else
+			u = comment.getOwner();
+		routes = this.routeService.routesFromCreator(u.getId());
 		for (final Route r : routes)
 			hikes.addAll(r.getComposedHikes());
 

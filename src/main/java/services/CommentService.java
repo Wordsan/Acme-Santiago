@@ -160,6 +160,8 @@ public class CommentService {
 
 		this.validator.validate(result, binding);
 
+		Assert.isTrue(!binding.hasErrors());
+
 		return result;
 	}
 
