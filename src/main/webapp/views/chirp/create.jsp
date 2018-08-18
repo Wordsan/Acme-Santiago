@@ -23,16 +23,11 @@
 <form:form action="${requestURI}" modelAttribute="chirp">
 
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="user"/>
 		
 	<acme:textbox code="chirp.title" path="title"/>
 	<br />
 
 	<acme:textarea code="chirp.description" path="description"/>
-	<br />
-	
-	<acme:textbox code="chirp.postMoment" path="postMoment" placeholder="dd/MM/yyyy HH:mm" readonly="true"/>
 	<br />
 	
 	<!-- Buttons -->

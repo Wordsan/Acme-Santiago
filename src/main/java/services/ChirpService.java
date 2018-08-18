@@ -11,11 +11,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
-import domain.Chirp;
-import domain.User;
 import repositories.ChirpRepository;
 import security.LoginService;
+import domain.Chirp;
+import domain.User;
 
 @Service
 @Transactional
@@ -23,15 +25,19 @@ public class ChirpService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private ChirpRepository chirpRepository;
+	private ChirpRepository				chirpRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService userService;
+	private UserService					userService;
 	@Autowired
-	private ConfigurationSystemService csService;
+	private ConfigurationSystemService	csService;
 	@Autowired
-	private AdministratorService adminService;
+	private AdministratorService		adminService;
+
+	@Autowired
+	private Validator					validator;
+
 
 	/* CONSTRUCTOR */
 	public ChirpService() {
@@ -87,17 +93,30 @@ public class ChirpService {
 		final List<Chirp> res = new ArrayList<Chirp>();
 		all = this.chirpRepository.findAll();
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
-		for (final Chirp c : all) {
-			for (final String s : tabooWords) {
-				if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s))) {
+		for (final Chirp c : all)
+			for (final String s : tabooWords)
+				if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
 					res.add(c);
-				}
-			}
-		}
 		return res;
 	}
 
 	public void flush() {
 		this.chirpRepository.flush();
+	}
+
+	public Chirp reconstruct(final Chirp chirp, final BindingResult binding) {
+		Chirp reconstructed;
+
+		if (chirp.getId() != 0)
+			reconstructed = this.chirpRepository.findOne(chirp.getId());
+		else
+			reconstructed = this.create();
+
+		reconstructed.setDescription(chirp.getDescription());
+		reconstructed.setTitle(chirp.getTitle());
+
+		this.validator.validate(reconstructed, binding);
+
+		return reconstructed;
 	}
 }

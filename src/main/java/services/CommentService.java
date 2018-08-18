@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CommentRepository;
 import security.LoginService;
@@ -38,6 +40,9 @@ public class CommentService {
 	private RouteService				routeService;
 	@Autowired
 	private HikeService					hikeService;
+
+	@Autowired
+	private Validator					validator;
 
 
 	/* CONSTRUCTOR */
@@ -135,4 +140,27 @@ public class CommentService {
 	public void flush() {
 		this.commentRepository.flush();
 	}
+
+	public Comment reconstruct(final Comment comment, final BindingResult binding) {
+		Comment result;
+
+		if (comment.getId() != 0)
+			result = this.commentRepository.findOne(comment.getId());
+		else
+			result = this.create();
+
+		if (comment.getHike() != null)
+			result.setHike(comment.getHike());
+		if (comment.getRoute() != null)
+			result.setRoute(comment.getRoute());
+		result.setPictures(comment.getPictures());
+		result.setRate(comment.getRate());
+		result.setText(comment.getText());
+		result.setTitle(comment.getTitle());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+
 }

@@ -1,8 +1,8 @@
 /*
  * WelcomeController.java
- *
+ * 
  * Copyright (C) 2017 Universidad de Sevilla
- *
+ * 
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.User;
 import security.LoginService;
 import security.UserAccount;
 import services.AdministratorService;
 import services.UserService;
+import domain.Administrator;
+import domain.User;
 
 @Controller
 @RequestMapping("/welcome")
-
 public class WelcomeController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
@@ -36,11 +36,13 @@ public class WelcomeController extends AbstractController {
 		super();
 	}
 
+
 	// Services
 	@Autowired
-	private AdministratorService adminService;
+	private AdministratorService	adminService;
 	@Autowired
-	private UserService userService;
+	private UserService				userService;
+
 
 	// Index ------------------------------------------------------------------
 
@@ -59,11 +61,11 @@ public class WelcomeController extends AbstractController {
 			LoginService.getPrincipal();
 			final UserAccount uA = LoginService.getPrincipal();
 			final User u = this.userService.getUserByUserAccountId(uA.getId());
-			if (u != null) {
+			if (u != null)
 				name = u.getName() + " " + u.getSurname();
-			} else {
-				name = this.adminService.getAdminByUserAccountId(uA.getId()).getName() + " "
-						+ this.adminService.getAdminByUserAccountId(uA.getId()).getSurname();
+			else {
+				final Administrator a = this.adminService.getAdminByUserAccountId(uA.getId());
+				name = a.getName() + " " + a.getSurname();
 			}
 		} catch (final Throwable i) {
 

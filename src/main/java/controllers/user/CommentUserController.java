@@ -4,8 +4,6 @@ package controllers.user;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -53,8 +51,10 @@ public class CommentUserController extends AbstractController {
 
 	/* EDITION */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Comment comment, final BindingResult binding) {
+	public ModelAndView save(Comment comment, final BindingResult binding) {
 		ModelAndView result;
+
+		comment = this.commentService.reconstruct(comment, binding);
 
 		if (binding.hasErrors())
 			if (comment.isValidHasEitherRouteOrHike() == false)
@@ -96,5 +96,4 @@ public class CommentUserController extends AbstractController {
 		result.addObject("message", messageCode);
 		return result;
 	}
-
 }

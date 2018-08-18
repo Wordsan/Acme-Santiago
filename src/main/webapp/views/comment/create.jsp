@@ -22,11 +22,8 @@
 
 <security:authorize access="hasRole('USER')">
 <form:form action="${requestURI}" modelAttribute="comment">
-
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="owner"/>
-	
+
 	<acme:textbox code="comment.title" path="title"/>
 	<br />
 
@@ -44,9 +41,6 @@
 
 	<acme:select items="${hikes}" itemLabel="name" code="comment.hike" path="hike"/>
 	<br/>
-	
-	<acme:textbox code="comment.writeMoment" path="writeMoment" placeholder="dd/MM/yyyy HH:mm" readonly="true"/>
-	<br />
 	
 	<!-- Buttons -->
 	<acme:cancel url="/welcome/index.do" code="comment.cancel"/>
