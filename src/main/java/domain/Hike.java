@@ -24,19 +24,19 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Hike extends DomainEntity {
 
-	private String				name;
-	private Double				length;
-	private String				originCity;
-	private String				destinationCity;
-	private String				description;
-	private String				pictures;
-	private String				difficultyLevel;
+	private String name;
+	private Double length;
+	private String originCity;
+	private String destinationCity;
+	private String description;
+	private String pictures;
+	private String difficultyLevel;
 
 	/* RELATIONSHIPS */
 
-	private Route				route;
-	private Collection<Comment>	comments;
-
+	private Route route;
+	private Collection<Comment> comments;
+	private Collection<Advertisement> advertisements;
 
 	@Field
 	@NotBlank
@@ -128,5 +128,16 @@ public class Hike extends DomainEntity {
 
 	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hike")
+	public Collection<Advertisement> getAdvertisements() {
+		return this.advertisements;
+	}
+
+	public void setAdvertisements(final Collection<Advertisement> advertisements) {
+		this.advertisements = advertisements;
 	}
 }
