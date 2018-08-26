@@ -46,4 +46,8 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
 	/* 3.5 -> Search for routes that have a minimum or a maximum number of hikes. */
 	@Query("select r from Route r where r.composedHikes.size = (select min(r.composedHikes.size) from Route r) or r.composedHikes.size = (select max(r.composedHikes.size) from Route r)")
 	List<Route> routesByHikesSize();
+
+	@Query("select (select count(distinct a2.hike.route) from Advertisement a2)/count(r) * 1.00 from Route r where r not in (select"
+			+ " distinct a1.hike.route from Advertisement a1)")
+	Double ratioRoutesWithWithoutAdvertisements();
 }
