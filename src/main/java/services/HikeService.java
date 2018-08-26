@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import domain.Advertisement;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
@@ -44,9 +46,19 @@ public class HikeService {
 
 		hike = new Hike();
 		hike.setComments(new ArrayList<Comment>());
+		hike.setAdvertisements(new ArrayList<Advertisement>());
 		hike.setRoute(route);
 
 		return hike;
+	}
+
+	public Collection<Hike> findAll() {
+		Collection<Hike> hikes;
+
+		hikes = this.hikeRepository.findAll();
+		Assert.notNull(hikes);
+
+		return hikes;
 	}
 
 	public Hike findOne(final int hikeId) {
@@ -83,6 +95,26 @@ public class HikeService {
 		res.put("STD", statistics[1]);
 
 		return res;
+	}
+
+	public Collection<Hike> findAllHikesWithoutAdvertisementByAgentId(int agentId) {
+		Collection<Hike> hikes;
+
+		Assert.notNull(agentId);
+		hikes = this.hikeRepository.findAllHikesWithoutAdvertisementByAgentId(agentId);
+		Assert.notNull(hikes);
+
+		return hikes;
+	}
+
+	public Collection<Hike> findAllHikesWithAdvertisementByAgentId(int agentId) {
+		Collection<Hike> hikes;
+
+		Assert.notNull(agentId);
+		hikes = this.hikeRepository.findAllHikesWithAdvertisementByAgentId(agentId);
+		Assert.notNull(hikes);
+
+		return hikes;
 	}
 
 	public Hike reconstruct(final Hike hike, final BindingResult binding) {

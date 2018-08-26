@@ -20,11 +20,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.RouteRepository;
-import security.LoginService;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
+import repositories.RouteRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -32,22 +32,21 @@ public class RouteService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private RouteRepository			routeRepository;
+	private RouteRepository routeRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService				userService;
+	private UserService userService;
 
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService administratorService;
 
 	@Autowired
-	private Validator				validator;
+	private Validator validator;
 
 	/* HIBERNATE SEARCH */
 	@PersistenceContext
-	private EntityManager			entityManager;
-
+	private EntityManager entityManager;
 
 	/* CONSTRUCTOR */
 	public RouteService() {
@@ -77,24 +76,28 @@ public class RouteService {
 	public Route save(final Route route) {
 		Assert.notNull(route);
 		// Comprobamos que el creador de la route sea el mismo que el que va a editar o que sea un admin
-		if (LoginService.getPrincipal().equals(route.getCreator().getUserAccount()) || (this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null))
+		if (LoginService.getPrincipal().equals(route.getCreator().getUserAccount())
+				|| (this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null)) {
 			return this.routeRepository.save(route);
-		else
+		} else {
 			throw new IllegalArgumentException();
+		}
 	}
 
 	public void delete(final Route route) {
 		Assert.notNull(route);
 
-		if ((this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null) || LoginService.getPrincipal().equals(route.getCreator().getUserAccount())) { // Si es admin o el user
-																																															// creador
+		if ((this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null)
+				|| LoginService.getPrincipal().equals(route.getCreator().getUserAccount())) { // Si es admin o el user
+																																																	// creador
 
 			route.getCreator().getRegistredRoutes().remove(route);
 			this.routeRepository.delete(route);
 
-		} else
+		} else {
 			// Lanzamos la excepcion del assert
 			throw new IllegalArgumentException();
+		}
 	}
 
 	/* OTHERS */
@@ -122,6 +125,18 @@ public class RouteService {
 		return res;
 	}
 
+	public Map<String, Double> ratioRoutesWithWithoutAdvertisements() {
+		Map<String, Double> res;
+		Double ratio;
+
+		res = new HashMap<>();
+		ratio = this.routeRepository.ratioRoutesWithWithoutAdvertisements();
+
+		res.put("RATIO", ratio);
+
+		return res;
+	}
+
 	/*
 	 * 3.3 -> Search for routes using a single key word that must appear somewhere
 	 * in their names, their descriptions, or their hikes.
@@ -130,15 +145,21 @@ public class RouteService {
 	public List<Route> searchRoutesFromKeyWord(final String keyWord) {
 		List<Route> res = new ArrayList<Route>();
 
-		if (keyWord != null && !keyWord.trim().isEmpty())
+		if ((keyWord != null) && !keyWord.trim().isEmpty()) {
 			try {
-				final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(this.entityManager);
+				final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search
+						.getFullTextEntityManager(this.entityManager);
 
-				final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Route.class).get();
-				final org.apache.lucene.search.Query query = qb.keyword().onFields("name", "description", "composedHikes.name", "composedHikes.originCity", "composedHikes.destinationCity", "composedHikes.description").matching(keyWord).createQuery();
+				final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+						.forEntity(Route.class).get();
+				final org.apache.lucene.search.Query query = qb.keyword()
+						.onFields("name", "description", "composedHikes.name", "composedHikes.originCity",
+								"composedHikes.destinationCity", "composedHikes.description")
+						.matching(keyWord).createQuery();
 
 				//Turn Lucene's query in a javax.persistence.Query
-				final javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query, Route.class);
+				final javax.persistence.Query persistenceQuery = fullTextEntityManager.createFullTextQuery(query,
+						Route.class);
 
 				//Now we execute the search
 				res = persistenceQuery.getResultList();
@@ -146,6 +167,7 @@ public class RouteService {
 			} catch (final EmptyQueryException e) {
 
 			}
+		}
 
 		return res;
 
@@ -179,10 +201,11 @@ public class RouteService {
 	public Route reconstruct(final Route route, final BindingResult binding) {
 		Route routeReconstructed;
 
-		if (route.getId() == 0)
+		if (route.getId() == 0) {
 			routeReconstructed = this.create();
-		else
+		} else {
 			routeReconstructed = this.findOne(route.getId());
+		}
 
 		routeReconstructed.setDescription(route.getDescription());
 		routeReconstructed.setName(route.getName());

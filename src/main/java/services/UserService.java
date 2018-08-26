@@ -35,6 +35,9 @@ public class UserService {
 
 	/* SERVICES */
 	@Autowired
+	private ActorService actorService;
+
+	@Autowired
 	private Validator validator;
 
 	/* CONSTRUCTOR */
@@ -84,18 +87,6 @@ public class UserService {
 		Assert.notNull(user);
 
 		return user;
-	}
-
-	private boolean existsUserWithUserName(String username) {
-		boolean exists;
-
-		if (this.userRepository.getUserByUsername(username) == null) {
-			exists = false;
-		} else {
-			exists = true;
-		}
-
-		return exists;
 	}
 
 	public User save(final User user) {
@@ -204,7 +195,7 @@ public class UserService {
 			binding.rejectValue("conditionsAccepted", "signin.validation.conditionsAccepted");
 		}
 
-		if (this.existsUserWithUserName(signinForm.getUsername())) {
+		if (this.actorService.existsActorWithUsername(signinForm.getUsername())) {
 			binding.rejectValue("username", "signin.validation.username");
 		}
 
