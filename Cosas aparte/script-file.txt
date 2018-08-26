@@ -2,9 +2,9 @@ cd "c:\Program Files\MySQL"
 cd "MySQL Server 5.5"
 cd "bin"
 mysqldump -uroot -pV3rY=$tR0nG=P@$$w0rd$ Acme-Santiago > Z:\Create-Acme-Santiago.sql
-mysql -uroot -pV3rY=$tR0nG=P@$$w0rd$ < Z:\Create-Acme-Santiago.sql
+mysql -uroot -pV3rY=$tR0nG=P@$$w0rd$ < C:\Temp\VM\Create-Acme-Santiago.sql
 ----------
-----------
+---------- T0mC@t=Adm1n1$trat0R
 ----------
 start transaction;
 
