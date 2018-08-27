@@ -1,8 +1,8 @@
 /*
  * ProfileController.java
- *
+ * 
  * Copyright (C) 2017 Universidad de Sevilla
- *
+ * 
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -18,16 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.UserService;
 import domain.User;
 import forms.SigninForm;
-import services.UserService;
 
 @Controller
 @RequestMapping("/security")
 public class SigninController extends AbstractController {
 
 	@Autowired
-	private UserService userService;
+	private UserService	userService;
+
 
 	public SigninController() {
 		super();
@@ -46,35 +47,37 @@ public class SigninController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/user/signin", method = RequestMethod.POST, params = "signin")
-	public ModelAndView signinUser(SigninForm signinForm, BindingResult binding, RedirectAttributes redirectAttrs) {
+	public ModelAndView signinUser(final SigninForm signinForm, final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView view;
 		User user;
 
 		try {
 			user = this.userService.signinReconstruct(signinForm, binding);
-			if (binding.hasErrors()) {
+			//Controls a bug with the spaces in the number
+			final String pn = user.getPhoneNumber();
+			user.setPhoneNumber(pn.trim());
+			if (binding.hasErrors())
 				view = this.signinModelAndView(signinForm);
-			} else {
+			else {
 				this.userService.save(user);
 				view = new ModelAndView("redirect:/");
 				redirectAttrs.addFlashAttribute("message", "common.message.success");
 			}
-		} catch (Throwable oops) {
-			if (binding.hasErrors()) {
+		} catch (final Throwable oops) {
+			if (binding.hasErrors())
 				view = this.signinModelAndView(signinForm);
-			} else {
+			else
 				view = this.signinModelAndView(signinForm, "common.message.error");
-			}
 		}
 
 		return view;
 	}
 
-	protected ModelAndView signinModelAndView(SigninForm signinForm) {
+	protected ModelAndView signinModelAndView(final SigninForm signinForm) {
 		return this.signinModelAndView(signinForm, null);
 	}
 
-	protected ModelAndView signinModelAndView(SigninForm signinForm, String message) {
+	protected ModelAndView signinModelAndView(final SigninForm signinForm, final String message) {
 		ModelAndView view;
 
 		view = new ModelAndView("signin/signin");
