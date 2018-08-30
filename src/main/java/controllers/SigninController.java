@@ -53,9 +53,6 @@ public class SigninController extends AbstractController {
 
 		try {
 			user = this.userService.signinReconstruct(signinForm, binding);
-			//Controls a bug with the spaces in the number
-			final String pn = user.getPhoneNumber();
-			user.setPhoneNumber(pn.trim());
 			if (binding.hasErrors())
 				view = this.signinModelAndView(signinForm);
 			else {

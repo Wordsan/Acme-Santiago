@@ -15,15 +15,15 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.UserRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Chirp;
 import domain.Comment;
 import domain.Route;
 import domain.User;
 import forms.SigninForm;
-import repositories.UserRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -31,11 +31,12 @@ public class UserService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository	userRepository;
 
 	/* SERVICES */
 	@Autowired
-	private Validator validator;
+	private Validator		validator;
+
 
 	/* CONSTRUCTOR */
 	public UserService() {
@@ -53,7 +54,7 @@ public class UserService {
 		try {
 			LoginService.getPrincipal();
 			anonymous = false;
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			anonymous = true;
 		}
 
@@ -86,14 +87,13 @@ public class UserService {
 		return user;
 	}
 
-	private boolean existsUserWithUserName(String username) {
+	private boolean existsUserWithUserName(final String username) {
 		boolean exists;
 
-		if (this.userRepository.getUserByUsername(username) == null) {
+		if (this.userRepository.getUserByUsername(username) == null)
 			exists = false;
-		} else {
+		else
 			exists = true;
-		}
 
 		return exists;
 	}
@@ -123,7 +123,7 @@ public class UserService {
 		return users;
 	}
 
-	public void follow(int userId) {
+	public void follow(final int userId) {
 		User userLogged, userToFollow;
 
 		userLogged = this.getUserByUserAccountId(LoginService.getPrincipal().getId());
@@ -138,7 +138,7 @@ public class UserService {
 
 	}
 
-	public void unfollow(int userId) {
+	public void unfollow(final int userId) {
 		User userLogged, userToFollow;
 
 		userLogged = this.getUserByUserAccountId(LoginService.getPrincipal().getId());
@@ -189,7 +189,7 @@ public class UserService {
 		return this.userRepository.less25ChirpUsers();
 	}
 
-	public User signinReconstruct(SigninForm signinForm, BindingResult binding) {
+	public User signinReconstruct(final SigninForm signinForm, final BindingResult binding) {
 		User user;
 		Md5PasswordEncoder encoder;
 
@@ -200,13 +200,14 @@ public class UserService {
 			binding.rejectValue("confirmPassword", "signin.validation.passwords");
 		}
 
-		if ((signinForm.getConditionsAccepted() == null) || (!signinForm.getConditionsAccepted())) {
+		if ((signinForm.getConditionsAccepted() == null) || (!signinForm.getConditionsAccepted()))
 			binding.rejectValue("conditionsAccepted", "signin.validation.conditionsAccepted");
-		}
 
-		if (this.existsUserWithUserName(signinForm.getUsername())) {
+		if (this.existsUserWithUserName(signinForm.getUsername()))
 			binding.rejectValue("username", "signin.validation.username");
-		}
+
+		if (!(signinForm.getPhoneNumber().matches("^\\+?\\d*$")))
+			binding.rejectValue("phoneNumber", "signin.validation.phone");
 
 		Assert.isTrue(!binding.hasErrors());
 
