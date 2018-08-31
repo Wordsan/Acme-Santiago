@@ -1,8 +1,8 @@
 /*
  * HikeController.java
- *
+ * 
  * Copyright (C) 2017 Universidad de Sevilla
- *
+ * 
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -17,21 +17,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Hike;
-import domain.User;
 import security.LoginService;
 import services.HikeService;
 import services.UserService;
+import domain.Hike;
+import domain.User;
 
 @Controller
 @RequestMapping("/hike")
 public class HikeController extends AbstractController {
 
 	@Autowired
-	private HikeService hikeService;
+	private HikeService	hikeService;
 
 	@Autowired
-	private UserService userService;
+	private UserService	userService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -40,23 +41,26 @@ public class HikeController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required = true) int hikeId) {
+	public ModelAndView display(@RequestParam(required = true) final int hikeId) {
 		ModelAndView view;
 		Hike hike;
 		User user;
+		String[] pictures;
 
 		try {
 			user = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			user = null;
 		}
 
 		hike = this.hikeService.findOne(hikeId);
 
+		pictures = hike.getPictures().split(",");
 		view = new ModelAndView("hike/display");
 		view.addObject("hike", hike);
 		view.addObject("user", user);
 		view.addObject("comments", hike.getComments());
+		view.addObject("pictures", pictures);
 
 		return view;
 	}

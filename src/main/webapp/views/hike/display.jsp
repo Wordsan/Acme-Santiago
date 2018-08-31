@@ -63,7 +63,9 @@
 		<strong><spring:message code="hike.pictures" />:</strong>
 	</div>
 	<div>
-		<img src="<jstl:out value="${ hike.pictures }" />" height="200px;" width="auto"/>
+		<jstl:forEach var="picture" items="${pictures}">
+		<img src="<jstl:out value="${picture}" />" height="200px;" width="auto"/>
+		</jstl:forEach>
 	</div>
 </p>
 

@@ -52,7 +52,9 @@
 		<strong><spring:message code="route.pictures" />:</strong>
 	</div>
 	<div>
-		<img src="<jstl:out value="${ route.pictures }" />" height="200px;" width="auto"/>
+		<jstl:forEach var="picture" items="${pictures}">
+			<img src="<jstl:out value="${picture}" />" height="200px;" width="auto"/>
+		</jstl:forEach>
 	</div>
 </p>
 
@@ -112,11 +114,6 @@
 			
 			<spring:message code="comment.writeMoment" var="writeMomentHeader"  />
 			<display:column property="writeMoment" title="${writeMomentHeader}" format="{0,date,dd/MM/yyyy HH:mm}"/>
-			
-			<spring:message code="comment.owner" var="ownerHeader"  />
-			<display:column title="${ownerHeader}">
-				<a href="user/display.do?userId=${row.owner.id}"><jstl:out value="${ row.owner.name }"/> <jstl:out value="${ row.owner.surname }"/></a>
-			</display:column>
 						
 		</display:table>
 	</div>
