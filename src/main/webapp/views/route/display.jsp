@@ -17,8 +17,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<script type="text/javascript">
+function goBack() {
+	b = window.history.go(-1);
+	if(b != "route/user/myList.do" || b != "route/list.do") {
+		window.history.go(-2);
+	} else {
+		b;
+	}
+}
+</script>
+
 <div>
-	<a href="" onclick="relativeRedir('${ backURI }');"><spring:message code="common.action.back"/></a>
+	<a href="" onclick="goBack()"><spring:message code="common.action.back"/></a>
 </div>
 <p>
 	<div>
