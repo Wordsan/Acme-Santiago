@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import domain.Agent;
 import domain.Hike;
 import domain.Route;
 import domain.User;
@@ -33,10 +34,17 @@ public class HikeServiceTest extends AbstractTest {
 	@Autowired
 	private RouteService routeService;
 
+	@Autowired
+	private AgentService agentService;
+
 	/* TESTS */
 	/*
 	 * Functional requirements under test:
 	 * 5.1 - Manage his or her routes, which includes creating, editing, deleting, and listing them.
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Santiago 2.0
+	 * 4.3 - List the hikes in which they have registered an advertisement.
+	 * 4.4 - List the hikes in which they have not registered any advertisements.
 	 */
 
 	/*
@@ -126,4 +134,71 @@ public class HikeServiceTest extends AbstractTest {
 		}
 	}
 
+	/*
+	 * Testing:
+	 * 4.3 - List the hikes in which they have registered an advertisement.
+	 */
+	protected void templateHikesWithAdvertisement(final String authenticate, final Class<?> expected) {
+		Class<?> caught;
+		Agent agent;
+
+		caught = null;
+		try {
+			this.authenticate(authenticate);
+			agent = this.agentService.getAgentByUserAccountId(LoginService.getPrincipal().getId());
+			this.hikeService.findAllHikesWithAdvertisementByAgentId(agent.getId());
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	@Test
+	public void driverTestHikesWithAdvertisemen() {
+		final Object testingData[][] = { { "agent1", null }, // Successful
+
+				{ "user2", IllegalArgumentException.class }, // Failed -> logged as a user
+
+				{ "admin", IllegalArgumentException.class }, // Failed -> logged as an admin
+
+		};
+		for (Object[] element : testingData) {
+			this.templateHikesWithAdvertisement((String) element[0], (Class<?>) element[1]);
+		}
+	}
+
+	/*
+	 * Testing:
+	 * 4.4 - List the hikes in which they have not registered any advertisements.
+	 */
+	protected void templateHikesWithoutAdvertisement(final String authenticate, final Class<?> expected) {
+		Class<?> caught;
+		Agent agent;
+
+		caught = null;
+		try {
+			this.authenticate(authenticate);
+			agent = this.agentService.getAgentByUserAccountId(LoginService.getPrincipal().getId());
+			this.hikeService.findAllHikesWithoutAdvertisementByAgentId(agent.getId());
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	@Test
+	public void driverTestHikesWithoutAdvertisemen() {
+		final Object testingData[][] = { { "agent1", null }, // Successful
+
+				{ "user2", IllegalArgumentException.class }, // Failed -> logged as a user
+
+				{ "admin", IllegalArgumentException.class }, // Failed -> logged as an admin
+
+		};
+		for (Object[] element : testingData) {
+			this.templateHikesWithoutAdvertisement((String) element[0], (Class<?>) element[1]);
+		}
+	}
 }

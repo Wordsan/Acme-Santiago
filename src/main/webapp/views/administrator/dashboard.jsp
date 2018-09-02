@@ -108,3 +108,19 @@
 	<spring:message code="common.statistics.avg" var="avgHeader"/>
 	<display:column title="${avgHeader}" value="${ row }" />
 </display:table>
+
+<h2>
+	<spring:message code="administrator.dashboard.ratioRoutesWithWithoutAdvertisements"/>
+</h2>
+<display:table name="statistics.ratioRoutesWithWithoutAdvertisements" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	<spring:message code="common.statistics.ratio" var="ratioHeader"/>
+	<display:column title="${ratioHeader}" value="${row}" />
+</display:table>
+
+<h2>
+	<spring:message code="administrator.dashboard.ratioTabooAdvertisements"/>
+</h2>
+<display:table name="statistics.ratioTabooAdvertisements" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	<spring:message code="common.statistics.ratio" var="ratioHeader"/>
+	<display:column title="${ratioHeader}" value="${row}" />
+</display:table>

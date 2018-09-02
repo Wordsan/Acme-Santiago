@@ -57,7 +57,7 @@ public class RouteServiceTest extends AbstractTest {
 		try {
 			this.authenticate(authenticate);
 			Assert.isTrue(!this.routeService.findAll().isEmpty());
-			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("te1").size() == 11);
+			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("route").size() == 4);
 			Assert.isTrue(this.routeService.routesByLengthRange(21500.0, 23000.0).size() == 29);
 			Assert.isTrue(this.routeService.routesByHikesSize().size() == 51);
 			this.unauthenticate();
@@ -209,7 +209,7 @@ public class RouteServiceTest extends AbstractTest {
 		final Object testingData[][] = { { "user2", "route-1", null }, // Successful
 				{ "admin", "route-3", null }, // Successful
 				{ null, "route-5", IllegalArgumentException.class }, // Failed -> not logged
-				{ "user1", "route-2", IllegalArgumentException.class }, // Failed -> user isn't the owner
+				{ "user2", "route-2", IllegalArgumentException.class }, // Failed -> user isn't the owner
 		};
 		for (Object[] element : testingData) {
 			this.templateDeleteRoute((String) element[0], (String) element[1], (Class<?>) element[2]);

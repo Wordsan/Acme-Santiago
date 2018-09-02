@@ -3,8 +3,8 @@
  *
  * Copyright (C) 2017 Universidad de Sevilla
  *
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
+ * The use of this project is hereby constrained to the conditions of the TDG
+ * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  */
 
@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Advertisement;
 import domain.Hike;
 import domain.User;
 import security.LoginService;
+import services.AdvertisementService;
 import services.HikeService;
 import services.UserService;
 
@@ -29,6 +31,9 @@ public class HikeController extends AbstractController {
 
 	@Autowired
 	private HikeService hikeService;
+
+	@Autowired
+	private AdvertisementService advertisementService;
 
 	@Autowired
 	private UserService userService;
@@ -43,6 +48,7 @@ public class HikeController extends AbstractController {
 	public ModelAndView display(@RequestParam(required = true) int hikeId) {
 		ModelAndView view;
 		Hike hike;
+		Advertisement advertisement;
 		User user;
 
 		try {
@@ -52,11 +58,13 @@ public class HikeController extends AbstractController {
 		}
 
 		hike = this.hikeService.findOne(hikeId);
+		advertisement = this.advertisementService.getOneAvailableAdvertisementByHikeId(hike.getId());
 
 		view = new ModelAndView("hike/display");
 		view.addObject("hike", hike);
 		view.addObject("user", user);
 		view.addObject("comments", hike.getComments());
+		view.addObject("advertisement", advertisement);
 
 		return view;
 	}

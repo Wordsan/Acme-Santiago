@@ -11,6 +11,7 @@
 
 	<util:list id="messages">
         <value>/views/administrator/messages</value>
+        <value>/views/advertisement/messages</value>
         <value>/views/chirp/messages</value>
         <value>/views/comment/messages</value>
         <value>/views/common/messages</value>

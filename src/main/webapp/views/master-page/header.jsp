@@ -49,9 +49,6 @@
 			<li><a href="comment/user/create.do"><spring:message code="master.page.createComment" /></a></li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('INNKEEPER')">
-		</security:authorize>
-		
 		<security:authorize access="permitAll">
 			<li>
 				<a class="fNiv"> 
@@ -80,9 +77,48 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('AGENT')">
+			<li>
+				<a class="fNiv"> 
+					<spring:message code="master.page.hikes" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>					
+					<li><a href="hike/agent/hikesWithAdvertisements.do"><spring:message code="master.page.hikes.withAds" /></a></li>
+					<li><a href="hike/agent/hikesWithoutAdvertisements.do"><spring:message code="master.page.hikes.withoutAds" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('AGENT') || hasRole('ADMIN')">
+			<li>
+				<a class="fNiv"> 
+					<spring:message code="master.page.advertisements" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>			
+					<security:authorize access="hasRole('AGENT')">		
+						<li><a href="advertisement/agent/myList.do"><spring:message code="master.page.advertisements.myList" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="advertisement/administrator/tabooAdvertisements.do"><spring:message code="master.page.advertisements.tabooList" /></a></li>
+					</security:authorize>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="isAnonymous()">
+			<li>
+				<a class="fNiv"> 
+					<spring:message code="master.page.signin" /> 
+				</a>
+				<ul>
+					<li class="arrow"></li>					
+					<li><a href="security/user/signin.do"><spring:message code="master.page.signin.user" /></a></li>
+					<li><a href="security/agent/signin.do"><spring:message code="master.page.signin.agent" /></a></li>
+				</ul>
+			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-			<li><a class="fNiv" href="security/user/signin.do"><spring:message code="master.page.signin" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

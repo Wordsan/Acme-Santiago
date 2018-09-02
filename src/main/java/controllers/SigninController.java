@@ -3,8 +3,8 @@
  *
  * Copyright (C) 2017 Universidad de Sevilla
  *
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
+ * The use of this project is hereby constrained to the conditions of the TDG
+ * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  */
 
@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import domain.Agent;
 import domain.User;
 import forms.SigninForm;
+import services.AgentService;
 import services.UserService;
 
 @Controller
@@ -28,6 +30,9 @@ public class SigninController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private AgentService agentService;
 
 	public SigninController() {
 		super();
@@ -40,7 +45,7 @@ public class SigninController extends AbstractController {
 
 		signinForm = new SigninForm();
 
-		view = this.signinModelAndView(signinForm);
+		view = this.signinUserModelAndView(signinForm);
 
 		return view;
 	}
@@ -53,7 +58,7 @@ public class SigninController extends AbstractController {
 		try {
 			user = this.userService.signinReconstruct(signinForm, binding);
 			if (binding.hasErrors()) {
-				view = this.signinModelAndView(signinForm);
+				view = this.signinUserModelAndView(signinForm);
 			} else {
 				this.userService.save(user);
 				view = new ModelAndView("redirect:/");
@@ -61,25 +66,78 @@ public class SigninController extends AbstractController {
 			}
 		} catch (Throwable oops) {
 			if (binding.hasErrors()) {
-				view = this.signinModelAndView(signinForm);
+				view = this.signinUserModelAndView(signinForm);
 			} else {
-				view = this.signinModelAndView(signinForm, "common.message.error");
+				view = this.signinUserModelAndView(signinForm, "common.message.error");
 			}
 		}
 
 		return view;
 	}
 
-	protected ModelAndView signinModelAndView(SigninForm signinForm) {
-		return this.signinModelAndView(signinForm, null);
+	@RequestMapping(value = "/agent/signin", method = RequestMethod.GET)
+	public ModelAndView signinAgent() {
+		ModelAndView view;
+		SigninForm signinForm;
+
+		signinForm = new SigninForm();
+
+		view = this.signinAgentModelAndView(signinForm);
+
+		return view;
 	}
 
-	protected ModelAndView signinModelAndView(SigninForm signinForm, String message) {
+	@RequestMapping(value = "/agent/signin", method = RequestMethod.POST, params = "signin")
+	public ModelAndView signinAgent(SigninForm signinForm, BindingResult binding, RedirectAttributes redirectAttrs) {
+		ModelAndView view;
+		Agent agent;
+
+		try {
+			agent = this.agentService.signinReconstruct(signinForm, binding);
+			if (binding.hasErrors()) {
+				view = this.signinAgentModelAndView(signinForm);
+			} else {
+				this.agentService.save(agent);
+				view = new ModelAndView("redirect:/");
+				redirectAttrs.addFlashAttribute("message", "common.message.success");
+			}
+		} catch (Throwable oops) {
+			if (binding.hasErrors()) {
+				view = this.signinAgentModelAndView(signinForm);
+			} else {
+				view = this.signinAgentModelAndView(signinForm, "common.message.error");
+			}
+		}
+
+		return view;
+	}
+
+	protected ModelAndView signinUserModelAndView(SigninForm signinForm) {
+		return this.signinUserModelAndView(signinForm, null);
+	}
+
+	protected ModelAndView signinUserModelAndView(SigninForm signinForm, String message) {
 		ModelAndView view;
 
-		view = new ModelAndView("signin/signin");
+		view = new ModelAndView("signin/user");
 		view.addObject("signinForm", signinForm);
 		view.addObject("message", message);
+		view.addObject("requestUri", "security/user/signin.do");
+
+		return view;
+	}
+
+	protected ModelAndView signinAgentModelAndView(SigninForm signinForm) {
+		return this.signinAgentModelAndView(signinForm, null);
+	}
+
+	protected ModelAndView signinAgentModelAndView(SigninForm signinForm, String message) {
+		ModelAndView view;
+
+		view = new ModelAndView("signin/agent");
+		view.addObject("signinForm", signinForm);
+		view.addObject("message", message);
+		view.addObject("requestUri", "security/agent/signin.do");
 
 		return view;
 	}

@@ -21,7 +21,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="security/user/signin.do" modelAttribute="signinForm">
+<form:form action="${requestUri}" modelAttribute="signinForm">
 
 	<acme:textbox code="signin.username" path="username"/>
 	<br />

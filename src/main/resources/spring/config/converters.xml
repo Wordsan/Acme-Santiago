@@ -34,6 +34,14 @@
 		<!--User converters-->
 		<bean class="converters.StringToUserConverter"/>
         <bean class="converters.UserToStringConverter"/>
+
+		<!--Agent converters-->
+		<bean class="converters.StringToAgentConverter"/>
+        <bean class="converters.AgentToStringConverter"/>
+
+		<!--Advertisement converters-->
+		<bean class="converters.StringToAdvertisementConverter"/>
+        <bean class="converters.AdvertisementToStringConverter"/>
     </util:list>
 	
 </beans>

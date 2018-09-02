@@ -63,10 +63,10 @@
 	<div>
 		<display:table name="hikes" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
-			<spring:message code="route.name" var="nameHeader"  />
+			<spring:message code="hike.name" var="nameHeader"  />
 			<display:column property="name" title="${nameHeader}" />
 			
-			<spring:message code="route.description" var="descriptionHeader"  />
+			<spring:message code="hike.description" var="descriptionHeader"  />
 			<display:column property="description" title="${descriptionHeader}" />
 			
 			<spring:message var="viewHeader" code="common.action.view" />

@@ -16,8 +16,13 @@
       
 <tiles-definitions>
 
-	<definition name="signin/signin" extends="master.page">	
-		<put-attribute name="title" value="Registrarse" />
+	<definition name="signin/user" extends="master.page">	
+		<put-attribute name="title" value="Registrarse como usuario" />
+		<put-attribute name="body" value="/views/signin/signin.jsp" />
+	</definition>
+	
+	<definition name="signin/agent" extends="master.page">	
+		<put-attribute name="title" value="Registrarse como agente" />
 		<put-attribute name="body" value="/views/signin/signin.jsp" />
 	</definition>
 	

@@ -3,8 +3,8 @@
  *
  * Copyright (C) 2017 Universidad de Sevilla
  *
- * The use of this project is hereby constrained to the conditions of the
- * TDG Licence, a copy of which you may download from
+ * The use of this project is hereby constrained to the conditions of the TDG
+ * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
  */
 
@@ -51,7 +51,7 @@ public class RouteController extends AbstractController {
 		ModelAndView view;
 		Collection<Route> routes;
 
-		if ((keyword != null)) {
+		if ((keyword != null) && !keyword.isEmpty()) {
 			routes = this.routeService.searchRoutesFromKeyWord(keyword);
 		} else if ((minLength != null) && (maxLength != null)) {
 			routes = this.routeService.routesByLengthRange(minLength, maxLength);

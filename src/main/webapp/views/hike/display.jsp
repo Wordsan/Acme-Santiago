@@ -85,6 +85,13 @@
 	</div>
 </p>
 
+<jstl:if test="${advertisement != null}">
+<div>
+	<a target="_blank" href="<jstl:out value="${advertisement.targetUrl}" />">
+		<img src="<jstl:out value="${advertisement.banner}" />" height="200px;" width="auto"/>
+	</a>
+</div>
+</jstl:if>
 <p>
 	<div>
 		<strong><spring:message code="route.comments" />:</strong>
