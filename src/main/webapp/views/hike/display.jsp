@@ -18,7 +18,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <div>
-	<a href="route/display.do?routeId=${hike.route.id}"><spring:message code="common.action.back"/></a>
+	<a href="" onclick="relativeRedir(window.history.go(-1))"><spring:message code="common.action.back" /></a>
 </div>
 
 <p>

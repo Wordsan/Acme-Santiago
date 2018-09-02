@@ -17,6 +17,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+
+<div>
+	<a href="" onclick="relativeRedir(window.history.go(-1))"><spring:message code="common.action.back" /></a>
+</div>
+
 <p>
 	<div>
 		<strong><spring:message code="user.name" />:</strong>

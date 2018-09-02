@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -30,7 +31,7 @@ public class User extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany
+	@ManyToMany
 	public Collection<User> getFollowedUsers() {
 		return this.followedUsers;
 	}
