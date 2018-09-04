@@ -18,7 +18,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <div>
-	<a href="route/display.do?routeId=${hike.route.id}"><spring:message code="common.action.back"/></a>
+	<a href="" onclick="relativeRedir(window.history.go(-1))"><spring:message code="common.action.back" /></a>
 </div>
 
 <p>
@@ -63,7 +63,9 @@
 		<strong><spring:message code="hike.pictures" />:</strong>
 	</div>
 	<div>
-		<img src="<jstl:out value="${ hike.pictures }" />" height="200px;" width="auto"/>
+		<jstl:forEach var="picture" items="${pictures}">
+		<img src="<jstl:out value="${picture}" />" height="200px;" width="auto"/>
+		</jstl:forEach>
 	</div>
 </p>
 
@@ -116,5 +118,13 @@
 				<a href="user/display.do?userId=${row.owner.id}"><jstl:out value="${row.owner.name}"/> <jstl:out value="${row.owner.surname}"/></a>
 			</display:column>
 		</display:table>
+		
+		<security:authorize access="hasRole('USER')">
+			<jstl:if test="${(user != null)}">
+				<div>
+					<a href="comment/user/create.do?routeOrhikeId=${hike.id}"> <spring:message code="comment.create" /></a>
+				</div>
+			</jstl:if>
+		</security:authorize>
 	</div>
 </p>

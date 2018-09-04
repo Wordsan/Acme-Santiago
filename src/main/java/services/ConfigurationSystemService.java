@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ConfigurationSystemRepository;
 import security.LoginService;
@@ -25,6 +27,9 @@ public class ConfigurationSystemService {
 	/* SERVICES */
 	@Autowired
 	private AdministratorService			adminService;
+
+	@Autowired
+	private Validator						validator;
 
 
 	/* CONSTRUCTOR */
@@ -48,6 +53,20 @@ public class ConfigurationSystemService {
 
 		cs = this.configurationSystemRepository.findAll();
 		result = cs.get(0);
+
+		return result;
+	}
+
+	public ConfigurationSystem reconstruct(final ConfigurationSystem cs, final BindingResult binding) {
+		ConfigurationSystem result;
+
+		result = this.configurationSystemRepository.findOne(cs.getId());
+
+		result.setTabooWords(cs.getTabooWords());
+
+		this.validator.validate(result, binding);
+
+		Assert.isTrue(!binding.hasErrors());
 
 		return result;
 	}

@@ -17,8 +17,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<script type="text/javascript">
+function goBack() {
+	b = window.history.go(-1);
+	if(b != "route/user/myList.do" || b != "route/list.do") {
+		window.history.go(-2);
+	} else {
+		b;
+	}
+}
+</script>
+
 <div>
-	<a href="" onclick="relativeRedir('${ backURI }');"><spring:message code="common.action.back"/></a>
+	<a href="" onclick="goBack()"><spring:message code="common.action.back"/></a>
 </div>
 <p>
 	<div>
@@ -52,7 +63,9 @@
 		<strong><spring:message code="route.pictures" />:</strong>
 	</div>
 	<div>
-		<img src="<jstl:out value="${ route.pictures }" />" height="200px;" width="auto"/>
+		<jstl:forEach var="picture" items="${pictures}">
+			<img src="<jstl:out value="${picture}" />" height="200px;" width="auto"/>
+		</jstl:forEach>
 	</div>
 </p>
 
@@ -112,12 +125,15 @@
 			
 			<spring:message code="comment.writeMoment" var="writeMomentHeader"  />
 			<display:column property="writeMoment" title="${writeMomentHeader}" format="{0,date,dd/MM/yyyy HH:mm}"/>
-			
-			<spring:message code="comment.owner" var="ownerHeader"  />
-			<display:column title="${ownerHeader}">
-				<a href="user/display.do?userId=${row.owner.id}"><jstl:out value="${ row.owner.name }"/> <jstl:out value="${ row.owner.surname }"/></a>
-			</display:column>
 						
 		</display:table>
+		
+		<security:authorize access="hasRole('USER')">
+			<jstl:if test="${(user != null)}">
+				<div>
+					<a href="comment/user/create.do?routeOrhikeId=${route.id}"> <spring:message code="comment.create" /></a>
+				</div>
+			</jstl:if>
+		</security:authorize>
 	</div>
 </p>

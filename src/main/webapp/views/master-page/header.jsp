@@ -46,7 +46,6 @@
 					<li><a href="chirp/user/streamChirps.do"><spring:message code="master.page.streamChirp" /></a></li>
 				</ul>
 			</li>
-			<li><a href="comment/user/create.do"><spring:message code="master.page.createComment" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="permitAll">

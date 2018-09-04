@@ -131,7 +131,7 @@ public class CommentServiceTest extends AbstractTest {
 
 			Collection<Comment> all = new ArrayList<>();
 			Comment saved;
-			final Comment comment = this.commentService.create();
+			final Comment comment = this.commentService.create(null, null);
 			split = properties.split(",");
 			final SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 

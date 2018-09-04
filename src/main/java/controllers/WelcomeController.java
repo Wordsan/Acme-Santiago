@@ -21,10 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
-import services.AdministratorService;
-import services.UserService;
-import domain.Administrator;
-import domain.User;
+import services.ActorService;
+import domain.Actor;
 
 @Controller
 @RequestMapping("/welcome")
@@ -39,9 +37,7 @@ public class WelcomeController extends AbstractController {
 
 	// Services
 	@Autowired
-	private AdministratorService	adminService;
-	@Autowired
-	private UserService				userService;
+	private ActorService	actorService;
 
 
 	// Index ------------------------------------------------------------------
@@ -60,13 +56,9 @@ public class WelcomeController extends AbstractController {
 		try {
 			LoginService.getPrincipal();
 			final UserAccount uA = LoginService.getPrincipal();
-			final User u = this.userService.getUserByUserAccountId(uA.getId());
-			if (u != null)
-				name = u.getName() + " " + u.getSurname();
-			else {
-				final Administrator a = this.adminService.getAdminByUserAccountId(uA.getId());
+			final Actor a = this.actorService.getActorByUserAccountId(uA.getId());
+			if (a != null)
 				name = a.getName() + " " + a.getSurname();
-			}
 		} catch (final Throwable i) {
 
 		}

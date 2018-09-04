@@ -1,8 +1,7 @@
 /*
  * ProfileController.java
- *
+ * 
  * Copyright (C) 2017 Universidad de Sevilla
- *
  * The use of this project is hereby constrained to the conditions of the TDG
  * Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -29,7 +28,7 @@ import services.UserService;
 public class SigninController extends AbstractController {
 
 	@Autowired
-	private UserService userService;
+	private UserService	userService;
 
 	@Autowired
 	private AgentService agentService;
@@ -51,25 +50,24 @@ public class SigninController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/user/signin", method = RequestMethod.POST, params = "signin")
-	public ModelAndView signinUser(SigninForm signinForm, BindingResult binding, RedirectAttributes redirectAttrs) {
+	public ModelAndView signinUser(final SigninForm signinForm, final BindingResult binding, final RedirectAttributes redirectAttrs) {
 		ModelAndView view;
 		User user;
 
 		try {
 			user = this.userService.signinReconstruct(signinForm, binding);
-			if (binding.hasErrors()) {
+			if (binding.hasErrors())
 				view = this.signinUserModelAndView(signinForm);
-			} else {
+			else {
 				this.userService.save(user);
 				view = new ModelAndView("redirect:/");
 				redirectAttrs.addFlashAttribute("message", "common.message.success");
 			}
-		} catch (Throwable oops) {
-			if (binding.hasErrors()) {
+		} catch (final Throwable oops) {
+			if (binding.hasErrors())
 				view = this.signinUserModelAndView(signinForm);
-			} else {
+			else
 				view = this.signinUserModelAndView(signinForm, "common.message.error");
-			}
 		}
 
 		return view;

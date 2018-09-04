@@ -95,8 +95,9 @@ public class ChirpService {
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
 		for (final Chirp c : all)
 			for (final String s : tabooWords)
-				if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
-					res.add(c);
+				if (!res.contains(c))
+					if ((c.getDescription().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+						res.add(c);
 		return res;
 	}
 

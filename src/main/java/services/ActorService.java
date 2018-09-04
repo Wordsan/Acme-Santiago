@@ -38,4 +38,9 @@ public class ActorService {
 		return exists;
 	}
 
+	/* OTHERS */
+	public Actor getActorByUserAccountId(final int userAccountID) {
+		return this.actorRepository.getActorByUserAccountId(userAccountID);
+	}
+
 }

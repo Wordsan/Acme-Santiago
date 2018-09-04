@@ -1,14 +1,13 @@
 
 package controllers.administrator;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.ConfigurationSystemService;
 import utilities.ControllerUtils;
@@ -41,18 +40,24 @@ public class ConfigurationSystemAdministratorController extends AbstractControll
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ConfigurationSystem cs, final BindingResult binding) {
-		ModelAndView result;
+	public ModelAndView save(ConfigurationSystem cs, final BindingResult binding, final RedirectAttributes redirectAttrs) {
+		ModelAndView result = new ModelAndView();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(cs);
-		else
-			try {
+		try {
+			cs = this.csService.reconstruct(cs, binding);
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(cs);
+			else {
 				this.csService.save(cs);
 				result = ControllerUtils.redirect("/welcome/index.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(cs, "cs.commit.error");
+				redirectAttrs.addFlashAttribute("message", "common.message.success");
 			}
+		} catch (final Throwable oops) {
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(cs, "cs.commit.error");
+
+		}
+
 		return result;
 	}
 
