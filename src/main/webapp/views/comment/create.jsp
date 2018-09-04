@@ -22,7 +22,18 @@
 
 <security:authorize access="hasRole('USER')">
 <form:form action="${requestURI}" modelAttribute="comment">
-	<form:hidden path="id"/>
+
+	<form:hidden path="id" />
+	<jstl:if test="${comment.id == 0}">
+		<jstl:choose>
+			<jstl:when test="${comment.route != null}">
+				<form:hidden path="route"/>
+			</jstl:when>
+			<jstl:otherwise>
+				<form:hidden path="hike"/>
+			</jstl:otherwise>
+		</jstl:choose>
+	</jstl:if>
 
 	<acme:textbox code="comment.title" path="title"/>
 	<br />
@@ -35,12 +46,6 @@
 
 	<acme:textbox code="comment.rate" path="rate"/>
 	<br />
-	
-	<acme:select items="${routes}" itemLabel="name" code="comment.route" path="route"/>
-	<br/>
-
-	<acme:select items="${hikes}" itemLabel="name" code="comment.hike" path="hike"/>
-	<br/>
 	
 	<!-- Buttons -->
 	<acme:cancel url="/welcome/index.do" code="comment.cancel"/>

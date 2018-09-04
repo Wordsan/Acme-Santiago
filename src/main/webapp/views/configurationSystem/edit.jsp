@@ -24,7 +24,6 @@
 <form:form action="${requestURI}" modelAttribute="configurationSystem">
 
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
 	
 	<acme:textbox code="configurationSystem.tabooWords" path="tabooWords"/>
 	<br />

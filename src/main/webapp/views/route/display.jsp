@@ -127,5 +127,13 @@ function goBack() {
 			<display:column property="writeMoment" title="${writeMomentHeader}" format="{0,date,dd/MM/yyyy HH:mm}"/>
 						
 		</display:table>
+		
+		<security:authorize access="hasRole('USER')">
+			<jstl:if test="${(user != null)}">
+				<div>
+					<a href="comment/user/create.do?routeOrhikeId=${route.id}"> <spring:message code="comment.create" /></a>
+				</div>
+			</jstl:if>
+		</security:authorize>
 	</div>
 </p>

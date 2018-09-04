@@ -19,6 +19,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div>
 	<a href="" onclick="relativeRedir('/')"><spring:message code="common.action.back" /></a>
@@ -30,7 +31,9 @@
 
 <acme:column code="comment.text" property="text"/>
 
-<acme:column code="comment.writeMoment" property="writeMoment" format="{0,date,dd/MM/yyyy HH:mm}"/>
+<spring:message code="master.page.date.dateFormat" var="formatHeader"/>
+<fmt:formatDate value="${c.writeMoment}" pattern="${formatHeader}" var="formatVar"/>
+<acme:column code="comment.writeMoment" property="writeMoment" format="${formatVar}"/>
 
 <acme:column code="comment.pictures" property="pictures"/>
 

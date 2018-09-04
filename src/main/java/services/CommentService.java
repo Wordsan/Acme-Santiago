@@ -52,10 +52,14 @@ public class CommentService {
 
 	/* CRUD */
 
-	public Comment create() {
+	public Comment create(final Route route, final Hike hike) {
 		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
 		final Comment c = new Comment();
 		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
+		if (route != null)
+			c.setRoute(route);
+		else
+			c.setHike(hike);
 
 		c.setWriteMoment(new Date(System.currentTimeMillis() - 10));
 		c.setRate(0);
@@ -75,13 +79,13 @@ public class CommentService {
 		final Comment saved = this.commentRepository.save(comment);
 
 		if ((h == null) && (r != null)) {
-			Assert.isTrue(r.getCreator().equals(u));
+			//			Assert.isTrue(r.getCreator().equals(u));
 
 			u.getRouteComments().add(saved);
 			r.getComments().add(saved);
 			this.routeService.save(r);
 		} else if ((h != null) && (r == null)) {
-			Assert.isTrue(h.getRoute().getCreator().equals(u));
+			//			Assert.isTrue(h.getRoute().getCreator().equals(u));
 
 			u.getHikeComments().add(saved);
 			h.getComments().add(saved);
@@ -148,12 +152,8 @@ public class CommentService {
 		if (comment.getId() != 0)
 			result = this.commentRepository.findOne(comment.getId());
 		else
-			result = this.create();
+			result = this.create(comment.getRoute(), comment.getHike());
 
-		if (comment.getHike() != null)
-			result.setHike(comment.getHike());
-		if (comment.getRoute() != null)
-			result.setRoute(comment.getRoute());
 		result.setPictures(comment.getPictures());
 		result.setRate(comment.getRate());
 		result.setText(comment.getText());

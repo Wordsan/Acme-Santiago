@@ -111,5 +111,13 @@
 				<a href="user/display.do?userId=${row.owner.id}"><jstl:out value="${row.owner.name}"/> <jstl:out value="${row.owner.surname}"/></a>
 			</display:column>
 		</display:table>
+		
+		<security:authorize access="hasRole('USER')">
+			<jstl:if test="${(user != null)}">
+				<div>
+					<a href="comment/user/create.do?routeOrhikeId=${hike.id}"> <spring:message code="comment.create" /></a>
+				</div>
+			</jstl:if>
+		</security:authorize>
 	</div>
 </p>

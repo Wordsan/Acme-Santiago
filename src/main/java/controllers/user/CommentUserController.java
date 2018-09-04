@@ -1,27 +1,23 @@
 
 package controllers.user;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
 import services.CommentService;
+import services.HikeService;
 import services.RouteService;
-import services.UserService;
 import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
-import domain.User;
 
 @Controller
 @RequestMapping("/comment/user")
@@ -33,7 +29,7 @@ public class CommentUserController extends AbstractController {
 	@Autowired
 	private RouteService	routeService;
 	@Autowired
-	private UserService		userService;
+	private HikeService		hikeService;
 
 
 	/* CONSTRUCTORS */
@@ -44,12 +40,21 @@ public class CommentUserController extends AbstractController {
 	/* CREATION */
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int routeOrhikeId) {
 		ModelAndView result;
 		Comment comment;
+		Route route;
+		Hike hike;
 
-		comment = this.commentService.create();
-		result = this.createEditModelAndView(comment);
+		try {
+			route = this.routeService.findOne(routeOrhikeId);
+			hike = this.hikeService.findOne(routeOrhikeId);
+			comment = this.commentService.create(route, hike);
+			result = this.createEditModelAndView(comment);
+		} catch (final Throwable opps) {
+			result = new ModelAndView("redirect:window.history.go(-1)");
+		}
+
 		result.addObject("requestURI", "comment/user/edit.do");
 
 		return result;
@@ -92,21 +97,9 @@ public class CommentUserController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Comment comment, final String messageCode) {
 		ModelAndView result;
-		Collection<Route> routes = new ArrayList<Route>();
-		final Collection<Hike> hikes = new ArrayList<Hike>();
-		User u = new User();
-		if (comment.getOwner() == null)
-			u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
-		else
-			u = comment.getOwner();
-		routes = this.routeService.routesFromCreator(u.getId());
-		for (final Route r : routes)
-			hikes.addAll(r.getComposedHikes());
 
 		result = new ModelAndView("comment/create");
 		result.addObject("comment", comment);
-		result.addObject("routes", routes);
-		result.addObject("hikes", hikes);
 
 		result.addObject("message", messageCode);
 		return result;
