@@ -15,15 +15,15 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.UserRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Chirp;
 import domain.Comment;
 import domain.Route;
 import domain.User;
 import forms.SigninForm;
+import repositories.UserRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -31,7 +31,7 @@ public class UserService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private UserRepository	userRepository;
+	private UserRepository userRepository;
 
 	/* SERVICES */
 	@Autowired
@@ -39,7 +39,6 @@ public class UserService {
 
 	@Autowired
 	private Validator validator;
-
 
 	/* CONSTRUCTOR */
 	public UserService() {
@@ -192,14 +191,17 @@ public class UserService {
 			binding.rejectValue("confirmPassword", "signin.validation.passwords");
 		}
 
-		if ((signinForm.getConditionsAccepted() == null) || (!signinForm.getConditionsAccepted()))
+		if ((signinForm.getConditionsAccepted() == null) || (!signinForm.getConditionsAccepted())) {
 			binding.rejectValue("conditionsAccepted", "signin.validation.conditionsAccepted");
+		}
 
 		if (this.actorService.existsActorWithUsername(signinForm.getUsername())) {
 			binding.rejectValue("username", "signin.validation.username");
+		}
 
-		if (!(signinForm.getPhoneNumber().matches("^\\+?\\d*$")))
+		if (!(signinForm.getPhoneNumber().matches("^\\+?\\d*$"))) {
 			binding.rejectValue("phoneNumber", "signin.validation.phone");
+		}
 
 		Assert.isTrue(!binding.hasErrors());
 
