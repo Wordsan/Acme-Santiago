@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.CommentService;
 import services.HikeService;
 import services.RouteService;
-import utilities.ControllerUtils;
 import controllers.AbstractController;
 import domain.Comment;
 import domain.Hike;
@@ -74,7 +73,10 @@ public class CommentUserController extends AbstractController {
 					result = this.createEditModelAndView(comment);
 			} else {
 				this.commentService.save(comment);
-				result = ControllerUtils.redirect("/welcome/index.do");
+				if (comment.getHike() != null)
+					result = new ModelAndView("redirect:/hike/display.do?hikeId=" + comment.getHike().getId());
+				else
+					result = new ModelAndView("redirect:/route/display.do?routeId=" + comment.getRoute().getId());
 				redirectAttrs.addFlashAttribute("message", "common.message.success");
 			}
 		} catch (final Throwable oops) {
