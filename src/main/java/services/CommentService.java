@@ -14,12 +14,12 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.CommentRepository;
-import security.LoginService;
 import domain.Comment;
 import domain.Hike;
 import domain.Route;
 import domain.User;
+import repositories.CommentRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -27,23 +27,22 @@ public class CommentService {
 
 	/* REPOSITORIES */
 	@Autowired
-	private CommentRepository			commentRepository;
+	private CommentRepository commentRepository;
 
 	/* SERVICES */
 	@Autowired
-	private UserService					userService;
+	private UserService userService;
 	@Autowired
-	private ConfigurationSystemService	csService;
+	private ConfigurationSystemService csService;
 	@Autowired
-	private AdministratorService		administratorService;
+	private AdministratorService administratorService;
 	@Autowired
-	private RouteService				routeService;
+	private RouteService routeService;
 	@Autowired
-	private HikeService					hikeService;
+	private HikeService hikeService;
 
 	@Autowired
-	private Validator					validator;
-
+	private Validator validator;
 
 	/* CONSTRUCTOR */
 	public CommentService() {
@@ -56,10 +55,11 @@ public class CommentService {
 		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
 		final Comment c = new Comment();
 		final User u = this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId());
-		if (route != null)
+		if (route != null) {
 			c.setRoute(route);
-		else
+		} else {
 			c.setHike(hike);
+		}
 
 		c.setWriteMoment(new Date(System.currentTimeMillis() - 10));
 		c.setRate(0);
@@ -71,31 +71,14 @@ public class CommentService {
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
 		Assert.notNull(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()));
-		Assert.isTrue(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId()).equals(comment.getOwner()));
-		final User u = comment.getOwner();
-		final Hike h = comment.getHike();
-		final Route r = comment.getRoute();
+		Assert.isTrue(this.userService.getUserByUserAccountId(LoginService.getPrincipal().getId())
+				.equals(comment.getOwner()));
 
 		final Comment saved = this.commentRepository.save(comment);
 
-		if ((h == null) && (r != null)) {
-			//			Assert.isTrue(r.getCreator().equals(u));
-
-			u.getRouteComments().add(saved);
-			r.getComments().add(saved);
-			this.routeService.save(r);
-		} else if ((h != null) && (r == null)) {
-			//			Assert.isTrue(h.getRoute().getCreator().equals(u));
-
-			u.getHikeComments().add(saved);
-			h.getComments().add(saved);
-			this.hikeService.save(h);
-		}
-
-		this.userService.save(u);
-
 		return saved;
 	}
+
 	public Collection<Comment> findAll() {
 		return this.commentRepository.findAll();
 	}
@@ -134,11 +117,15 @@ public class CommentService {
 		final List<Comment> res = new ArrayList<Comment>();
 		all = this.commentRepository.findAll();
 		final String[] tabooWords = this.csService.get().getTabooWords().toLowerCase().split(",");
-		for (final Comment c : all)
-			for (final String s : tabooWords)
-				if (!res.contains(c))
-					if ((c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s)))
+		for (final Comment c : all) {
+			for (final String s : tabooWords) {
+				if (!res.contains(c)) {
+					if ((c.getText().toLowerCase().contains(s) || c.getTitle().toLowerCase().contains(s))) {
 						res.add(c);
+					}
+				}
+			}
+		}
 		return res;
 	}
 
@@ -149,10 +136,11 @@ public class CommentService {
 	public Comment reconstruct(final Comment comment, final BindingResult binding) {
 		Comment result;
 
-		if (comment.getId() != 0)
+		if (comment.getId() != 0) {
 			result = this.commentRepository.findOne(comment.getId());
-		else
+		} else {
 			result = this.create(comment.getRoute(), comment.getHike());
+		}
 
 		result.setPictures(comment.getPictures());
 		result.setRate(comment.getRate());
