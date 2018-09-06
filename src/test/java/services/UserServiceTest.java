@@ -12,21 +12,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import domain.User;
 import security.LoginService;
 import utilities.AbstractTest;
-import domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-	"classpath:spring/junit.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/junit.xml" })
 @Transactional
 public class UserServiceTest extends AbstractTest {
 
 	/* SERVICE UNDER TEST */
 	@Autowired
-	private UserService	userService;
-
+	private UserService userService;
 
 	/* TESTS */
 	/*
@@ -43,7 +40,8 @@ public class UserServiceTest extends AbstractTest {
 	 * Testing:
 	 * 3.1 - Register to the system as a user.
 	 */
-	protected void templateSignin(final String authenticate, final String username, final String postalAddress, final String emailAddress, final String phone, final String picture, final Class<?> expected) {
+	protected void templateSignin(final String authenticate, final String username, final String postalAddress,
+			final String emailAddress, final String phone, final String picture, final Class<?> expected) {
 		Class<?> caught;
 		User user;
 		Md5PasswordEncoder encoder;
@@ -74,25 +72,21 @@ public class UserServiceTest extends AbstractTest {
 	@Test
 	public void driverTestSignin() {
 		final Object testingData[][] = {
-			{
-				null, "userTest1", "test address", "testEmail1@acme.com", "+11111111", "http://testimage1.com", null
-			}, // Successful,
-			{
-				null, "userTest2", "test address", "testEmail1@acme.com", null, "http://testimage1.com", null
-			}, // Successful
-			{
-				"user1", "userTest2", "test address", "testEmail1@acme.com", "11111111", null, IllegalArgumentException.class
-			}, // Failed -> already logged as an user
-			{
-				"admin", "userTest3", "test address", "testEmail1@acme.com", null, null, IllegalArgumentException.class
-			}, // Failed -> already logged as an administrator
-			{
-				null, "user1", "test address", "testEmail1@acme.com", null, "http://testimage1.com", DataIntegrityViolationException.class
-			}
-		// Failed -> username already exists
+				{ null, "userTest1", "test address", "testEmail1@acme.com", "+11111111", "http://testimage1.com",
+						null }, // Successful,
+				{ null, "userTest2", "test address", "testEmail1@acme.com", null, "http://testimage1.com", null }, // Successful
+				{ "user1", "userTest2", "test address", "testEmail1@acme.com", "11111111", null,
+						IllegalArgumentException.class }, // Failed -> already logged as an user
+				{ "admin", "userTest3", "test address", "testEmail1@acme.com", null, null,
+						IllegalArgumentException.class }, // Failed -> already logged as an administrator
+				{ null, "user1", "test address", "testEmail1@acme.com", null, "http://testimage1.com",
+						DataIntegrityViolationException.class }
+				// Failed -> username already exists
 		};
-		for (final Object[] element : testingData)
-			this.templateSignin((String) element[0], (String) element[1], (String) element[2], (String) element[3], (String) element[4], (String) element[5], (Class<?>) element[6]);
+		for (final Object[] element : testingData) {
+			this.templateSignin((String) element[0], (String) element[1], (String) element[2], (String) element[3],
+					(String) element[4], (String) element[5], (Class<?>) element[6]);
+		}
 	}
 
 	/*
@@ -117,22 +111,14 @@ public class UserServiceTest extends AbstractTest {
 
 	@Test
 	public void driverTestBrowseAndDisplay() {
-		final Object testingData[][] = {
-			{
-				null, this.getEntityId("user_user1"), null
-			}, // Successful
-			{
-				"user1", this.getEntityId("user_user1"), null
-			}, // Successful
-			{
-				"admin", this.getEntityId("user_user1"), null
-			}, // Successful
-			{
-				null, 0, IllegalArgumentException.class
-			}, // Failed -> user doesn't exists
+		final Object testingData[][] = { { null, this.getEntityId("user-user1"), null }, // Successful
+				{ "user1", this.getEntityId("user-user1"), null }, // Successful
+				{ "admin", this.getEntityId("user-user1"), null }, // Successful
+				{ null, 0, IllegalArgumentException.class }, // Failed -> user doesn't exists
 		};
-		for (final Object[] element : testingData)
+		for (final Object[] element : testingData) {
 			this.templateBrowseAndDisplay((String) element[0], (int) element[1], (Class<?>) element[2]);
+		}
 	}
 
 	/*
@@ -157,19 +143,13 @@ public class UserServiceTest extends AbstractTest {
 
 	@Test
 	public void driverTestBrowseFollowedUsers() {
-		final Object testingData[][] = {
-			{
-				"user1", null
-			}, // Successful
-			{
-				"admin", IllegalArgumentException.class
-			}, // Failed -> administrator logged
-			{
-				null, IllegalArgumentException.class
-			}, // Failed -> not logged
+		final Object testingData[][] = { { "user1", null }, // Successful
+				{ "admin", IllegalArgumentException.class }, // Failed -> administrator logged
+				{ null, IllegalArgumentException.class }, // Failed -> not logged
 		};
-		for (final Object[] element : testingData)
+		for (final Object[] element : testingData) {
 			this.templateBrowseFollowedUsers((String) element[0], (Class<?>) element[1]);
+		}
 	}
 
 	/*
@@ -194,19 +174,13 @@ public class UserServiceTest extends AbstractTest {
 
 	@Test
 	public void driverTestBrowseFollowerUsers() {
-		final Object testingData[][] = {
-			{
-				"user1", null
-			}, // Successful
-			{
-				"admin", IllegalArgumentException.class
-			}, // Failed -> administrator logged
-			{
-				null, IllegalArgumentException.class
-			}, // Failed -> not logged
+		final Object testingData[][] = { { "user1", null }, // Successful
+				{ "admin", IllegalArgumentException.class }, // Failed -> administrator logged
+				{ null, IllegalArgumentException.class }, // Failed -> not logged
 		};
-		for (final Object[] element : testingData)
+		for (final Object[] element : testingData) {
 			this.templateBrowseFollowerUsers((String) element[0], (Class<?>) element[1]);
+		}
 	}
 
 	/*
@@ -233,22 +207,14 @@ public class UserServiceTest extends AbstractTest {
 
 	@Test
 	public void driverTestFollowUser() {
-		final Object testingData[][] = {
-			{
-				"user1", this.getEntityId("user_user2"), null
-			}, // Successful
-			{
-				null, this.getEntityId("user_user2"), IllegalArgumentException.class
-			}, // Failed -> not logged
-			{
-				"admin", this.getEntityId("user_user2"), IllegalArgumentException.class
-			}, // Successful
-			{
-				"user1", 0, IllegalArgumentException.class
-			}, // Failed -> user doesn't exists
+		final Object testingData[][] = { { "user1", this.getEntityId("user-user2"), null }, // Successful
+				{ null, this.getEntityId("user-user2"), IllegalArgumentException.class }, // Failed -> not logged
+				{ "admin", this.getEntityId("user-user2"), IllegalArgumentException.class }, // Successful
+				{ "user1", 0, IllegalArgumentException.class }, // Failed -> user doesn't exists
 		};
-		for (final Object[] element : testingData)
+		for (final Object[] element : testingData) {
 			this.templateFollowUser((String) element[0], (int) element[1], (Class<?>) element[2]);
+		}
 	}
 
 	/*
@@ -275,22 +241,14 @@ public class UserServiceTest extends AbstractTest {
 
 	@Test
 	public void driverTestUnfollowUser() {
-		final Object testingData[][] = {
-			{
-				"user2", this.getEntityId("user_user1"), null
-			}, // Successful
-			{
-				null, this.getEntityId("user_user1"), IllegalArgumentException.class
-			}, // Failed -> not logged
-			{
-				"admin", this.getEntityId("user_user1"), IllegalArgumentException.class
-			}, // Successful
-			{
-				"user1", 0, IllegalArgumentException.class
-			}, // Failed -> user doesn't exists
+		final Object testingData[][] = { { "user2", this.getEntityId("user-user1"), null }, // Successful
+				{ null, this.getEntityId("user-user1"), IllegalArgumentException.class }, // Failed -> not logged
+				{ "admin", this.getEntityId("user-user1"), IllegalArgumentException.class }, // Successful
+				{ "user1", 0, IllegalArgumentException.class }, // Failed -> user doesn't exists
 		};
-		for (final Object[] element : testingData)
+		for (final Object[] element : testingData) {
 			this.templateUnfollowUser((String) element[0], (int) element[1], (Class<?>) element[2]);
+		}
 	}
 
 }

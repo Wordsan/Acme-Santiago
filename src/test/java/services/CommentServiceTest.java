@@ -96,20 +96,20 @@ public class CommentServiceTest extends AbstractTest {
 		final Object testingData[][] = { { //Probando las properties
 				//
 
-				"user1", "user_user1", "route_3", "", properties[0], NumberFormatException.class },
-				{ "user1", "user_user1", "route_3", "", properties[7], ConstraintViolationException.class },
-				{ "user1", "user_user1", "route_3", "", properties[1], java.text.ParseException.class },
-				{ "user1", "user_user1", "route_3", "", properties[2], ConstraintViolationException.class }, { //Probando el range
-						"user1", "user_user1", "route_3", "", properties[4], null },
-				{ "user1", "user_user1", "route_3", "", properties[5], null },
-				{ "user1", "user_user1", "route_3", "", properties[6], null }, { //Autenticado no es user
-						"admin1", "user_user1", "route_3", "", properties[4], IllegalArgumentException.class },
+				"user1", "user-user1", "route-3", "", properties[0], NumberFormatException.class },
+				{ "user1", "user-user1", "route-3", "", properties[7], ConstraintViolationException.class },
+				{ "user1", "user-user1", "route-3", "", properties[1], java.text.ParseException.class },
+				{ "user1", "user-user1", "route-3", "", properties[2], ConstraintViolationException.class }, { //Probando el range
+						"user1", "user-user1", "route-3", "", properties[4], null },
+				{ "user1", "user-user1", "route-3", "", properties[5], null },
+				{ "user1", "user-user1", "route-3", "", properties[6], null }, { //Autenticado no es user
+						"admin1", "user-user1", "route-3", "", properties[4], IllegalArgumentException.class },
 				{ //Probando que se pueden crear comments en routes y hikes que no son suyos
-						"user2", "user_user2", "route_3", "", properties[4], null },
-				{ "user2", "user_user2", "", "hike_5", properties[4], null },
-				{ "user1", "user_user1", "route_1", "", properties[6], null },
-				{ "user1", "user_user1", "", "hike_1", properties[6], null }, { //Route y hike a la vez 
-						"user1", "user_user1", "route_3", "hike_5", properties[4],
+						"user2", "user-user2", "route-3", "", properties[4], null },
+				{ "user2", "user-user2", "", "hike-5", properties[4], null },
+				{ "user1", "user-user1", "route-1", "", properties[6], null },
+				{ "user1", "user-user1", "", "hike-1", properties[6], null }, { //Route y hike a la vez
+						"user1", "user-user1", "route-3", "hike-5", properties[4],
 						ConstraintViolationException.class } };
 
 		for (Object[] element : testingData) {

@@ -184,8 +184,8 @@ public class AdvertisementServiceTest extends AbstractTest {
 	public void driverDeleteRoute() {
 		final Object testingData[][] = { { "agent1", "advertisement-1", null }, // Successful
 				{ "admin", "advertisement-2", null }, // Successful
-				//{ null, "advertisement3", IllegalArgumentException.class }, // Failed -> not logged
-				//{ "agent-agent2", "advertisement6", IllegalArgumentException.class }, // Failed -> agent isn't the owner
+				{ null, "advertisement-3", IllegalArgumentException.class }, // Failed -> not logged
+				{ "agent-agent2", "advertisement-6", IllegalArgumentException.class }, // Failed -> agent isn't the owner
 		};
 		for (Object[] element : testingData) {
 			this.templateDeleteAdvertisement((String) element[0], (String) element[1], (Class<?>) element[2]);

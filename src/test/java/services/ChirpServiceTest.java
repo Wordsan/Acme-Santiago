@@ -107,7 +107,7 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driver15_1_1() {
 		final Object testingData[][] = { { "user1", "chirp-1", IllegalArgumentException.class },
 				{ "user2", "chirp-1", IllegalArgumentException.class },
-				{ "admin1", "chirp-1", IllegalArgumentException.class } };
+				{ "admin", "chirp-1", IllegalArgumentException.class } };
 
 		for (Object[] element : testingData) {
 			this.template15_1_1((String) element[0], (String) element[1], (Class<?>) element[2]);
@@ -117,7 +117,7 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driver15_1_2() {
 		final Object testingData[][] = { { "user1", "chirp-1", IllegalArgumentException.class },
-				{ "user2", "chirp-1", IllegalArgumentException.class }, { "admin1", "chirp-1", null } };
+				{ "user2", "chirp-1", IllegalArgumentException.class }, { "admin", "chirp-1", null } };
 
 		for (Object[] element : testingData) {
 			this.template15_1_2((String) element[0], (String) element[1], (Class<?>) element[2]);
@@ -164,7 +164,7 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driver16_2() {
 		final Object testingData[][] = { { "user1", "chirp-1", IllegalArgumentException.class },
-				{ "admin1", "chirp-1", null } };
+				{ "admin", "chirp-1", null } };
 
 		for (Object[] element : testingData) {
 			this.template16_2((String) element[0], this.getEntityId(element[1].toString()), (Class<?>) element[2]);
@@ -199,7 +199,7 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driver16_3() {
 		final Object testingData[][] = { { "user1", "chirp-1", IllegalArgumentException.class },
-				{ "admin1", "chirp-1", null } };
+				{ "admin", "chirp-1", null } };
 
 		for (Object[] element : testingData) {
 			this.template16_3((String) element[0], this.getEntityId(element[1].toString()), (Class<?>) element[2]);

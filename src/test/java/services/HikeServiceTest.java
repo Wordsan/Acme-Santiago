@@ -88,42 +88,42 @@ public class HikeServiceTest extends AbstractTest {
 	@Test
 	public void driverTestManageHikes() {
 		final Object testingData[][] = {
-				{ "user1", "route_3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2", null }, // Successful
+				{ "user1", "route-3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2", null }, // Successful
 
-				{ "user2", "route_3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user2", "route-3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
 						IllegalArgumentException.class }, // Failed -> user isn't the owner of the route
 
-				{ null, "route_3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ null, "route-3", "test hike", "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
 						IllegalArgumentException.class }, // Failed -> not logged
 
-				{ "user1", "route_3", null, "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route-3", null, "EASY", 1000.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> name empty
 
-				{ "user1", "route_3", "test hike", null, 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route-3", "test hike", null, 1000.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> difficulty level empty
 
-				{ "user1", "route_3", "test hike", "ASDA", 1000.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route-3", "test hike", "ASDA", 1000.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> difficulty level invalid
 
-				{ "user1", "route_3", "test hike", "ASDA", -10.0, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route-3", "test hike", "ASDA", -10.0, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> length invalid
 
-				{ "user1", "route_3", "test hike", "ASDA", null, "test route", "http://google.es", "c1", "c2",
+				{ "user1", "route-3", "test hike", "ASDA", null, "test route", "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> length empty
 
-				{ "user1", "route_3", "test hike", "ASDA", 10000.0, null, "http://google.es", "c1", "c2",
+				{ "user1", "route-3", "test hike", "ASDA", 10000.0, null, "http://google.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> description empty
 
-				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", null, "c1", "c2",
+				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", null, "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> pictures empty
 
-				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", "httpgoogle.es", "c1", "c2",
+				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", "httpgoogle.es", "c1", "c2",
 						ConstraintViolationException.class }, // Failed -> pictures invalid
 
-				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", null, "c2",
+				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", null, "c2",
 						ConstraintViolationException.class }, // Failed -> origin city empty
 
-				{ "user1", "route_3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", "c1", null,
+				{ "user1", "route-3", "test hike", "ASDA", 10000.0, "test hike", "http://google.es", "c1", null,
 						ConstraintViolationException.class }, // Failed -> destination city empty
 
 		};
