@@ -77,13 +77,13 @@ public class RouteService {
 	public Route save(final Route route) {
 		Assert.notNull(route);
 		// Comprobamos que el creador de la route sea el mismo que el que va a editar o que sea un admin
-		if (LoginService.getPrincipal().equals(route.getCreator().getUserAccount()) || (this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null)) {
-			final Route saved = this.routeRepository.save(route);
-			route.getCreator().getRegistredRoutes().add(route);
-			this.userService.save(route.getCreator());
-			return saved;
-		} else
-			throw new IllegalArgumentException();
+		//		if (LoginService.getPrincipal().equals(route.getCreator().getUserAccount()) || (this.administratorService.getAdminByUserAccountId(LoginService.getPrincipal().getId()) != null)) {
+		final Route saved = this.routeRepository.save(route);
+		route.getCreator().getRegistredRoutes().add(route);
+		this.userService.save(route.getCreator());
+		return saved;
+		//		} else
+		//			throw new IllegalArgumentException();
 	}
 
 	public void delete(final Route route) {

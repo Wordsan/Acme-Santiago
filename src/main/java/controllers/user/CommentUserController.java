@@ -84,7 +84,7 @@ public class CommentUserController extends AbstractController {
 				if (comment.isValidHasEitherRouteOrHike() == false)
 					result = this.createEditModelAndView(comment, "comment1.commit.error");
 				else
-					result = this.createEditModelAndView(comment, "comment.commit.error");
+					result = this.createEditModelAndView(comment);
 
 		}
 

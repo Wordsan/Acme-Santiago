@@ -11,23 +11,26 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.Route;
-import domain.User;
 import security.LoginService;
 import utilities.AbstractTest;
+import domain.Route;
+import domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/junit.xml" })
+@ContextConfiguration(locations = {
+	"classpath:spring/junit.xml"
+})
 @Transactional
 public class RouteServiceTest extends AbstractTest {
 
 	/* SERVICE UNDER TEST */
 	@Autowired
-	private RouteService routeService;
+	private RouteService	routeService;
 
 	/* REQUIRED SERVICES */
 	@Autowired
-	private UserService userService;
+	private UserService		userService;
+
 
 	/* TESTS */
 	/*
@@ -57,7 +60,7 @@ public class RouteServiceTest extends AbstractTest {
 		try {
 			this.authenticate(authenticate);
 			Assert.isTrue(!this.routeService.findAll().isEmpty());
-			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("te1").size() == 11);
+			Assert.isTrue(this.routeService.searchRoutesFromKeyWord("description").size() == 82);
 			Assert.isTrue(this.routeService.routesByLengthRange(21500.0, 23000.0).size() == 29);
 			Assert.isTrue(this.routeService.routesByHikesSize().size() == 51);
 			this.unauthenticate();
@@ -69,22 +72,27 @@ public class RouteServiceTest extends AbstractTest {
 
 	@Test
 	public void driverTestBrowse() {
-		final Object testingData[][] = { { null, null }, // Successful
-				{ "user1", null }, // Successful
-				{ "admin", null }, // Successful
+		final Object testingData[][] = {
+			{
+				null, null
+			}, // Successful
+			{
+				"user1", null
+			}, // Successful
+			{
+				"admin", null
+			}, // Successful
 		};
-		for (Object[] element : testingData) {
+		for (final Object[] element : testingData)
 			this.templateBrowse((String) element[0], (Class<?>) element[1]);
-		}
 	}
 
 	/*
 	 * Testing:
 	 * 5.1 - Manage his or her routes, which includes creating, editing, deleting, and listing them.
 	 */
-	protected void templateManageRoutes(final String authenticate, String nameCreate, Double lengthCreate,
-			String descriptionCreate, String picturesCreate, String nameEdit, Double lengthEdit, String descriptionEdit,
-			String picturesEdit, final Class<?> expected) {
+	protected void templateManageRoutes(final String authenticate, final String nameCreate, final Double lengthCreate, final String descriptionCreate, final String picturesCreate, final String nameEdit, final Double lengthEdit,
+		final String descriptionEdit, final String picturesEdit, final Class<?> expected) {
 		Class<?> caught;
 		User user;
 		Route route;
@@ -122,63 +130,77 @@ public class RouteServiceTest extends AbstractTest {
 	@Test
 	public void driverTestManageRoutes() {
 		final Object testingData[][] = {
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0,
-						"test 2 route", "http://google.com", null }, // Successful
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", null
+			}, // Successful
 
-				{ null, "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route",
-						"http://google.com", IllegalArgumentException.class }, // Failed -> not logged
+			{
+				null, "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", IllegalArgumentException.class
+			}, // Failed -> not logged
 
-				{ "admin", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0,
-						"test 2 route", "http://google.com", IllegalArgumentException.class }, // Failed -> administrator logged
+			{
+				"admin", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", IllegalArgumentException.class
+			}, // Failed -> administrator logged
 
-				{ "user1", null, null, null, null, "test 2 route", 1200.0, "test 2 route", "http://google.com",
-						ConstraintViolationException.class }, // Failed -> create data empty
+			{
+				"user1", null, null, null, null, "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create data empty
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", null, null, null, null,
-						ConstraintViolationException.class }, // Failed -> edit data empty
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", null, null, null, null, ConstraintViolationException.class
+			}, // Failed -> edit data empty
 
-				{ "user1", null, 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> create name empty
+			{
+				"user1", null, 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create name empty
 
-				{ "user1", "test route", null, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> create length empty
+			{
+				"user1", "test route", null, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create length empty
 
-				{ "user1", "test route", -1250.0, "test route", "http://google.es", "test 2 route", 1200.0,
-						"test 2 route", "http://google.com", ConstraintViolationException.class }, // Failed -> create length invalid
+			{
+				"user1", "test route", -1250.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create length invalid
 
-				{ "user1", "test route", 1000.0, null, "http://google.es", "test 2 route", 1200.0, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> create  description empty
+			{
+				"user1", "test route", 1000.0, null, "http://google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create  description empty
 
-				{ "user1", "test route", 1000.0, "test route", null, "test 2 route", 1200.0, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> create  pictures empty
+			{
+				"user1", "test route", 1000.0, "test route", null, "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create  pictures empty
 
-				{ "user1", "test route", 1000.0, "test route", "google.es", "test 2 route", 1200.0, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> create  pictures invalid
+			{
+				"user1", "test route", 1000.0, "test route", "google.es", "test 2 route", 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> create  pictures invalid
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", null, 1200.0, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> edit name  empty
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", null, 1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> edit name  empty
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", null, "test 2 route",
-						"http://google.com", ConstraintViolationException.class }, // Failed -> edit length  empty
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", null, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> edit length  empty
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", -1200.0,
-						"test 2 route", "http://google.com", ConstraintViolationException.class }, // Failed -> edit length invalid
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", -1200.0, "test 2 route", "http://google.com", ConstraintViolationException.class
+			}, // Failed -> edit length invalid
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, null,
-						"http://google.com", ConstraintViolationException.class }, // Failed -> edit description  empty
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, null, "http://google.com", ConstraintViolationException.class
+			}, // Failed -> edit description  empty
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0,
-						"test 2 route", null, ConstraintViolationException.class }, // Failed -> edit pictures  empty
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", null, ConstraintViolationException.class
+			}, // Failed -> edit pictures  empty
 
-				{ "user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0,
-						"test 2 route", "htt:gle.com", ConstraintViolationException.class }, // Failed -> edit pictures invalid
+			{
+				"user1", "test route", 1000.0, "test route", "http://google.es", "test 2 route", 1200.0, "test 2 route", "htt:gle.com", ConstraintViolationException.class
+			}, // Failed -> edit pictures invalid
 
 		};
-		for (Object[] element : testingData) {
-			this.templateManageRoutes((String) element[0], (String) element[1], (Double) element[2],
-					(String) element[3], (String) element[4], (String) element[5], (Double) element[6],
-					(String) element[7], (String) element[8], (Class<?>) element[9]);
-		}
+		for (final Object[] element : testingData)
+			this.templateManageRoutes((String) element[0], (String) element[1], (Double) element[2], (String) element[3], (String) element[4], (String) element[5], (Double) element[6], (String) element[7], (String) element[8], (Class<?>) element[9]);
 	}
 
 	/*
@@ -187,7 +209,7 @@ public class RouteServiceTest extends AbstractTest {
 	 * 6.1 - Remove a route that he or she thinks is inappropriate. Removing a route involves removing
 	 * all of the hikes of which it is composed.
 	 */
-	protected void templateDeleteRoute(final String authenticate, String routeBeanId, final Class<?> expected) {
+	protected void templateDeleteRoute(final String authenticate, final String routeBeanId, final Class<?> expected) {
 		Class<?> caught;
 		Route route;
 
@@ -206,13 +228,21 @@ public class RouteServiceTest extends AbstractTest {
 
 	@Test
 	public void driverDeleteRoute() {
-		final Object testingData[][] = { { "user2", "route-1", null }, // Successful
-				{ "admin", "route-3", null }, // Successful
-				{ null, "route-5", IllegalArgumentException.class }, // Failed -> not logged
-				{ "user1", "route-2", IllegalArgumentException.class }, // Failed -> user isn't the owner
+		final Object testingData[][] = {
+			{
+				"user2", "route_1", null
+			}, // Successful
+			{
+				"admin", "route_3", null
+			}, // Successful
+			{
+				null, "route_5", IllegalArgumentException.class
+			}, // Failed -> not logged
+			{
+				"user1", "route_2", IllegalArgumentException.class
+			}, // Failed -> user isn't the owner
 		};
-		for (Object[] element : testingData) {
+		for (final Object[] element : testingData)
 			this.templateDeleteRoute((String) element[0], (String) element[1], (Class<?>) element[2]);
-		}
 	}
 }

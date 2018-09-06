@@ -117,14 +117,14 @@ public class CommentServiceTest extends AbstractTest {
 				"user1", "user_user1", "route_3", "", properties[6], null
 			}, {//Autenticado no es user
 				"admin1", "user_user1", "route_3", "", properties[4], IllegalArgumentException.class
-			}, {//Creador del comment no es el mismo que el de la route
-				"user2", "user_user2", "route_3", "", properties[4], IllegalArgumentException.class
-			}, {//Creador del comment no es el mismo que el del hike
-				"user2", "user_user2", "", "hike_5", properties[4], IllegalArgumentException.class
-			}, {//La ruta no es suya
-				"user1", "user_user1", "route_1", "", properties[6], IllegalArgumentException.class
-			}, {//El hike no es suyo 
-				"user1", "user_user1", "", "hike_1", properties[6], IllegalArgumentException.class
+			}, {//Probando que se pueden crear comments en routes y hikes que no son suyos
+				"user2", "user_user2", "route_3", "", properties[4], null
+			}, {
+				"user2", "user_user2", "", "hike_5", properties[4], null
+			}, {
+				"user1", "user_user1", "route_1", "", properties[6], null
+			}, {
+				"user1", "user_user1", "", "hike_1", properties[6], null
 			}, {//Route y hike a la vez 
 				"user1", "user_user1", "route_3", "hike_5", properties[4], ConstraintViolationException.class
 			}
