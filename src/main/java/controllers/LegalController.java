@@ -79,8 +79,11 @@ public class LegalController extends AbstractController {
 	@RequestMapping("/cookies")
 	public ModelAndView cookiesPolicy() {
 		ModelAndView result;
+		String companyName;
 
+		companyName = "Acme Santiago, NPO.";
 		result = new ModelAndView("legal/cookiesPolicy");
+		result.addObject("companyName", companyName);
 
 		return result;
 	}

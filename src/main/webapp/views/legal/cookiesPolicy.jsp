@@ -43,6 +43,10 @@
 	</div>
 	<div>
 		<h2><spring:message code="legal.cookies.modify.title" /></h2>
-		<p><spring:message code="legal.cookies.modify.text" /></p>
+		<p>
+			<spring:message code="legal.cookies.modify.text1" />
+			<span class="text-bold"><jstl:out value="${companyName}" /> </span>
+			<spring:message code="legal.cookies.modify.text2" />
+		</p>
 	</div>
 </div>

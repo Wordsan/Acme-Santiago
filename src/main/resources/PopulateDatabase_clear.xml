@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="domain.Administrator" id="administrator-admin">
+		<property name="name" value="Administrador"/>
+		<property name="surname" value="Administrator"/>
+		<property name="picture" value=""/>
+		<property name="postalAddress" value="calle S/N, 41012, Sevilla, España"/>
+		<property name="phoneNumber" value=""/>
+		<property name="emailAddress" value="admin1@gmail.com"/>
+		<property name="userAccount">
+			<ref bean="userAccount-admin"/>
+		</property>
+	</bean>
+	<bean class="domain.ConfigurationSystem" id="configurationSystem-1">
+		<property name="tabooWords" value="sex,viagra,cialis"/>
+	</bean>
+	<bean class="security.UserAccount" id="userAccount-admin">
+		<property name="username" value="admin"/>
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3"/>
+		<property name="authorities">
+			<list value-type="security.Authority">
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>
