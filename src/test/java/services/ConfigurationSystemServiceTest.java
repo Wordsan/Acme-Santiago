@@ -39,12 +39,16 @@ public class ConfigurationSystemServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", taboo[0], IllegalArgumentException.class
+			//Failed -> Principal isn't an admin
 			}, {
 				"user2", taboo[1], IllegalArgumentException.class
+			//Failed -> Principal isn't an admin
 			}, {
 				"admin", taboo[2], null
+			//Successful
 			}, {
 				"admin1", taboo[2], null
+			//Successful
 			}
 		};
 

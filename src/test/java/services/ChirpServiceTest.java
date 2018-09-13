@@ -51,12 +51,16 @@ public class ChirpServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", properties[0], ConstraintViolationException.class
+			//Failed -> Description and title are blank
 			}, {
 				"user1", properties[1], java.text.ParseException.class
+			//Failed -> Moment is incomplete
 			}, {
 				"admin1", properties[2], IllegalArgumentException.class
 			}, {
+				//Failed -> Chirps only can be created by a user
 				"user2", properties[2], null
+			//Successful
 			}
 		};
 
@@ -68,6 +72,7 @@ public class ChirpServiceTest extends AbstractTest {
 	 * 15.1:
 	 * An actor who is authenticated as a user must be able to:
 	 * Post a chirp. Chirps may not be changed or deleted once they are posted.
+	 * Testing only the post function.
 	 */
 
 	protected void template15_1(final String authenticate, final String properties, final Class<?> expected) {
@@ -112,6 +117,7 @@ public class ChirpServiceTest extends AbstractTest {
 	 * 15.1:
 	 * An actor who is authenticated as a user must be able to:
 	 * Post a chirp. Chirps may not be changed or deleted once they are posted.
+	 * Testing only the change and delete functions.
 	 */
 
 	@Test
@@ -119,10 +125,13 @@ public class ChirpServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", "chirp_1", IllegalArgumentException.class
+			//Failed -> The chirp has the id != 0
 			}, {
 				"user2", "chirp_1", IllegalArgumentException.class
+			//Failed -> The chirp has the id != 0 and the user is different isn't the creator
 			}, {
 				"admin1", "chirp_1", IllegalArgumentException.class
+			//Failed -> Is an admin instead of a user
 			}
 		};
 
@@ -135,10 +144,13 @@ public class ChirpServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", "chirp_1", IllegalArgumentException.class
+			//Failed -> Is an user instead of an admin
 			}, {
 				"user2", "chirp_1", IllegalArgumentException.class
+			//Failed -> Is an user instead of an admin and he/she isn't the creator
 			}, {
 				"admin1", "chirp_1", null
+			//Successful
 			}
 		};
 
@@ -188,8 +200,10 @@ public class ChirpServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", "chirp_1", IllegalArgumentException.class
+			//Failed -> Principal isn't an admin
 			}, {
 				"admin1", "chirp_1", null
+			//Successful
 			}
 		};
 
@@ -227,8 +241,10 @@ public class ChirpServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", "chirp_1", IllegalArgumentException.class
+			//Failed -> Principal isn't an admin
 			}, {
 				"admin1", "chirp_1", null
+			//Successful
 			}
 		};
 

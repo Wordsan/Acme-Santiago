@@ -58,8 +58,10 @@ public class CommentServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", "comment_1", IllegalArgumentException.class
+			//Failed -> Principal isn't an admin
 			}, {
 				"admin1", "comment_1", null
+			//Successful
 			}
 		};
 
@@ -100,33 +102,46 @@ public class CommentServiceTest extends AbstractTest {
 			"11/08/2018 20:20,title,text,https://www.url.es/,2", "11/08/2018 20:20,title,text,https://www.url.es/,3", "11/08/2018 20:20, , , ,0"
 		};
 		final Object testingData[][] = {
-			{//Probando las properties
+			{
 				//
 				"user1", "user_user1", "route_3", "", properties[0], NumberFormatException.class
+			//Failed -> Range is null
 			}, {
 				"user1", "user_user1", "route_3", "", properties[7], ConstraintViolationException.class
+			//Failed -> Title, Text and URL are null
 			}, {
 				"user1", "user_user1", "route_3", "", properties[1], java.text.ParseException.class
+			//Failed -> Moment is invalid
 			}, {
 				"user1", "user_user1", "route_3", "", properties[2], ConstraintViolationException.class
-			}, {//Probando el range
+			//Failed -> URL is invalid 
+			}, {
 				"user1", "user_user1", "route_3", "", properties[4], null
+			//Trying the range = 0
 			}, {
 				"user1", "user_user1", "route_3", "", properties[5], null
+			//Trying the range = 2
 			}, {
 				"user1", "user_user1", "route_3", "", properties[6], null
-			}, {//Autenticado no es user
+			//Trying the range = 3
+			}, {
 				"admin1", "user_user1", "route_3", "", properties[4], IllegalArgumentException.class
-			}, {//Probando que se pueden crear comments en routes y hikes que no son suyos
+			//Principal isn't a user
+			}, {
 				"user2", "user_user2", "route_3", "", properties[4], null
+			//Creating a comment in a route that it isn't of her/him property.
 			}, {
 				"user2", "user_user2", "", "hike_5", properties[4], null
+			//Creating a comment in a hike that it isn't of her/him property.
 			}, {
 				"user1", "user_user1", "route_1", "", properties[6], null
+			//Creating a comment in a route that it isn't of her/him property.
 			}, {
 				"user1", "user_user1", "", "hike_1", properties[6], null
-			}, {//Route y hike a la vez 
+			//Creating a comment in a hike that it isn't of her/him property.
+			}, {
 				"user1", "user_user1", "route_3", "hike_5", properties[4], ConstraintViolationException.class
+			//Failed -> It has a hike and a route.
 			}
 		};
 
@@ -201,8 +216,10 @@ public class CommentServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"user1", "comment_1", IllegalArgumentException.class
+			//Failed -> Principal isn't a user
 			}, {
 				"admin1", "comment_1", null
+			//Successful
 			}
 		};
 
